@@ -12,6 +12,7 @@ import { Communication } from "@/components/landing/Communication";
 import { Analytics } from "@/components/landing/Analytics";
 import { Security, Automation, MobileReady } from "@/components/landing/Security";
 import { Pricing, Testimonials } from "@/components/landing/Pricing";
+import { SetupWizard } from "@/components/landing/SetupWizard";
 import { Faq } from "@/components/landing/Faq";
 import { FinalCta, Footer } from "@/components/landing/FinalCta";
 
@@ -53,6 +54,7 @@ function Index() {
         <Academics />
         <Communication />
         <Analytics />
+        <SetupWizard />
         <Security />
         <Automation />
         <MobileReady />
