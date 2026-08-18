@@ -80,14 +80,14 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button variant="ghost" size="sm" className="text-muted-foreground">
-            Login
+          <Button variant="ghost" size="sm" asChild className="text-muted-foreground">
+            <Link to="/login">Login</Link>
           </Button>
-          <Button variant="outline" size="sm">
-            Book a Demo
+          <Button variant="outline" size="sm" asChild>
+            <Link to="/login" search={{ mode: "register" }}>Book a Demo</Link>
           </Button>
-          <Button variant="hero" size="sm">
-            Start Free Trial
+          <Button variant="hero" size="sm" asChild>
+            <Link to="/login" search={{ mode: "register" }}>Start Free Trial</Link>
           </Button>
         </div>
 
@@ -118,9 +118,15 @@ export function Navbar() {
             ))}
           </ul>
           <div className="mt-4 grid gap-2">
-            <Button variant="outline">Login</Button>
-            <Button variant="outline">Book a Demo</Button>
-            <Button variant="hero">Start Free Trial</Button>
+            <Button variant="outline" asChild>
+              <Link to="/login">Login</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/login" search={{ mode: "register" }}>Book a Demo</Link>
+            </Button>
+            <Button variant="hero" asChild>
+              <Link to="/login" search={{ mode: "register" }}>Start Free Trial</Link>
+            </Button>
           </div>
         </div>
       )}

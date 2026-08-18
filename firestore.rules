@@ -1,0 +1,62 @@
+﻿rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isUser(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function isOrgMember(orgId) {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/organizations/$(orgId)/members/$(request.auth.uid));
+    }
+
+    function isOrgOwner(orgId) {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/organizations/$(orgId)/members/$(request.auth.uid)).data.role == "OWNER";
+    }
+
+    // User profiles
+    match /users/{uid} {
+      allow read, write: if isUser(uid);
+    }
+
+    // Organizations collection
+    match /organizations/{orgId} {
+      // Allow authenticated user to create a new organization
+      allow create: if isAuthenticated();
+      // Allow members to read their organization
+      allow read: if isOrgMember(orgId);
+      // Allow organization owners to update
+      allow update: if isOrgOwner(orgId);
+      allow delete: if false; // Deny destructive deletes
+
+      // Subcollection: Organization Members
+      match /members/{memberUid} {
+        allow read: if isOrgMember(orgId);
+        allow write: if isOrgOwner(orgId) || (isAuthenticated() && request.auth.uid == memberUid);
+      }
+
+      // Subcollection: Academic Sessions
+      match /academicSessions/{sessionId} {
+        allow read: if isOrgMember(orgId);
+        allow write: if isOrgOwner(orgId);
+      }
+    }
+
+    // Collection Group Queries for membership lookup
+    match /{path=**}/members/{memberUid} {
+      allow read: if isAuthenticated() && request.auth.uid == resource.data.uid;
+    }
+
+    // Default deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

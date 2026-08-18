@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, PlayCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DashboardMockup } from "./DashboardMockup";
@@ -33,11 +34,15 @@ export function Hero() {
             reports — all connected in one intelligent school management system.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button variant="hero" size="xl">
-              Start Free Trial <ArrowRight className="size-4" aria-hidden />
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/login" search={{ mode: "register" }}>
+                Start Free Trial <ArrowRight className="size-4 ml-1" aria-hidden />
+              </Link>
             </Button>
-            <Button variant="outline" size="xl">
-              <PlayCircle className="size-4" aria-hidden /> Book a Demo
+            <Button variant="outline" size="xl" asChild>
+              <Link to="/login">
+                <PlayCircle className="size-4 mr-1.5" aria-hidden /> Book a Demo
+              </Link>
             </Button>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">

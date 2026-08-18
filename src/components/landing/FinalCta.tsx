@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -25,11 +26,13 @@ export function FinalCta() {
             communication.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button variant="hero" size="xl">
-              Start Free Trial <ArrowRight className="size-4" aria-hidden />
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/login" search={{ mode: "register" }}>
+                Start Free Trial <ArrowRight className="size-4 ml-1" aria-hidden />
+              </Link>
             </Button>
-            <Button variant="onInk" size="xl">
-              Book a Demo
+            <Button variant="onInk" size="xl" asChild>
+              <Link to="/login">Book a Demo</Link>
             </Button>
           </div>
         </div>
