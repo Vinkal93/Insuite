@@ -126,7 +126,7 @@ function FeePanel() {
 }
 
 function AttendancePanel() {
-  const students = [
+  const students: [string, string][] = [
     ["Aarav R.", "P"],
     ["Diya M.", "P"],
     ["Ishaan K.", "L"],
@@ -160,7 +160,7 @@ function AttendancePanel() {
             className="flex items-center justify-between rounded-xl border border-border px-3 py-2.5 text-[12px]"
           >
             <span>{n}</span>
-            <span className={cn("rounded-md px-2 py-0.5 text-[11px] font-semibold", tone[s])}>
+            <span className={cn("rounded-md px-2 py-0.5 text-[11px] font-semibold", tone[s] ?? "")}>
               {s}
             </span>
           </div>
