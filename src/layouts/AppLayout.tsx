@@ -16,6 +16,9 @@ import {
   ChevronDown,
   Building2,
   Calendar,
+  GraduationCap,
+  Users,
+  UserPlus,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
@@ -29,18 +32,31 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "My Profile", href: "/profile", icon: User },
-  { label: "School Setup", href: "/setup", icon: SlidersHorizontal },
-  { label: "Settings", href: "/settings", icon: Settings },
+const navSections = [
+  {
+    title: "Core Operations",
+    items: [
+      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+      { label: "Students Directory", href: "/students", icon: GraduationCap },
+      { label: "Enroll Student", href: "/students/new", icon: UserPlus },
+      { label: "Parents & Guardians", href: "/parents", icon: Users },
+    ],
+  },
+  {
+    title: "Administration",
+    items: [
+      { label: "School Setup", href: "/setup", icon: SlidersHorizontal },
+      { label: "System Settings", href: "/settings", icon: Settings },
+      { label: "My Profile", href: "/profile", icon: User },
+    ],
+  },
 ];
 
 export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string }> = ({
   children,
   pageTitle,
 }) => {
-  const { userProfile, organization, membership, activeSession, logout } = useAuth();
+  const { userProfile, organization, membership, activeSession, allSessions, selectedSession, setSelectedSession, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,27 +94,31 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
         )}
 
         {/* Navigation Items */}
-        <nav className="mt-4 flex-1 space-y-1 px-3">
-          <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
-            Phase 1 Foundation
-          </p>
-          {navItems.map((item) => {
-            const isActive = currentPath === item.href || currentPath.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold transition-all ${
-                  isActive
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`}
-              >
-                <item.icon className="size-4 shrink-0" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+        <nav className="mt-4 flex-1 space-y-4 px-3 overflow-y-auto">
+          {navSections.map((section) => (
+            <div key={section.title} className="space-y-1">
+              <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
+                {section.title}
+              </p>
+              {section.items.map((item) => {
+                const isActive = currentPath === item.href || (item.href !== "/dashboard" && currentPath.startsWith(`${item.href}/`));
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={`flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold transition-all ${
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    }`}
+                  >
+                    <item.icon className="size-4 shrink-0" />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
         </nav>
 
         {/* Sidebar Footer User Info */}
@@ -119,31 +139,38 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
-          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="relative flex w-72 flex-col bg-card border-r border-border p-4 shadow-lift">
-            <div className="flex items-center justify-between border-b border-border pb-4">
-              <div className="flex items-center gap-2.5">
-                <img src="/logo.png" alt="InSuite" className="size-8 object-contain" />
-                <span className="font-display font-extrabold">{organization?.name || "InSuite"}</span>
-              </div>
-              <button onClick={() => setMobileMenuOpen(false)} className="rounded-lg p-1 text-muted-foreground hover:bg-secondary">
-                <X className="size-5" />
+        <div className="fixed inset-0 z-50 flex bg-background/80 backdrop-blur-sm lg:hidden">
+          <div className="flex w-64 flex-col border-r border-border bg-card p-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <span className="font-display text-base font-extrabold">InSuite</span>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="grid size-8 place-items-center rounded-lg border border-border"
+              >
+                <X className="size-4" />
               </button>
             </div>
-            <nav className="mt-4 flex-1 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold ${
-                    currentPath === item.href ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"
-                  }`}
-                >
-                  <item.icon className="size-4" />
-                  <span>{item.label}</span>
-                </Link>
+            <nav className="mt-4 flex-1 space-y-4 overflow-y-auto">
+              {navSections.map((section) => (
+                <div key={section.title} className="space-y-1">
+                  <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    {section.title}
+                  </p>
+                  {section.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold ${
+                        currentPath === item.href ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"
+                      }`}
+                    >
+                      <item.icon className="size-4" />
+                      <span>{item.label}</span>
+                    </Link>
+                  ))}
+                </div>
               ))}
             </nav>
             <Button variant="outline" size="sm" onClick={logout} className="mt-auto flex items-center gap-2">

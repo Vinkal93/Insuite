@@ -1,4 +1,5 @@
-﻿import type { Organization, AcademicSession } from "@/types";
+import type { Organization, AcademicSession } from "@/types";
+import { getStudentCount } from "@/services/studentService";
 import type {
   DashboardMetrics,
   SetupProgressData,
@@ -7,18 +8,23 @@ import type {
 } from "../types";
 
 export const getDashboardMetrics = async (
-  _orgId: string,
-  _sessionId?: string
+  orgId: string,
+  sessionId?: string
 ): Promise<DashboardMetrics> => {
-  // In Phase 2, we report real zero/unconfigured states without fabricating data.
-  // Future modules in subsequent phases will query real collections.
+  let studentCountData = { total: 0, active: 0 };
+  try {
+    studentCountData = await getStudentCount(orgId, sessionId);
+  } catch (e) {
+    console.warn("Failed to fetch student count:", e);
+  }
+
   return {
     totalStudents: {
       id: "students",
       title: "Total Students",
-      value: 0,
-      subtext: "No students enrolled yet",
-      isConfigured: false,
+      value: studentCountData.total,
+      subtext: studentCountData.total > 0 ? `${studentCountData.active} active students` : "No students enrolled yet",
+      isConfigured: studentCountData.total > 0,
     },
     totalTeachers: {
       id: "teachers",

@@ -18,7 +18,7 @@ service cloud.firestore {
 
     function isOrgOwner(orgId) {
       return isAuthenticated() &&
-        get(/databases/$(database)/documents/organizations/$(orgId)/members/$(request.auth.uid)).data.role == "OWNER";
+        get(/databases/$(database)/documents/organizations/$(orgId)/members/$(request.auth.uid)).data.role in ["OWNER", "ADMIN", "PRINCIPAL"];
     }
 
     // User profiles
@@ -28,24 +28,46 @@ service cloud.firestore {
 
     // Organizations collection
     match /organizations/{orgId} {
-      // Allow authenticated user to create a new organization
       allow create: if isAuthenticated();
-      // Allow members to read their organization
       allow read: if isOrgMember(orgId);
-      // Allow organization owners to update
       allow update: if isOrgOwner(orgId);
-      allow delete: if false; // Deny destructive deletes
+      allow delete: if false;
 
-      // Subcollection: Organization Members
+      // Organization Members
       match /members/{memberUid} {
         allow read: if isOrgMember(orgId);
         allow write: if isOrgOwner(orgId) || (isAuthenticated() && request.auth.uid == memberUid);
       }
 
-      // Subcollection: Academic Sessions
+      // Academic Sessions
       match /academicSessions/{sessionId} {
         allow read: if isOrgMember(orgId);
         allow write: if isOrgOwner(orgId);
+      }
+
+      // Students
+      match /students/{studentId} {
+        allow read, write: if isOrgMember(orgId);
+
+        // Student Documents
+        match /documents/{docId} {
+          allow read, write: if isOrgMember(orgId);
+        }
+      }
+
+      // Parents
+      match /parents/{parentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Counters (Sequence generation)
+      match /counters/{counterId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Audit Logs
+      match /auditLogs/{logId} {
+        allow read, write: if isOrgMember(orgId);
       }
     }
 

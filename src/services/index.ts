@@ -2,3 +2,7 @@
 export * from "./organizationService";
 export * from "./sessionService";
 export * from "./storageService";
+export * from "./studentService";
+export * from "./parentService";
+export * from "./documentService";
+export * from "./auditService";
