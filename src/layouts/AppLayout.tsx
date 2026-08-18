@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import {
   LayoutDashboard,
@@ -188,8 +188,43 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
             </div>
           </div>
 
-          {/* Right: Actions, Theme, User Menu */}
+          {/* Right: Actions, Academic Session Selector, Theme, User Menu */}
           <div className="flex items-center gap-2">
+            {/* Academic Session Selector */}
+            {allSessions.length > 0 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/5 px-2.5 py-1 text-xs font-bold text-primary hover:bg-primary/10 transition-colors">
+                    <Calendar className="size-3.5 shrink-0" />
+                    <span>{selectedSession?.name || activeSession?.name || "Session"}</span>
+                    <ChevronDown className="size-3 opacity-70" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+                    Academic Sessions
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {allSessions.map((s) => (
+                    <DropdownMenuItem
+                      key={s.id}
+                      onClick={() => setSelectedSession(s)}
+                      className={`flex items-center justify-between text-xs cursor-pointer font-medium ${
+                        selectedSession?.id === s.id ? "bg-secondary font-bold text-primary" : ""
+                      }`}
+                    >
+                      <span>{s.name}</span>
+                      {s.isActive && (
+                        <span className="rounded bg-primary/10 text-primary px-1.5 py-0.5 text-[9px] font-bold">
+                          Active
+                        </span>
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+
             <Button
               variant="ghost"
               size="icon"

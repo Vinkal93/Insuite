@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   onAuthStateChanged,
   signOut,
@@ -11,6 +11,7 @@ import {
   getOrganization,
   getUserOrganizationMembership,
   getActiveAcademicSession,
+  getAcademicSessions,
   getUserOrganizations,
 } from "@/services";
 import type { UserProfile, Organization, OrganizationMember, AcademicSession } from "@/types";
@@ -21,6 +22,10 @@ interface AuthContextType {
   organization: Organization | null;
   membership: OrganizationMember | null;
   activeSession: AcademicSession | null;
+  allSessions: AcademicSession[];
+  selectedSession: AcademicSession | null;
+  setSelectedSession: (session: AcademicSession) => void;
+  canAccessAdminDashboard: boolean;
   isLoading: boolean;
   error: string | null;
   refreshUserData: () => Promise<void>;
@@ -35,6 +40,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [organization, setOrganization] = useState<Organization | null>(null);
   const [membership, setMembership] = useState<OrganizationMember | null>(null);
   const [activeSession, setActiveSession] = useState<AcademicSession | null>(null);
+  const [allSessions, setAllSessions] = useState<AcademicSession[]>([]);
+  const [selectedSession, setSelectedSession] = useState<AcademicSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -48,6 +55,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setOrganization(null);
       setMembership(null);
       setActiveSession(null);
+      setAllSessions([]);
+      setSelectedSession(null);
       setIsLoading(false);
       return;
     }
@@ -73,18 +82,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       if (orgId) {
-        const [orgData, memberData, sessionData] = await Promise.all([
+        const [orgData, memberData, sessionData, sessionsListData] = await Promise.all([
           getOrganization(orgId),
           getUserOrganizationMembership(orgId, user.uid),
           getActiveAcademicSession(orgId),
+          getAcademicSessions(orgId),
         ]);
         setOrganization(orgData);
         setMembership(memberData);
         setActiveSession(sessionData);
+        setAllSessions(sessionsListData);
+        setSelectedSession((prev) => prev || sessionData || sessionsListData[0] || null);
       } else {
         setOrganization(null);
         setMembership(null);
         setActiveSession(null);
+        setAllSessions([]);
+        setSelectedSession(null);
       }
     } catch (err: any) {
       console.error("AuthContext loadData error:", err);
@@ -115,11 +129,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setOrganization(null);
       setMembership(null);
       setActiveSession(null);
+      setAllSessions([]);
+      setSelectedSession(null);
       window.location.href = "/login";
     } catch (err: any) {
       console.error("Logout error:", err);
     }
   };
+
+  const userRole = membership?.role?.toUpperCase();
+  const canAccessAdminDashboard =
+    userRole === "OWNER" ||
+    userRole === "ADMIN" ||
+    userRole === "PRINCIPAL" ||
+    userRole === "SUPER_ADMIN" ||
+    userRole === "VICE_PRINCIPAL";
 
   return (
     <AuthContext.Provider
@@ -129,6 +153,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         organization,
         membership,
         activeSession,
+        allSessions,
+        selectedSession,
+        setSelectedSession,
+        canAccessAdminDashboard,
         isLoading,
         error,
         refreshUserData,
