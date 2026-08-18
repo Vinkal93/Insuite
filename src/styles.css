@@ -164,3 +164,64 @@
     color: var(--color-foreground);
   }
 }
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+@utility bg-gradient-ink {
+  background-image: var(--gradient-ink);
+}
+
+@utility text-gradient-brand {
+  background-image: var(--gradient-brand);
+  background-clip: text;
+  color: transparent;
+}
+
+@utility grid-faint {
+  background-image:
+    linear-gradient(to right, oklch(0.49 0.19 268 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.49 0.19 268 / 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
