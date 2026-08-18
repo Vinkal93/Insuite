@@ -44,11 +44,16 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_2fr]">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="bg-gradient-brand grid size-9 place-items-center rounded-xl text-primary-foreground">
-                <GraduationCap className="size-5" aria-hidden />
-              </span>
-              <span className="font-display text-lg font-extrabold">InSuite</span>
+            <div className="flex items-center gap-3">
+              <div className="relative size-10 flex items-center justify-center rounded-xl bg-card border border-border p-1 shadow-sm">
+                <img
+                  src="/logo.png"
+                  alt="InSuite Logo"
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <span className="font-display text-xl font-extrabold tracking-tight">InSuite</span>
             </div>
             <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-muted-foreground">
               Everything Your School Needs. One Intelligent Platform. A modern, multi-tenant school

@@ -77,14 +77,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "InSuite — Complete School Management Platform & Intelligent ERP" },
+      {
+        name: "description",
+        content:
+          "InSuite is a modern, all-in-one cloud school management ERP. Seamlessly manage admissions, student lifecycle, attendance, fee collection, exams, academics, parent communication, and multi-branch institutions.",
+      },
+      {
+        name: "keywords",
+        content:
+          "InSuite, school management system, school ERP, school management software, student information system, attendance tracker, online fee payment school, school administration software, multi-branch school ERP, education management system",
+      },
+      { name: "author", content: "InSuite Technologies" },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      { name: "theme-color", content: "#0f172a" },
+      { property: "og:site_name", content: "InSuite" },
+      { property: "og:title", content: "InSuite — Complete School Management Platform & Intelligent ERP" },
+      {
+        property: "og:description",
+        content:
+          "Run your entire school from one intelligent platform: admissions, students, attendance, fees, exams, teachers, parents, and reports.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image:alt", content: "InSuite School Management Platform" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "InSuite — Complete School Management Platform" },
+      {
+        name: "twitter:description",
+        content:
+          "Everything your school needs in one intelligent platform. Admissions, attendance, fees, exams, and multi-branch management.",
+      },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
     links: [
       {
@@ -97,7 +121,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "shortcut icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "InSuite",
+          applicationCategory: "EducationalApplication",
+          operatingSystem: "Cloud, Web, Mobile",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
+          description:
+            "Complete school management platform and ERP for admissions, academics, fees, attendance, examinations, and communication.",
+          image: "/logo.png",
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

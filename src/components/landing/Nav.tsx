@@ -52,11 +52,18 @@ export function Navbar() {
         aria-label="Main"
         className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8"
       >
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="bg-gradient-brand grid size-9 place-items-center rounded-xl text-primary-foreground shadow-soft">
-            <GraduationCap className="size-5" aria-hidden />
+        <a href="#top" className="flex items-center gap-3 group">
+          <div className="relative size-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-1 transition-transform group-hover:scale-105">
+            <img
+              src="/logo.png"
+              alt="InSuite Logo"
+              className="h-full w-full object-contain drop-shadow-sm"
+              loading="eager"
+            />
+          </div>
+          <span className="font-display text-xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
+            InSuite
           </span>
-          <span className="font-display text-lg font-extrabold tracking-tight">InSuite</span>
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">

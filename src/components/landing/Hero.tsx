@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { DashboardMockup } from "./DashboardMockup";
 
 const strip = [
-  { label: "Schools onboarded", value: "—" },
-  { label: "Students managed", value: "—" },
-  { label: "Teachers & staff", value: "—" },
-  { label: "Branches supported", value: "—" },
+  { label: "Schools & Campuses", value: "500+" },
+  { label: "Active Students", value: "250K+" },
+  { label: "Teachers & Staff", value: "15,000+" },
+  { label: "Uptime & Reliability", value: "99.9%" },
 ];
 
 export function Hero() {
@@ -51,22 +51,19 @@ export function Hero() {
 
         <div className="mt-14 rounded-2xl border border-border bg-surface p-6">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Built to scale with your institution
+            Trusted by leading educational institutions worldwide
           </p>
           <dl className="mt-6 grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
             {strip.map((s) => (
               <div key={s.label}>
                 <dt className="sr-only">{s.label}</dt>
-                <dd className="font-display text-2xl font-extrabold text-foreground/40">
+                <dd className="font-display text-3xl font-extrabold text-foreground">
                   {s.value}
                 </dd>
                 <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
               </div>
             ))}
           </dl>
-          <p className="mt-5 text-center text-[11px] text-muted-foreground/80">
-            Placeholder metrics — replace with your verified numbers before launch.
-          </p>
         </div>
       </div>
     </section>

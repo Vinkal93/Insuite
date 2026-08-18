@@ -15,9 +15,9 @@ import { Pricing, Testimonials } from "@/components/landing/Pricing";
 import { Faq } from "@/components/landing/Faq";
 import { FinalCta, Footer } from "@/components/landing/FinalCta";
 
-const title = "InSuite — Complete School Management Platform";
+const title = "InSuite — Complete School Management Platform & Intelligent ERP";
 const description =
-  "Run your entire school from one platform: admissions, students, attendance, fees, exams, teachers, parents, communication and reports in one intelligent system.";
+  "Run your entire school from one intelligent platform: admissions, students, attendance, fees, exams, teachers, parents, communication, and real-time reports.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,7 +27,11 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
   }),
   component: Index,

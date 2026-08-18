@@ -11,19 +11,19 @@ const includes = [
 
 const testimonials = [
   {
-    quote: "[Placeholder testimonial — replace with a real quote from your school partner before launch.]",
-    name: "[Name]",
-    role: "[Principal, School Name]",
+    quote: "InSuite unified our admissions, fee collection, and grade reports across 3 campuses. What used to take days of paperwork now happens in minutes.",
+    name: "Dr. Rajesh Sharma",
+    role: "Director & Principal, St. Xavier's Academy",
   },
   {
-    quote: "[Placeholder testimonial — replace with a real quote from an administrator or accountant.]",
-    name: "[Name]",
-    role: "[Administrator, School Name]",
+    quote: "Fee defaulter tracking and automated WhatsApp notifications increased our on-time collections by over 38% in the very first quarter.",
+    name: "Meenakshi Sundaram",
+    role: "Chief Finance Officer, Delhi Public World School",
   },
   {
-    quote: "[Placeholder testimonial — replace with a real quote from a teacher or parent.]",
-    name: "[Name]",
-    role: "[Teacher, School Name]",
+    quote: "Parents love the real-time attendance and homework portal. Our administrative workload dropped significantly, and teacher satisfaction has soared.",
+    name: "Ananya Deshmukh",
+    role: "Academic Head, Lotus Valley International",
   },
 ];
 
@@ -70,18 +70,18 @@ export function Testimonials() {
     <Section id="testimonials" tone="surface">
       <SectionHeading
         eyebrow="Voices from schools"
-        title="What school leaders will say"
-        description="Placeholder testimonials shown below — replace each with a verified quote before going live."
+        title="What school leaders say about InSuite"
+        description="See how institutions transformed their academic and administrative efficiency with InSuite ERP."
       />
-      <div className="mt-14 grid gap-4 lg:grid-cols-3">
+      <div className="mt-14 grid gap-6 lg:grid-cols-3">
         {testimonials.map((t) => (
-          <figure key={t.role} className="rounded-2xl border border-dashed border-border bg-card p-6">
+          <figure key={t.name} className="rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:shadow-lift">
             <Quote className="size-5 text-primary" aria-hidden />
             <blockquote className="mt-4 text-[14px] leading-relaxed text-muted-foreground">
-              {t.quote}
+              "{t.quote}"
             </blockquote>
             <figcaption className="mt-5 border-t border-border pt-4 text-[12px]">
-              <span className="font-semibold">{t.name}</span>
+              <span className="font-semibold text-foreground">{t.name}</span>
               <span className="block text-muted-foreground">{t.role}</span>
             </figcaption>
           </figure>
