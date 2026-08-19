@@ -90,6 +90,8 @@ export const getStudent = async (orgId: string, studentId: string): Promise<Stud
   return snap.data() as Student;
 };
 
+export const getStudentById = getStudent;
+
 export const updateStudent = async (
   orgId: string,
   studentId: string,

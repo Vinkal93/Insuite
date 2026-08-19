@@ -168,10 +168,32 @@ export const updateOrganization = async (
   data: Partial<Organization>
 ): Promise<void> => {
   const orgRef = doc(db, "organizations", orgId);
-  await updateDoc(orgRef, {
-    ...data,
-    updatedAt: serverTimestamp(),
-  });
+  const cleanData: Record<string, any> = {};
+  for (const [k, v] of Object.entries(data)) {
+    if (v !== undefined) {
+      cleanData[k] = v;
+    }
+  }
+  await setDoc(
+    orgRef,
+    {
+      ...cleanData,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
+
+  // Update local storage cache
+  try {
+    const cached = localStorage.getItem("insuite_cached_org");
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      localStorage.setItem(
+        "insuite_cached_org",
+        JSON.stringify({ ...parsed, ...cleanData })
+      );
+    }
+  } catch {}
 };
 
 export const getUserOrganizationMembership = async (

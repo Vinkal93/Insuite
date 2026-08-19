@@ -23,6 +23,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Plus,
+  CreditCard,
+  Receipt,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { getStudent, deactivateStudent } from "@/services/studentService";
@@ -34,6 +36,7 @@ import {
 } from "@/services/documentService";
 import { getAuditLogsForEntity } from "@/services/auditService";
 import { getStudentAttendanceSummary } from "@/services/attendanceService";
+import { getStudentFeeSummary } from "@/services/feeService";
 import type {
   Student,
   Parent,
@@ -41,6 +44,7 @@ import type {
   AuditLog,
   DocumentType,
   StudentAttendanceSummary,
+  StudentFeeSummary,
 } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -68,10 +72,11 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
   const [documents, setDocuments] = useState<StudentDocument[]>([]);
   const [activities, setActivities] = useState<AuditLog[]>([]);
   const [attendanceSummary, setAttendanceSummary] = useState<StudentAttendanceSummary | null>(null);
+  const [feeSummary, setFeeSummary] = useState<StudentFeeSummary | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "parents" | "documents" | "activity">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "parents" | "fees" | "documents" | "activity">("overview");
 
   // Deactivate modal
   const [isDeactivateOpen, setIsDeactivateOpen] = useState(false);
@@ -103,16 +108,18 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
           parentPromises.push(getParent(organization.id, studentData.parentIds.motherId).then(setMother));
         }
 
-        // Fetch Documents, Audit Activity & Attendance Summary
-        const [docs, logs, attSummary] = await Promise.all([
+        // Fetch Documents, Audit Activity, Attendance Summary & Fee Summary
+        const [docs, logs, attSummary, fSummary] = await Promise.all([
           getStudentDocuments(organization.id, studentData.id),
           getAuditLogsForEntity(organization.id, studentData.id),
           getStudentAttendanceSummary(organization.id, studentData.id, selectedSession?.id).catch(() => null),
+          getStudentFeeSummary(organization.id, studentData.id).catch(() => null),
           ...parentPromises,
         ]);
         setDocuments(docs);
         setActivities(logs);
         setAttendanceSummary(attSummary);
+        setFeeSummary(fSummary);
       }
     } catch (err) {
       console.error("Error loading student profile:", err);
@@ -209,6 +216,7 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
     { id: "overview", label: "Overview", icon: User },
     { id: "academic", label: "Academic", icon: GraduationCap },
     { id: "attendance", label: "Attendance", icon: Calendar },
+    { id: "fees", label: "Fees & Ledger", icon: CreditCard },
     { id: "parents", label: "Parents & Guardians", icon: Users },
     { id: "documents", label: `Documents (${documents.length})`, icon: FileText },
     { id: "activity", label: "Audit Activity", icon: Activity },
@@ -582,6 +590,107 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
               </div>
             ) : (
               <p className="py-4 text-xs text-muted-foreground">No mother record linked to this student.</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: Fees & Ledger */}
+      {activeTab === "fees" && (
+        <div className="space-y-6">
+          {/* Financial Summary */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-3xl border border-border bg-card p-5 shadow-soft space-y-1">
+              <span className="text-[10px] font-extrabold uppercase text-muted-foreground">Total Assigned</span>
+              <p className="text-xl font-black text-foreground">₹{(feeSummary?.totalAssigned || 0).toLocaleString()}</p>
+              <p className="text-[10px] text-muted-foreground">All Invoices</p>
+            </div>
+
+            <div className="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-5 shadow-soft space-y-1">
+              <span className="text-[10px] font-extrabold uppercase text-emerald-600">Total Paid</span>
+              <p className="text-xl font-black text-emerald-600">₹{(feeSummary?.totalPaid || 0).toLocaleString()}</p>
+              <p className="text-[10px] text-emerald-700/80">Cleared Receipts</p>
+            </div>
+
+            <div className="rounded-3xl border border-border bg-card p-5 shadow-soft space-y-1">
+              <span className="text-[10px] font-extrabold uppercase text-muted-foreground">Total Pending</span>
+              <p className="text-xl font-black text-foreground">₹{(feeSummary?.totalPending || 0).toLocaleString()}</p>
+              <p className="text-[10px] text-muted-foreground">Outstanding</p>
+            </div>
+
+            <div className="rounded-3xl border border-rose-500/20 bg-rose-500/5 p-5 shadow-soft space-y-1">
+              <span className="text-[10px] font-extrabold uppercase text-rose-500">Overdue Balance</span>
+              <p className="text-xl font-black text-rose-500">₹{(feeSummary?.totalOverdue || 0).toLocaleString()}</p>
+              <p className="text-[10px] text-rose-600/80">Past Due Date</p>
+            </div>
+          </div>
+
+          {/* Invoices List */}
+          <div className="rounded-3xl border border-border bg-card shadow-soft overflow-hidden">
+            <div className="flex items-center justify-between border-b border-border px-6 py-4">
+              <h3 className="text-sm font-extrabold text-foreground">Invoices ({feeSummary?.invoices.length || 0})</h3>
+              {feeSummary && feeSummary.totalPending > 0 && (
+                <Button variant="hero" size="sm" asChild className="rounded-xl text-xs font-bold shadow-soft">
+                  <Link to="/fees/collect" search={{ studentId: student.id }}>
+                    <CreditCard className="size-3.5 mr-1.5" /> Collect Payment
+                  </Link>
+                </Button>
+              )}
+            </div>
+
+            {!feeSummary || feeSummary.invoices.length === 0 ? (
+              <p className="py-6 text-center text-xs text-muted-foreground italic">No fee invoices generated yet.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="border-b border-border bg-surface/50 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <tr>
+                      <th className="px-6 py-3.5">Invoice #</th>
+                      <th className="px-4 py-3.5">Structure</th>
+                      <th className="px-4 py-3.5">Due Date</th>
+                      <th className="px-4 py-3.5">Amount</th>
+                      <th className="px-4 py-3.5">Paid</th>
+                      <th className="px-4 py-3.5">Balance</th>
+                      <th className="px-4 py-3.5">Status</th>
+                      <th className="px-6 py-3.5 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {feeSummary.invoices.map((inv) => (
+                      <tr key={inv.id}>
+                        <td className="px-6 py-3.5 font-mono font-bold text-foreground">{inv.invoiceNumber}</td>
+                        <td className="px-4 py-3.5 font-medium">{inv.feeStructureName}</td>
+                        <td className="px-4 py-3.5 text-muted-foreground">{inv.dueDate}</td>
+                        <td className="px-4 py-3.5 font-mono font-bold">₹{inv.totalAmount.toLocaleString()}</td>
+                        <td className="px-4 py-3.5 font-mono text-emerald-600 font-bold">₹{inv.paidAmount.toLocaleString()}</td>
+                        <td className="px-4 py-3.5 font-mono text-rose-500 font-bold">₹{inv.balanceAmount.toLocaleString()}</td>
+                        <td className="px-4 py-3.5">
+                          <span
+                            className={`inline-block rounded-md px-2 py-0.5 text-[9px] font-bold ${
+                              inv.status === "PAID"
+                                ? "bg-emerald-500/10 text-emerald-600"
+                                : inv.status === "OVERDUE"
+                                ? "bg-rose-500/10 text-rose-500"
+                                : "bg-amber-500/10 text-amber-600"
+                            }`}
+                          >
+                            {inv.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-3.5 text-right">
+                          {inv.balanceAmount > 0 && (
+                            <Button variant="hero" size="sm" asChild className="rounded-lg h-7 px-2 text-xs font-bold">
+                              <Link to="/fees/collect" search={{ studentId: student.id, invoiceId: inv.id }}>
+                                Pay
+                              </Link>
+                            </Button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </div>

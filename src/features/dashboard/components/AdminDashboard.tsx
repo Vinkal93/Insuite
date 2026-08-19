@@ -5,6 +5,7 @@ import {
   fetchTodayAtSchool,
   fetchAttendanceOverview,
   fetchAdmissionsFunnel,
+  fetchFeeSnapshot,
   fetchStudentDistribution,
   fetchTodayTimetable,
   fetchAttentionRequired,
@@ -53,6 +54,7 @@ export const AdminDashboard: React.FC = () => {
   const [attentionItems, setAttentionItems] = useState<AttentionItem[]>([]);
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [setupProgress, setSetupProgress] = useState<SetupProgressData | null>(null);
+  const [feeSnapshot, setFeeSnapshot] = useState<FeeSnapshotData | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -74,9 +76,10 @@ export const AdminDashboard: React.FC = () => {
       ).then(setTodayAtSchool);
     });
 
-    // 3. Attendance Overview & Admissions Funnel
+    // 3. Attendance Overview & Admissions Funnel & Fee Snapshot
     fetchAttendanceOverview(organization.id).then(setAttendanceOverview);
     fetchAdmissionsFunnel(organization.id, selectedSession?.id).then(setAdmissionsFunnel);
+    fetchFeeSnapshot(organization.id, selectedSession?.id).then(setFeeSnapshot);
 
     // 4. Class Distribution & Timetable
     fetchStudentDistribution(organization.id, selectedSession?.id).then(setStudentDistribution);
@@ -88,14 +91,7 @@ export const AdminDashboard: React.FC = () => {
     fetchSetupProgress(organization.id, organization).then(setSetupProgress);
   }, [organization, selectedSession]);
 
-  const feeSnapshotData: FeeSnapshotData = {
-    isConfigured: false,
-    totalExpected: "₹0",
-    collected: "₹0",
-    pending: "₹0",
-    overdue: "₹0",
-    percentageCollected: 0,
-  };
+  const feeSnapshotData = feeSnapshot;
 
   return (
     <div className="space-y-6 pb-16">

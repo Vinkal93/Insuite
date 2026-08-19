@@ -11,3 +11,4 @@ export * from "./academicService";
 export * from "./attendanceService";
 export * from "./timetableService";
 export * from "./academicWorkService";
+export * from "./feeService";

@@ -11,6 +11,7 @@ import {
   listAdmissions,
 } from "@/services/admissionService";
 import { getAcademicWorkStats } from "@/services/academicWorkService";
+import { getFeeDashboardStats } from "@/services/feeService";
 import { getRecentAuditLogs } from "@/services/auditService";
 import type {
   Dashboard2KPIs,
@@ -49,6 +50,7 @@ export async function fetchDashboard2KPIs(
     attendanceStats,
     admissionStats,
     academicWorkStats,
+    feeStats,
     timetableDocs,
   ] = await Promise.all([
     getStudentCount(orgId, sessionId).catch(() => ({ total: 0, active: 0 })),
@@ -56,6 +58,7 @@ export async function fetchDashboard2KPIs(
     getAttendanceDashboardStats(orgId, todayStr, sessionId).catch(() => null),
     getAdmissionDashboardStats(orgId, sessionId).catch(() => null),
     getAcademicWorkStats(orgId, sessionId).catch(() => null),
+    getFeeDashboardStats(orgId, sessionId).catch(() => null),
     getDocs(
       query(
         collection(db, "organizations", orgId, "timetableEntries"),
@@ -101,9 +104,9 @@ export async function fetchDashboard2KPIs(
       isConfigured: attendanceStats !== null,
     },
     pendingFees: {
-      value: null,
-      overdue: null,
-      isConfigured: false, // Will activate in Phase 9 Fees module
+      value: feeStats && feeStats.isConfigured ? `₹${feeStats.totalPending.toLocaleString()}` : null,
+      overdue: feeStats && feeStats.isConfigured ? `₹${feeStats.totalOverdue.toLocaleString()}` : null,
+      isConfigured: feeStats?.isConfigured ?? false,
     },
     newAdmissions: {
       value: newAdmissionsCount,
@@ -228,6 +231,33 @@ export async function fetchAdmissionsFunnel(
     underReview,
     approved,
     admitted,
+  };
+}
+
+export async function fetchFeeSnapshot(
+  orgId: string,
+  sessionId?: string
+): Promise<FeeSnapshotData> {
+  const stats = await getFeeDashboardStats(orgId, sessionId).catch(() => null);
+  if (!stats || !stats.isConfigured) {
+    return {
+      isConfigured: false,
+      totalExpected: "₹0",
+      collected: "₹0",
+      pending: "₹0",
+      overdue: "₹0",
+      percentageCollected: 0,
+    };
+  }
+
+  const pct = stats.totalExpected > 0 ? Math.round((stats.totalCollected / stats.totalExpected) * 100) : 0;
+  return {
+    isConfigured: true,
+    totalExpected: `₹${stats.totalExpected.toLocaleString()}`,
+    collected: `₹${stats.totalCollected.toLocaleString()}`,
+    pending: `₹${stats.totalPending.toLocaleString()}`,
+    overdue: `₹${stats.totalOverdue.toLocaleString()}`,
+    percentageCollected: pct,
   };
 }
 

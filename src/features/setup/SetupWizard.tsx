@@ -84,6 +84,35 @@ export const SetupWizard: React.FC = () => {
     },
   });
 
+  // Sync form defaults whenever organization loads
+  React.useEffect(() => {
+    if (organization) {
+      schoolForm.reset({
+        name: organization.name || "",
+        code: organization.code || "",
+        principalName: organization.principalName || "",
+        email: organization.email || firebaseUser?.email || "",
+        phone: organization.phone || "",
+        alternatePhone: organization.alternatePhone || "",
+        website: organization.website || "",
+        address: organization.address || "",
+        city: organization.city || "",
+        state: organization.state || "",
+        postalCode: organization.postalCode || "",
+        country: organization.country || "India",
+      });
+      brandingForm.reset({
+        displayName: organization.name || "",
+        primaryColor: organization.primaryColor || "#1E40AF",
+        secondaryColor: organization.secondaryColor || "#F59E0B",
+        logoUrl: organization.logoUrl || "",
+      });
+      if (organization.logoUrl) {
+        setLogoPreview(organization.logoUrl);
+      }
+    }
+  }, [organization, firebaseUser]);
+
   // Step 1: Validate School Info & unique code
   const handleStep1Submit = async (data: SchoolInfoInput) => {
     setIsSubmitting(true);
@@ -122,7 +151,10 @@ export const SetupWizard: React.FC = () => {
 
   // Step 4: Finalize and Complete Setup
   const handleFinalSubmit = async () => {
-    if (!firebaseUser) return;
+    if (!firebaseUser) {
+      setErrorMsg("You must be signed in to complete setup.");
+      return;
+    }
     setIsSubmitting(true);
     setErrorMsg(null);
 
@@ -130,6 +162,12 @@ export const SetupWizard: React.FC = () => {
       const schoolData = schoolForm.getValues();
       const sessionData = sessionForm.getValues();
       const brandData = brandingForm.getValues();
+
+      if (!schoolData.name || !schoolData.code) {
+        setErrorMsg("School name and school code are required.");
+        setIsSubmitting(false);
+        return;
+      }
 
       let currentOrg = organization;
 
@@ -150,31 +188,53 @@ export const SetupWizard: React.FC = () => {
           state: schoolData.state || null,
           postalCode: schoolData.postalCode || null,
           country: schoolData.country || "India",
-          primaryColor: brandData.primaryColor,
-          secondaryColor: brandData.secondaryColor,
+          primaryColor: brandData.primaryColor || "#1E40AF",
+          secondaryColor: brandData.secondaryColor || "#F59E0B",
+          setupCompleted: true,
         });
       }
 
       // 2. Upload Logo if selected
       if (logoFile && currentOrg) {
         setIsUploadingLogo(true);
-        const uploadedUrl = await uploadSchoolLogo(currentOrg.id, logoFile);
-        await updateOrganization(currentOrg.id, { logoUrl: uploadedUrl });
+        try {
+          const uploadedUrl = await uploadSchoolLogo(currentOrg.id, logoFile);
+          await updateOrganization(currentOrg.id, { logoUrl: uploadedUrl });
+        } catch (logoErr) {
+          console.warn("Logo upload skipped:", logoErr);
+        }
       }
 
-      // 3. Create Academic Session
-      if (currentOrg) {
-        await createAcademicSession(currentOrg.id, sessionData);
+      // 3. Create Academic Session if configured
+      if (currentOrg && sessionData?.name) {
+        try {
+          await createAcademicSession(currentOrg.id, sessionData);
+        } catch (sessErr) {
+          console.warn("Session creation notice:", sessErr);
+        }
+      }
 
-        // 4. Mark setupCompleted = true
+      // 4. Mark setupCompleted = true
+      if (currentOrg) {
         await updateOrganization(currentOrg.id, { setupCompleted: true });
       }
 
-      await refreshUserData();
+      // Refresh local cache and user session
+      try {
+        const updatedCache = {
+          ...(currentOrg || {}),
+          name: schoolData.name,
+          code: schoolData.code.toUpperCase(),
+          setupCompleted: true,
+        };
+        localStorage.setItem("insuite_cached_org", JSON.stringify(updatedCache));
+      } catch {}
+
+      await refreshUserData().catch(() => {});
       window.location.href = "/dashboard";
     } catch (err: any) {
       console.error("Setup completion error:", err);
-      setErrorMsg(err.message || "Failed to complete school setup.");
+      setErrorMsg(err.message || "Failed to save institute setup data. Please try again.");
     } finally {
       setIsSubmitting(false);
       setIsUploadingLogo(false);

@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
+import { auth } from "@/lib/firebase";
 import { LoadingScreen } from "./LoadingScreen";
 
 interface ProtectedRouteProps {
@@ -10,22 +11,29 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
-  requireSetupComplete = false,
 }) => {
-  const { firebaseUser, organization, isLoading } = useAuth();
+  const { firebaseUser, isLoading } = useAuth();
   const navigate = useNavigate();
+  const [safetyTimeout, setSafetyTimeout] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && !firebaseUser) {
+    const timer = setTimeout(() => setSafetyTimeout(true), 600);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const currentUser = firebaseUser || auth.currentUser;
+
+  useEffect(() => {
+    if (!isLoading && !currentUser && safetyTimeout) {
       navigate({ to: "/login" });
     }
-  }, [isLoading, firebaseUser, navigate]);
+  }, [isLoading, currentUser, safetyTimeout, navigate]);
 
-  if (isLoading) {
+  if (isLoading && !currentUser && !safetyTimeout) {
     return <LoadingScreen message="Checking authorization..." />;
   }
 
-  if (!firebaseUser) {
+  if (!currentUser && safetyTimeout) {
     return null;
   }
 

@@ -35,6 +35,14 @@ import { Route as AttendanceIndexRouteImport } from './routes/attendance/index'
 import { Route as AttendanceLeaveRouteImport } from './routes/attendance/leave'
 import { Route as AttendanceReportsRouteImport } from './routes/attendance/reports'
 import { Route as AttendanceSettingsRouteImport } from './routes/attendance/settings'
+import { Route as FeesIndexRouteImport } from './routes/fees/index'
+import { Route as FeesCollectRouteImport } from './routes/fees/collect'
+import { Route as FeesDefaultersRouteImport } from './routes/fees/defaulters'
+import { Route as FeesDiscountsRouteImport } from './routes/fees/discounts'
+import { Route as FeesPaymentsRouteImport } from './routes/fees/payments'
+import { Route as FeesReceiptsRouteImport } from './routes/fees/receipts'
+import { Route as FeesReportsRouteImport } from './routes/fees/reports'
+import { Route as FeesSettingsRouteImport } from './routes/fees/settings'
 import { Route as ParentsIndexRouteImport } from './routes/parents/index'
 import { Route as ParentsParentIdRouteImport } from './routes/parents/$parentId'
 import { Route as StudentsIndexRouteImport } from './routes/students/index'
@@ -78,6 +86,11 @@ import { Route as AttendanceStaffTakeRouteImport } from './routes/attendance/sta
 import { Route as AttendanceStudentsIndexRouteImport } from './routes/attendance/students/index'
 import { Route as AttendanceStudentsDateRouteImport } from './routes/attendance/students/$date'
 import { Route as AttendanceStudentsTakeRouteImport } from './routes/attendance/students/take'
+import { Route as FeesStructureIndexRouteImport } from './routes/fees/structure/index'
+import { Route as FeesStructureStructureIdRouteImport } from './routes/fees/structure/$structureId'
+import { Route as FeesStructureNewRouteImport } from './routes/fees/structure/new'
+import { Route as FeesStudentsIndexRouteImport } from './routes/fees/students/index'
+import { Route as FeesStudentsStudentIdRouteImport } from './routes/fees/students/$studentId'
 import { Route as StudentsStudentIdEditRouteImport } from './routes/students/$studentId.edit'
 import { Route as TimetableClassesIndexRouteImport } from './routes/timetable/classes/index'
 import { Route as TimetableClassesClassIdRouteImport } from './routes/timetable/classes/$classId'
@@ -215,6 +228,46 @@ const AttendanceReportsRoute = AttendanceReportsRouteImport.update({
 const AttendanceSettingsRoute = AttendanceSettingsRouteImport.update({
   id: '/attendance/settings',
   path: '/attendance/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesIndexRoute = FeesIndexRouteImport.update({
+  id: '/fees/',
+  path: '/fees/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesCollectRoute = FeesCollectRouteImport.update({
+  id: '/fees/collect',
+  path: '/fees/collect',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesDefaultersRoute = FeesDefaultersRouteImport.update({
+  id: '/fees/defaulters',
+  path: '/fees/defaulters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesDiscountsRoute = FeesDiscountsRouteImport.update({
+  id: '/fees/discounts',
+  path: '/fees/discounts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesPaymentsRoute = FeesPaymentsRouteImport.update({
+  id: '/fees/payments',
+  path: '/fees/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesReceiptsRoute = FeesReceiptsRouteImport.update({
+  id: '/fees/receipts',
+  path: '/fees/receipts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesReportsRoute = FeesReportsRouteImport.update({
+  id: '/fees/reports',
+  path: '/fees/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesSettingsRoute = FeesSettingsRouteImport.update({
+  id: '/fees/settings',
+  path: '/fees/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ParentsIndexRoute = ParentsIndexRouteImport.update({
@@ -446,6 +499,32 @@ const AttendanceStudentsTakeRoute = AttendanceStudentsTakeRouteImport.update({
   path: '/attendance/students/take',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeesStructureIndexRoute = FeesStructureIndexRouteImport.update({
+  id: '/fees/structure/',
+  path: '/fees/structure/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesStructureStructureIdRoute =
+  FeesStructureStructureIdRouteImport.update({
+    id: '/fees/structure/$structureId',
+    path: '/fees/structure/$structureId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FeesStructureNewRoute = FeesStructureNewRouteImport.update({
+  id: '/fees/structure/new',
+  path: '/fees/structure/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesStudentsIndexRoute = FeesStudentsIndexRouteImport.update({
+  id: '/fees/students/',
+  path: '/fees/students/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesStudentsStudentIdRoute = FeesStudentsStudentIdRouteImport.update({
+  id: '/fees/students/$studentId',
+  path: '/fees/students/$studentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentsStudentIdEditRoute = StudentsStudentIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -513,6 +592,13 @@ export interface FileRoutesByFullPath {
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
+  '/fees/collect': typeof FeesCollectRoute
+  '/fees/defaulters': typeof FeesDefaultersRoute
+  '/fees/discounts': typeof FeesDiscountsRoute
+  '/fees/payments': typeof FeesPaymentsRoute
+  '/fees/receipts': typeof FeesReceiptsRoute
+  '/fees/reports': typeof FeesReportsRoute
+  '/fees/settings': typeof FeesSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
@@ -525,6 +611,7 @@ export interface FileRoutesByFullPath {
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
+  '/fees/': typeof FeesIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
   '/timetable/': typeof TimetableIndexRoute
@@ -548,6 +635,9 @@ export interface FileRoutesByFullPath {
   '/attendance/staff/take': typeof AttendanceStaffTakeRoute
   '/attendance/students/$date': typeof AttendanceStudentsDateRoute
   '/attendance/students/take': typeof AttendanceStudentsTakeRoute
+  '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
+  '/fees/structure/new': typeof FeesStructureNewRoute
+  '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
@@ -563,6 +653,8 @@ export interface FileRoutesByFullPath {
   '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
   '/attendance/staff/': typeof AttendanceStaffIndexRoute
   '/attendance/students/': typeof AttendanceStudentsIndexRoute
+  '/fees/structure/': typeof FeesStructureIndexRoute
+  '/fees/students/': typeof FeesStudentsIndexRoute
   '/timetable/classes/': typeof TimetableClassesIndexRoute
   '/timetable/rooms/': typeof TimetableRoomsIndexRoute
   '/timetable/teachers/': typeof TimetableTeachersIndexRoute
@@ -592,6 +684,13 @@ export interface FileRoutesByTo {
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
+  '/fees/collect': typeof FeesCollectRoute
+  '/fees/defaulters': typeof FeesDefaultersRoute
+  '/fees/discounts': typeof FeesDiscountsRoute
+  '/fees/payments': typeof FeesPaymentsRoute
+  '/fees/receipts': typeof FeesReceiptsRoute
+  '/fees/reports': typeof FeesReportsRoute
+  '/fees/settings': typeof FeesSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
@@ -604,6 +703,7 @@ export interface FileRoutesByTo {
   '/academics': typeof AcademicsIndexRoute
   '/admissions': typeof AdmissionsIndexRoute
   '/attendance': typeof AttendanceIndexRoute
+  '/fees': typeof FeesIndexRoute
   '/parents': typeof ParentsIndexRoute
   '/students': typeof StudentsIndexRoute
   '/timetable': typeof TimetableIndexRoute
@@ -627,6 +727,9 @@ export interface FileRoutesByTo {
   '/attendance/staff/take': typeof AttendanceStaffTakeRoute
   '/attendance/students/$date': typeof AttendanceStudentsDateRoute
   '/attendance/students/take': typeof AttendanceStudentsTakeRoute
+  '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
+  '/fees/structure/new': typeof FeesStructureNewRoute
+  '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
@@ -642,6 +745,8 @@ export interface FileRoutesByTo {
   '/admissions/enquiries': typeof AdmissionsEnquiriesIndexRoute
   '/attendance/staff': typeof AttendanceStaffIndexRoute
   '/attendance/students': typeof AttendanceStudentsIndexRoute
+  '/fees/structure': typeof FeesStructureIndexRoute
+  '/fees/students': typeof FeesStudentsIndexRoute
   '/timetable/classes': typeof TimetableClassesIndexRoute
   '/timetable/rooms': typeof TimetableRoomsIndexRoute
   '/timetable/teachers': typeof TimetableTeachersIndexRoute
@@ -672,6 +777,13 @@ export interface FileRoutesById {
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
+  '/fees/collect': typeof FeesCollectRoute
+  '/fees/defaulters': typeof FeesDefaultersRoute
+  '/fees/discounts': typeof FeesDiscountsRoute
+  '/fees/payments': typeof FeesPaymentsRoute
+  '/fees/receipts': typeof FeesReceiptsRoute
+  '/fees/reports': typeof FeesReportsRoute
+  '/fees/settings': typeof FeesSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
@@ -684,6 +796,7 @@ export interface FileRoutesById {
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
+  '/fees/': typeof FeesIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
   '/timetable/': typeof TimetableIndexRoute
@@ -707,6 +820,9 @@ export interface FileRoutesById {
   '/attendance/staff/take': typeof AttendanceStaffTakeRoute
   '/attendance/students/$date': typeof AttendanceStudentsDateRoute
   '/attendance/students/take': typeof AttendanceStudentsTakeRoute
+  '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
+  '/fees/structure/new': typeof FeesStructureNewRoute
+  '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
@@ -722,6 +838,8 @@ export interface FileRoutesById {
   '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
   '/attendance/staff/': typeof AttendanceStaffIndexRoute
   '/attendance/students/': typeof AttendanceStudentsIndexRoute
+  '/fees/structure/': typeof FeesStructureIndexRoute
+  '/fees/students/': typeof FeesStudentsIndexRoute
   '/timetable/classes/': typeof TimetableClassesIndexRoute
   '/timetable/rooms/': typeof TimetableRoomsIndexRoute
   '/timetable/teachers/': typeof TimetableTeachersIndexRoute
@@ -753,6 +871,13 @@ export interface FileRouteTypes {
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
+    | '/fees/collect'
+    | '/fees/defaulters'
+    | '/fees/discounts'
+    | '/fees/payments'
+    | '/fees/receipts'
+    | '/fees/reports'
+    | '/fees/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
@@ -765,6 +890,7 @@ export interface FileRouteTypes {
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
+    | '/fees/'
     | '/parents/'
     | '/students/'
     | '/timetable/'
@@ -788,6 +914,9 @@ export interface FileRouteTypes {
     | '/attendance/staff/take'
     | '/attendance/students/$date'
     | '/attendance/students/take'
+    | '/fees/structure/$structureId'
+    | '/fees/structure/new'
+    | '/fees/students/$studentId'
     | '/students/$studentId/edit'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
@@ -803,6 +932,8 @@ export interface FileRouteTypes {
     | '/admissions/enquiries/'
     | '/attendance/staff/'
     | '/attendance/students/'
+    | '/fees/structure/'
+    | '/fees/students/'
     | '/timetable/classes/'
     | '/timetable/rooms/'
     | '/timetable/teachers/'
@@ -832,6 +963,13 @@ export interface FileRouteTypes {
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
+    | '/fees/collect'
+    | '/fees/defaulters'
+    | '/fees/discounts'
+    | '/fees/payments'
+    | '/fees/receipts'
+    | '/fees/reports'
+    | '/fees/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
@@ -844,6 +982,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/admissions'
     | '/attendance'
+    | '/fees'
     | '/parents'
     | '/students'
     | '/timetable'
@@ -867,6 +1006,9 @@ export interface FileRouteTypes {
     | '/attendance/staff/take'
     | '/attendance/students/$date'
     | '/attendance/students/take'
+    | '/fees/structure/$structureId'
+    | '/fees/structure/new'
+    | '/fees/students/$studentId'
     | '/students/$studentId/edit'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
@@ -882,6 +1024,8 @@ export interface FileRouteTypes {
     | '/admissions/enquiries'
     | '/attendance/staff'
     | '/attendance/students'
+    | '/fees/structure'
+    | '/fees/students'
     | '/timetable/classes'
     | '/timetable/rooms'
     | '/timetable/teachers'
@@ -911,6 +1055,13 @@ export interface FileRouteTypes {
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
+    | '/fees/collect'
+    | '/fees/defaulters'
+    | '/fees/discounts'
+    | '/fees/payments'
+    | '/fees/receipts'
+    | '/fees/reports'
+    | '/fees/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
@@ -923,6 +1074,7 @@ export interface FileRouteTypes {
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
+    | '/fees/'
     | '/parents/'
     | '/students/'
     | '/timetable/'
@@ -946,6 +1098,9 @@ export interface FileRouteTypes {
     | '/attendance/staff/take'
     | '/attendance/students/$date'
     | '/attendance/students/take'
+    | '/fees/structure/$structureId'
+    | '/fees/structure/new'
+    | '/fees/students/$studentId'
     | '/students/$studentId/edit'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
@@ -961,6 +1116,8 @@ export interface FileRouteTypes {
     | '/admissions/enquiries/'
     | '/attendance/staff/'
     | '/attendance/students/'
+    | '/fees/structure/'
+    | '/fees/students/'
     | '/timetable/classes/'
     | '/timetable/rooms/'
     | '/timetable/teachers/'
@@ -991,6 +1148,13 @@ export interface RootRouteChildren {
   AttendanceLeaveRoute: typeof AttendanceLeaveRoute
   AttendanceReportsRoute: typeof AttendanceReportsRoute
   AttendanceSettingsRoute: typeof AttendanceSettingsRoute
+  FeesCollectRoute: typeof FeesCollectRoute
+  FeesDefaultersRoute: typeof FeesDefaultersRoute
+  FeesDiscountsRoute: typeof FeesDiscountsRoute
+  FeesPaymentsRoute: typeof FeesPaymentsRoute
+  FeesReceiptsRoute: typeof FeesReceiptsRoute
+  FeesReportsRoute: typeof FeesReportsRoute
+  FeesSettingsRoute: typeof FeesSettingsRoute
   ParentsParentIdRoute: typeof ParentsParentIdRoute
   StudentsStudentIdRoute: typeof StudentsStudentIdRouteWithChildren
   StudentsNewRoute: typeof StudentsNewRoute
@@ -1003,6 +1167,7 @@ export interface RootRouteChildren {
   AcademicsIndexRoute: typeof AcademicsIndexRoute
   AdmissionsIndexRoute: typeof AdmissionsIndexRoute
   AttendanceIndexRoute: typeof AttendanceIndexRoute
+  FeesIndexRoute: typeof FeesIndexRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
   TimetableIndexRoute: typeof TimetableIndexRoute
@@ -1026,6 +1191,9 @@ export interface RootRouteChildren {
   AttendanceStaffTakeRoute: typeof AttendanceStaffTakeRoute
   AttendanceStudentsDateRoute: typeof AttendanceStudentsDateRoute
   AttendanceStudentsTakeRoute: typeof AttendanceStudentsTakeRoute
+  FeesStructureStructureIdRoute: typeof FeesStructureStructureIdRoute
+  FeesStructureNewRoute: typeof FeesStructureNewRoute
+  FeesStudentsStudentIdRoute: typeof FeesStudentsStudentIdRoute
   TimetableClassesClassIdRoute: typeof TimetableClassesClassIdRoute
   TimetableTeachersTeacherIdRoute: typeof TimetableTeachersTeacherIdRoute
   AcademicWorkAssignmentsIndexRoute: typeof AcademicWorkAssignmentsIndexRoute
@@ -1040,6 +1208,8 @@ export interface RootRouteChildren {
   AdmissionsEnquiriesIndexRoute: typeof AdmissionsEnquiriesIndexRoute
   AttendanceStaffIndexRoute: typeof AttendanceStaffIndexRoute
   AttendanceStudentsIndexRoute: typeof AttendanceStudentsIndexRoute
+  FeesStructureIndexRoute: typeof FeesStructureIndexRoute
+  FeesStudentsIndexRoute: typeof FeesStudentsIndexRoute
   TimetableClassesIndexRoute: typeof TimetableClassesIndexRoute
   TimetableRoomsIndexRoute: typeof TimetableRoomsIndexRoute
   TimetableTeachersIndexRoute: typeof TimetableTeachersIndexRoute
@@ -1229,6 +1399,62 @@ declare module '@tanstack/react-router' {
       path: '/attendance/settings'
       fullPath: '/attendance/settings'
       preLoaderRoute: typeof AttendanceSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/': {
+      id: '/fees/'
+      path: '/fees'
+      fullPath: '/fees/'
+      preLoaderRoute: typeof FeesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/collect': {
+      id: '/fees/collect'
+      path: '/fees/collect'
+      fullPath: '/fees/collect'
+      preLoaderRoute: typeof FeesCollectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/defaulters': {
+      id: '/fees/defaulters'
+      path: '/fees/defaulters'
+      fullPath: '/fees/defaulters'
+      preLoaderRoute: typeof FeesDefaultersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/discounts': {
+      id: '/fees/discounts'
+      path: '/fees/discounts'
+      fullPath: '/fees/discounts'
+      preLoaderRoute: typeof FeesDiscountsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/payments': {
+      id: '/fees/payments'
+      path: '/fees/payments'
+      fullPath: '/fees/payments'
+      preLoaderRoute: typeof FeesPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/receipts': {
+      id: '/fees/receipts'
+      path: '/fees/receipts'
+      fullPath: '/fees/receipts'
+      preLoaderRoute: typeof FeesReceiptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/reports': {
+      id: '/fees/reports'
+      path: '/fees/reports'
+      fullPath: '/fees/reports'
+      preLoaderRoute: typeof FeesReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/settings': {
+      id: '/fees/settings'
+      path: '/fees/settings'
+      fullPath: '/fees/settings'
+      preLoaderRoute: typeof FeesSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/parents/': {
@@ -1532,6 +1758,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AttendanceStudentsTakeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fees/structure/': {
+      id: '/fees/structure/'
+      path: '/fees/structure'
+      fullPath: '/fees/structure/'
+      preLoaderRoute: typeof FeesStructureIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/structure/$structureId': {
+      id: '/fees/structure/$structureId'
+      path: '/fees/structure/$structureId'
+      fullPath: '/fees/structure/$structureId'
+      preLoaderRoute: typeof FeesStructureStructureIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/structure/new': {
+      id: '/fees/structure/new'
+      path: '/fees/structure/new'
+      fullPath: '/fees/structure/new'
+      preLoaderRoute: typeof FeesStructureNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/students/': {
+      id: '/fees/students/'
+      path: '/fees/students'
+      fullPath: '/fees/students/'
+      preLoaderRoute: typeof FeesStudentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/students/$studentId': {
+      id: '/fees/students/$studentId'
+      path: '/fees/students/$studentId'
+      fullPath: '/fees/students/$studentId'
+      preLoaderRoute: typeof FeesStudentsStudentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students/$studentId/edit': {
       id: '/students/$studentId/edit'
       path: '/edit'
@@ -1625,6 +1886,13 @@ const rootRouteChildren: RootRouteChildren = {
   AttendanceLeaveRoute: AttendanceLeaveRoute,
   AttendanceReportsRoute: AttendanceReportsRoute,
   AttendanceSettingsRoute: AttendanceSettingsRoute,
+  FeesCollectRoute: FeesCollectRoute,
+  FeesDefaultersRoute: FeesDefaultersRoute,
+  FeesDiscountsRoute: FeesDiscountsRoute,
+  FeesPaymentsRoute: FeesPaymentsRoute,
+  FeesReceiptsRoute: FeesReceiptsRoute,
+  FeesReportsRoute: FeesReportsRoute,
+  FeesSettingsRoute: FeesSettingsRoute,
   ParentsParentIdRoute: ParentsParentIdRoute,
   StudentsStudentIdRoute: StudentsStudentIdRouteWithChildren,
   StudentsNewRoute: StudentsNewRoute,
@@ -1637,6 +1905,7 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicsIndexRoute: AcademicsIndexRoute,
   AdmissionsIndexRoute: AdmissionsIndexRoute,
   AttendanceIndexRoute: AttendanceIndexRoute,
+  FeesIndexRoute: FeesIndexRoute,
   ParentsIndexRoute: ParentsIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
   TimetableIndexRoute: TimetableIndexRoute,
@@ -1662,6 +1931,9 @@ const rootRouteChildren: RootRouteChildren = {
   AttendanceStaffTakeRoute: AttendanceStaffTakeRoute,
   AttendanceStudentsDateRoute: AttendanceStudentsDateRoute,
   AttendanceStudentsTakeRoute: AttendanceStudentsTakeRoute,
+  FeesStructureStructureIdRoute: FeesStructureStructureIdRoute,
+  FeesStructureNewRoute: FeesStructureNewRoute,
+  FeesStudentsStudentIdRoute: FeesStudentsStudentIdRoute,
   TimetableClassesClassIdRoute: TimetableClassesClassIdRoute,
   TimetableTeachersTeacherIdRoute: TimetableTeachersTeacherIdRoute,
   AcademicWorkAssignmentsIndexRoute: AcademicWorkAssignmentsIndexRoute,
@@ -1676,6 +1948,8 @@ const rootRouteChildren: RootRouteChildren = {
   AdmissionsEnquiriesIndexRoute: AdmissionsEnquiriesIndexRoute,
   AttendanceStaffIndexRoute: AttendanceStaffIndexRoute,
   AttendanceStudentsIndexRoute: AttendanceStudentsIndexRoute,
+  FeesStructureIndexRoute: FeesStructureIndexRoute,
+  FeesStudentsIndexRoute: FeesStudentsIndexRoute,
   TimetableClassesIndexRoute: TimetableClassesIndexRoute,
   TimetableRoomsIndexRoute: TimetableRoomsIndexRoute,
   TimetableTeachersIndexRoute: TimetableTeachersIndexRoute,
