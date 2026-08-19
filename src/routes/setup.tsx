@@ -7,6 +7,7 @@ import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/setup")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "School Setup Wizard — InSuite" },

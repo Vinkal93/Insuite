@@ -223,19 +223,31 @@ export const SetupWizard: React.FC = () => {
       try {
         const updatedCache = {
           ...(currentOrg || {}),
+          id: currentOrg?.id || "default",
           name: schoolData.name,
           code: schoolData.code.toUpperCase(),
+          principalName: schoolData.principalName || "",
+          email: schoolData.email || "",
+          phone: schoolData.phone || "",
+          address: schoolData.address || "",
+          city: schoolData.city || "",
+          state: schoolData.state || "",
+          country: schoolData.country || "India",
+          primaryColor: brandData.primaryColor || "#1E40AF",
+          secondaryColor: brandData.secondaryColor || "#F59E0B",
           setupCompleted: true,
+          status: "active",
         };
         localStorage.setItem("insuite_cached_org", JSON.stringify(updatedCache));
       } catch {}
 
-      await refreshUserData().catch(() => {});
-      window.location.href = "/dashboard";
+      // Instant redirect without awaiting slow background sync
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 200);
     } catch (err: any) {
       console.error("Setup completion error:", err);
       setErrorMsg(err.message || "Failed to save institute setup data. Please try again.");
-    } finally {
       setIsSubmitting(false);
       setIsUploadingLogo(false);
     }

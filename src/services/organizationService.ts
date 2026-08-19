@@ -89,10 +89,14 @@ export const createOrganization = async (
   });
 
   // Update user's currentOrganizationId
-  await updateDoc(doc(db, "users", userId), {
-    currentOrganizationId: orgId,
-    updatedAt: serverTimestamp(),
-  });
+  await setDoc(
+    doc(db, "users", userId),
+    {
+      currentOrganizationId: orgId,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
 
   return newOrg;
 };
@@ -155,10 +159,14 @@ export const autoProvisionDefaultOrganization = async (
     updatedAt: new Date().toISOString(),
   });
 
-  await updateDoc(doc(db, "users", userId), {
-    currentOrganizationId: orgId,
-    updatedAt: serverTimestamp(),
-  });
+  await setDoc(
+    doc(db, "users", userId),
+    {
+      currentOrganizationId: orgId,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
 
   return defaultOrg;
 };

@@ -254,10 +254,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
+const defaultFallbackAuth: AuthContextType = {
+  firebaseUser: null,
+  userProfile: null,
+  organization: null,
+  membership: null,
+  activeSession: null,
+  allSessions: [],
+  selectedSession: null,
+  setSelectedSession: () => {},
+  canAccessAdminDashboard: false,
+  isLoading: false,
+  error: null,
+  refreshUserData: async () => {},
+  logout: async () => {},
+};
+
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    return defaultFallbackAuth;
   }
   return context;
 };
+

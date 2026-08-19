@@ -12,3 +12,7 @@ export * from "./attendanceService";
 export * from "./timetableService";
 export * from "./academicWorkService";
 export * from "./feeService";
+export * from "./resultCalculationService";
+export * from "./examService";
+export * from "./communicationProvider";
+export * from "./communicationService";

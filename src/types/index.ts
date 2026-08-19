@@ -11,3 +11,5 @@ export * from "./attendance";
 export * from "./timetable";
 export * from "./academicWork";
 export * from "./fees";
+export * from "./exams";
+export * from "./communication";

@@ -201,6 +201,68 @@ service cloud.firestore {
         allow read, write: if isOrgMember(orgId);
       }
 
+      // Phase 10: Examination Collections
+      match /exams/{examId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /examSchedules/{scheduleId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /examSubjects/{subjectId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /marks/{markId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /results/{resultId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /gradingScales/{scaleId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /examSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 11: Communication Collections
+      match /announcements/{announcementId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /notices/{noticeId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /communicationMessages/{messageId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /communicationTemplates/{templateId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /notifications/{notificationId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /communicationHistory/{historyId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /communicationSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /userNotificationPreferences/{userId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
       // Audit Logs
       match /auditLogs/{logId} {
         allow read, write: if isOrgMember(orgId);

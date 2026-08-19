@@ -14,26 +14,30 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const { firebaseUser, isLoading } = useAuth();
   const navigate = useNavigate();
-  const [safetyTimeout, setSafetyTimeout] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setSafetyTimeout(true), 600);
-    return () => clearTimeout(timer);
+    setIsMounted(true);
   }, []);
 
-  const currentUser = firebaseUser || auth.currentUser;
+  const currentUser = firebaseUser || (typeof window !== "undefined" ? auth.currentUser : null);
 
   useEffect(() => {
-    if (!isLoading && !currentUser && safetyTimeout) {
+    if (isMounted && !isLoading && !currentUser) {
       navigate({ to: "/login" });
     }
-  }, [isLoading, currentUser, safetyTimeout, navigate]);
+  }, [isMounted, isLoading, currentUser, navigate]);
 
-  if (isLoading && !currentUser && !safetyTimeout) {
+  // Ensure SSR and initial client hydration HTML match identically
+  if (!isMounted) {
     return <LoadingScreen message="Checking authorization..." />;
   }
 
-  if (!currentUser && safetyTimeout) {
+  if (isLoading && !currentUser) {
+    return <LoadingScreen message="Checking authorization..." />;
+  }
+
+  if (!currentUser) {
     return null;
   }
 

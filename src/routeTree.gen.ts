@@ -35,6 +35,19 @@ import { Route as AttendanceIndexRouteImport } from './routes/attendance/index'
 import { Route as AttendanceLeaveRouteImport } from './routes/attendance/leave'
 import { Route as AttendanceReportsRouteImport } from './routes/attendance/reports'
 import { Route as AttendanceSettingsRouteImport } from './routes/attendance/settings'
+import { Route as CommunicationIndexRouteImport } from './routes/communication/index'
+import { Route as CommunicationHistoryRouteImport } from './routes/communication/history'
+import { Route as CommunicationNotificationsRouteImport } from './routes/communication/notifications'
+import { Route as CommunicationSettingsRouteImport } from './routes/communication/settings'
+import { Route as CommunicationTemplatesRouteImport } from './routes/communication/templates'
+import { Route as ExamsIndexRouteImport } from './routes/exams/index'
+import { Route as ExamsExamIdRouteImport } from './routes/exams/$examId'
+import { Route as ExamsListRouteImport } from './routes/exams/list'
+import { Route as ExamsNewRouteImport } from './routes/exams/new'
+import { Route as ExamsRankingsRouteImport } from './routes/exams/rankings'
+import { Route as ExamsReportCardsRouteImport } from './routes/exams/report-cards'
+import { Route as ExamsScheduleRouteImport } from './routes/exams/schedule'
+import { Route as ExamsSettingsRouteImport } from './routes/exams/settings'
 import { Route as FeesIndexRouteImport } from './routes/fees/index'
 import { Route as FeesCollectRouteImport } from './routes/fees/collect'
 import { Route as FeesDefaultersRouteImport } from './routes/fees/defaulters'
@@ -86,6 +99,18 @@ import { Route as AttendanceStaffTakeRouteImport } from './routes/attendance/sta
 import { Route as AttendanceStudentsIndexRouteImport } from './routes/attendance/students/index'
 import { Route as AttendanceStudentsDateRouteImport } from './routes/attendance/students/$date'
 import { Route as AttendanceStudentsTakeRouteImport } from './routes/attendance/students/take'
+import { Route as CommunicationAnnouncementsIndexRouteImport } from './routes/communication/announcements/index'
+import { Route as CommunicationAnnouncementsIdRouteImport } from './routes/communication/announcements/$id'
+import { Route as CommunicationAnnouncementsNewRouteImport } from './routes/communication/announcements/new'
+import { Route as CommunicationMessagesIndexRouteImport } from './routes/communication/messages/index'
+import { Route as CommunicationMessagesNewRouteImport } from './routes/communication/messages/new'
+import { Route as CommunicationNoticesIndexRouteImport } from './routes/communication/notices/index'
+import { Route as CommunicationNoticesIdRouteImport } from './routes/communication/notices/$id'
+import { Route as CommunicationNoticesNewRouteImport } from './routes/communication/notices/new'
+import { Route as ExamsMarksIndexRouteImport } from './routes/exams/marks/index'
+import { Route as ExamsMarksExamIdRouteImport } from './routes/exams/marks/$examId'
+import { Route as ExamsResultsIndexRouteImport } from './routes/exams/results/index'
+import { Route as ExamsResultsResultIdRouteImport } from './routes/exams/results/$resultId'
 import { Route as FeesStructureIndexRouteImport } from './routes/fees/structure/index'
 import { Route as FeesStructureStructureIdRouteImport } from './routes/fees/structure/$structureId'
 import { Route as FeesStructureNewRouteImport } from './routes/fees/structure/new'
@@ -228,6 +253,72 @@ const AttendanceReportsRoute = AttendanceReportsRouteImport.update({
 const AttendanceSettingsRoute = AttendanceSettingsRouteImport.update({
   id: '/attendance/settings',
   path: '/attendance/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunicationIndexRoute = CommunicationIndexRouteImport.update({
+  id: '/communication/',
+  path: '/communication/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunicationHistoryRoute = CommunicationHistoryRouteImport.update({
+  id: '/communication/history',
+  path: '/communication/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunicationNotificationsRoute =
+  CommunicationNotificationsRouteImport.update({
+    id: '/communication/notifications',
+    path: '/communication/notifications',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationSettingsRoute = CommunicationSettingsRouteImport.update({
+  id: '/communication/settings',
+  path: '/communication/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunicationTemplatesRoute = CommunicationTemplatesRouteImport.update({
+  id: '/communication/templates',
+  path: '/communication/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsIndexRoute = ExamsIndexRouteImport.update({
+  id: '/exams/',
+  path: '/exams/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsExamIdRoute = ExamsExamIdRouteImport.update({
+  id: '/exams/$examId',
+  path: '/exams/$examId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsListRoute = ExamsListRouteImport.update({
+  id: '/exams/list',
+  path: '/exams/list',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsNewRoute = ExamsNewRouteImport.update({
+  id: '/exams/new',
+  path: '/exams/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsRankingsRoute = ExamsRankingsRouteImport.update({
+  id: '/exams/rankings',
+  path: '/exams/rankings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsReportCardsRoute = ExamsReportCardsRouteImport.update({
+  id: '/exams/report-cards',
+  path: '/exams/report-cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsScheduleRoute = ExamsScheduleRouteImport.update({
+  id: '/exams/schedule',
+  path: '/exams/schedule',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsSettingsRoute = ExamsSettingsRouteImport.update({
+  id: '/exams/settings',
+  path: '/exams/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeesIndexRoute = FeesIndexRouteImport.update({
@@ -499,6 +590,72 @@ const AttendanceStudentsTakeRoute = AttendanceStudentsTakeRouteImport.update({
   path: '/attendance/students/take',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommunicationAnnouncementsIndexRoute =
+  CommunicationAnnouncementsIndexRouteImport.update({
+    id: '/communication/announcements/',
+    path: '/communication/announcements/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationAnnouncementsIdRoute =
+  CommunicationAnnouncementsIdRouteImport.update({
+    id: '/communication/announcements/$id',
+    path: '/communication/announcements/$id',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationAnnouncementsNewRoute =
+  CommunicationAnnouncementsNewRouteImport.update({
+    id: '/communication/announcements/new',
+    path: '/communication/announcements/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationMessagesIndexRoute =
+  CommunicationMessagesIndexRouteImport.update({
+    id: '/communication/messages/',
+    path: '/communication/messages/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationMessagesNewRoute =
+  CommunicationMessagesNewRouteImport.update({
+    id: '/communication/messages/new',
+    path: '/communication/messages/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationNoticesIndexRoute =
+  CommunicationNoticesIndexRouteImport.update({
+    id: '/communication/notices/',
+    path: '/communication/notices/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunicationNoticesIdRoute = CommunicationNoticesIdRouteImport.update({
+  id: '/communication/notices/$id',
+  path: '/communication/notices/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunicationNoticesNewRoute = CommunicationNoticesNewRouteImport.update({
+  id: '/communication/notices/new',
+  path: '/communication/notices/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsMarksIndexRoute = ExamsMarksIndexRouteImport.update({
+  id: '/exams/marks/',
+  path: '/exams/marks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsMarksExamIdRoute = ExamsMarksExamIdRouteImport.update({
+  id: '/exams/marks/$examId',
+  path: '/exams/marks/$examId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsResultsIndexRoute = ExamsResultsIndexRouteImport.update({
+  id: '/exams/results/',
+  path: '/exams/results/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsResultsResultIdRoute = ExamsResultsResultIdRouteImport.update({
+  id: '/exams/results/$resultId',
+  path: '/exams/results/$resultId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FeesStructureIndexRoute = FeesStructureIndexRouteImport.update({
   id: '/fees/structure/',
   path: '/fees/structure/',
@@ -592,6 +749,17 @@ export interface FileRoutesByFullPath {
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
+  '/communication/history': typeof CommunicationHistoryRoute
+  '/communication/notifications': typeof CommunicationNotificationsRoute
+  '/communication/settings': typeof CommunicationSettingsRoute
+  '/communication/templates': typeof CommunicationTemplatesRoute
+  '/exams/$examId': typeof ExamsExamIdRoute
+  '/exams/list': typeof ExamsListRoute
+  '/exams/new': typeof ExamsNewRoute
+  '/exams/rankings': typeof ExamsRankingsRoute
+  '/exams/report-cards': typeof ExamsReportCardsRoute
+  '/exams/schedule': typeof ExamsScheduleRoute
+  '/exams/settings': typeof ExamsSettingsRoute
   '/fees/collect': typeof FeesCollectRoute
   '/fees/defaulters': typeof FeesDefaultersRoute
   '/fees/discounts': typeof FeesDiscountsRoute
@@ -611,6 +779,8 @@ export interface FileRoutesByFullPath {
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
+  '/communication/': typeof CommunicationIndexRoute
+  '/exams/': typeof ExamsIndexRoute
   '/fees/': typeof FeesIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
@@ -635,6 +805,13 @@ export interface FileRoutesByFullPath {
   '/attendance/staff/take': typeof AttendanceStaffTakeRoute
   '/attendance/students/$date': typeof AttendanceStudentsDateRoute
   '/attendance/students/take': typeof AttendanceStudentsTakeRoute
+  '/communication/announcements/$id': typeof CommunicationAnnouncementsIdRoute
+  '/communication/announcements/new': typeof CommunicationAnnouncementsNewRoute
+  '/communication/messages/new': typeof CommunicationMessagesNewRoute
+  '/communication/notices/$id': typeof CommunicationNoticesIdRoute
+  '/communication/notices/new': typeof CommunicationNoticesNewRoute
+  '/exams/marks/$examId': typeof ExamsMarksExamIdRoute
+  '/exams/results/$resultId': typeof ExamsResultsResultIdRoute
   '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
   '/fees/structure/new': typeof FeesStructureNewRoute
   '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
@@ -653,6 +830,11 @@ export interface FileRoutesByFullPath {
   '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
   '/attendance/staff/': typeof AttendanceStaffIndexRoute
   '/attendance/students/': typeof AttendanceStudentsIndexRoute
+  '/communication/announcements/': typeof CommunicationAnnouncementsIndexRoute
+  '/communication/messages/': typeof CommunicationMessagesIndexRoute
+  '/communication/notices/': typeof CommunicationNoticesIndexRoute
+  '/exams/marks/': typeof ExamsMarksIndexRoute
+  '/exams/results/': typeof ExamsResultsIndexRoute
   '/fees/structure/': typeof FeesStructureIndexRoute
   '/fees/students/': typeof FeesStudentsIndexRoute
   '/timetable/classes/': typeof TimetableClassesIndexRoute
@@ -684,6 +866,17 @@ export interface FileRoutesByTo {
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
+  '/communication/history': typeof CommunicationHistoryRoute
+  '/communication/notifications': typeof CommunicationNotificationsRoute
+  '/communication/settings': typeof CommunicationSettingsRoute
+  '/communication/templates': typeof CommunicationTemplatesRoute
+  '/exams/$examId': typeof ExamsExamIdRoute
+  '/exams/list': typeof ExamsListRoute
+  '/exams/new': typeof ExamsNewRoute
+  '/exams/rankings': typeof ExamsRankingsRoute
+  '/exams/report-cards': typeof ExamsReportCardsRoute
+  '/exams/schedule': typeof ExamsScheduleRoute
+  '/exams/settings': typeof ExamsSettingsRoute
   '/fees/collect': typeof FeesCollectRoute
   '/fees/defaulters': typeof FeesDefaultersRoute
   '/fees/discounts': typeof FeesDiscountsRoute
@@ -703,6 +896,8 @@ export interface FileRoutesByTo {
   '/academics': typeof AcademicsIndexRoute
   '/admissions': typeof AdmissionsIndexRoute
   '/attendance': typeof AttendanceIndexRoute
+  '/communication': typeof CommunicationIndexRoute
+  '/exams': typeof ExamsIndexRoute
   '/fees': typeof FeesIndexRoute
   '/parents': typeof ParentsIndexRoute
   '/students': typeof StudentsIndexRoute
@@ -727,6 +922,13 @@ export interface FileRoutesByTo {
   '/attendance/staff/take': typeof AttendanceStaffTakeRoute
   '/attendance/students/$date': typeof AttendanceStudentsDateRoute
   '/attendance/students/take': typeof AttendanceStudentsTakeRoute
+  '/communication/announcements/$id': typeof CommunicationAnnouncementsIdRoute
+  '/communication/announcements/new': typeof CommunicationAnnouncementsNewRoute
+  '/communication/messages/new': typeof CommunicationMessagesNewRoute
+  '/communication/notices/$id': typeof CommunicationNoticesIdRoute
+  '/communication/notices/new': typeof CommunicationNoticesNewRoute
+  '/exams/marks/$examId': typeof ExamsMarksExamIdRoute
+  '/exams/results/$resultId': typeof ExamsResultsResultIdRoute
   '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
   '/fees/structure/new': typeof FeesStructureNewRoute
   '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
@@ -745,6 +947,11 @@ export interface FileRoutesByTo {
   '/admissions/enquiries': typeof AdmissionsEnquiriesIndexRoute
   '/attendance/staff': typeof AttendanceStaffIndexRoute
   '/attendance/students': typeof AttendanceStudentsIndexRoute
+  '/communication/announcements': typeof CommunicationAnnouncementsIndexRoute
+  '/communication/messages': typeof CommunicationMessagesIndexRoute
+  '/communication/notices': typeof CommunicationNoticesIndexRoute
+  '/exams/marks': typeof ExamsMarksIndexRoute
+  '/exams/results': typeof ExamsResultsIndexRoute
   '/fees/structure': typeof FeesStructureIndexRoute
   '/fees/students': typeof FeesStudentsIndexRoute
   '/timetable/classes': typeof TimetableClassesIndexRoute
@@ -777,6 +984,17 @@ export interface FileRoutesById {
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
+  '/communication/history': typeof CommunicationHistoryRoute
+  '/communication/notifications': typeof CommunicationNotificationsRoute
+  '/communication/settings': typeof CommunicationSettingsRoute
+  '/communication/templates': typeof CommunicationTemplatesRoute
+  '/exams/$examId': typeof ExamsExamIdRoute
+  '/exams/list': typeof ExamsListRoute
+  '/exams/new': typeof ExamsNewRoute
+  '/exams/rankings': typeof ExamsRankingsRoute
+  '/exams/report-cards': typeof ExamsReportCardsRoute
+  '/exams/schedule': typeof ExamsScheduleRoute
+  '/exams/settings': typeof ExamsSettingsRoute
   '/fees/collect': typeof FeesCollectRoute
   '/fees/defaulters': typeof FeesDefaultersRoute
   '/fees/discounts': typeof FeesDiscountsRoute
@@ -796,6 +1014,8 @@ export interface FileRoutesById {
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
+  '/communication/': typeof CommunicationIndexRoute
+  '/exams/': typeof ExamsIndexRoute
   '/fees/': typeof FeesIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
@@ -820,6 +1040,13 @@ export interface FileRoutesById {
   '/attendance/staff/take': typeof AttendanceStaffTakeRoute
   '/attendance/students/$date': typeof AttendanceStudentsDateRoute
   '/attendance/students/take': typeof AttendanceStudentsTakeRoute
+  '/communication/announcements/$id': typeof CommunicationAnnouncementsIdRoute
+  '/communication/announcements/new': typeof CommunicationAnnouncementsNewRoute
+  '/communication/messages/new': typeof CommunicationMessagesNewRoute
+  '/communication/notices/$id': typeof CommunicationNoticesIdRoute
+  '/communication/notices/new': typeof CommunicationNoticesNewRoute
+  '/exams/marks/$examId': typeof ExamsMarksExamIdRoute
+  '/exams/results/$resultId': typeof ExamsResultsResultIdRoute
   '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
   '/fees/structure/new': typeof FeesStructureNewRoute
   '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
@@ -838,6 +1065,11 @@ export interface FileRoutesById {
   '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
   '/attendance/staff/': typeof AttendanceStaffIndexRoute
   '/attendance/students/': typeof AttendanceStudentsIndexRoute
+  '/communication/announcements/': typeof CommunicationAnnouncementsIndexRoute
+  '/communication/messages/': typeof CommunicationMessagesIndexRoute
+  '/communication/notices/': typeof CommunicationNoticesIndexRoute
+  '/exams/marks/': typeof ExamsMarksIndexRoute
+  '/exams/results/': typeof ExamsResultsIndexRoute
   '/fees/structure/': typeof FeesStructureIndexRoute
   '/fees/students/': typeof FeesStudentsIndexRoute
   '/timetable/classes/': typeof TimetableClassesIndexRoute
@@ -871,6 +1103,17 @@ export interface FileRouteTypes {
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
+    | '/communication/history'
+    | '/communication/notifications'
+    | '/communication/settings'
+    | '/communication/templates'
+    | '/exams/$examId'
+    | '/exams/list'
+    | '/exams/new'
+    | '/exams/rankings'
+    | '/exams/report-cards'
+    | '/exams/schedule'
+    | '/exams/settings'
     | '/fees/collect'
     | '/fees/defaulters'
     | '/fees/discounts'
@@ -890,6 +1133,8 @@ export interface FileRouteTypes {
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
+    | '/communication/'
+    | '/exams/'
     | '/fees/'
     | '/parents/'
     | '/students/'
@@ -914,6 +1159,13 @@ export interface FileRouteTypes {
     | '/attendance/staff/take'
     | '/attendance/students/$date'
     | '/attendance/students/take'
+    | '/communication/announcements/$id'
+    | '/communication/announcements/new'
+    | '/communication/messages/new'
+    | '/communication/notices/$id'
+    | '/communication/notices/new'
+    | '/exams/marks/$examId'
+    | '/exams/results/$resultId'
     | '/fees/structure/$structureId'
     | '/fees/structure/new'
     | '/fees/students/$studentId'
@@ -932,6 +1184,11 @@ export interface FileRouteTypes {
     | '/admissions/enquiries/'
     | '/attendance/staff/'
     | '/attendance/students/'
+    | '/communication/announcements/'
+    | '/communication/messages/'
+    | '/communication/notices/'
+    | '/exams/marks/'
+    | '/exams/results/'
     | '/fees/structure/'
     | '/fees/students/'
     | '/timetable/classes/'
@@ -963,6 +1220,17 @@ export interface FileRouteTypes {
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
+    | '/communication/history'
+    | '/communication/notifications'
+    | '/communication/settings'
+    | '/communication/templates'
+    | '/exams/$examId'
+    | '/exams/list'
+    | '/exams/new'
+    | '/exams/rankings'
+    | '/exams/report-cards'
+    | '/exams/schedule'
+    | '/exams/settings'
     | '/fees/collect'
     | '/fees/defaulters'
     | '/fees/discounts'
@@ -982,6 +1250,8 @@ export interface FileRouteTypes {
     | '/academics'
     | '/admissions'
     | '/attendance'
+    | '/communication'
+    | '/exams'
     | '/fees'
     | '/parents'
     | '/students'
@@ -1006,6 +1276,13 @@ export interface FileRouteTypes {
     | '/attendance/staff/take'
     | '/attendance/students/$date'
     | '/attendance/students/take'
+    | '/communication/announcements/$id'
+    | '/communication/announcements/new'
+    | '/communication/messages/new'
+    | '/communication/notices/$id'
+    | '/communication/notices/new'
+    | '/exams/marks/$examId'
+    | '/exams/results/$resultId'
     | '/fees/structure/$structureId'
     | '/fees/structure/new'
     | '/fees/students/$studentId'
@@ -1024,6 +1301,11 @@ export interface FileRouteTypes {
     | '/admissions/enquiries'
     | '/attendance/staff'
     | '/attendance/students'
+    | '/communication/announcements'
+    | '/communication/messages'
+    | '/communication/notices'
+    | '/exams/marks'
+    | '/exams/results'
     | '/fees/structure'
     | '/fees/students'
     | '/timetable/classes'
@@ -1055,6 +1337,17 @@ export interface FileRouteTypes {
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
+    | '/communication/history'
+    | '/communication/notifications'
+    | '/communication/settings'
+    | '/communication/templates'
+    | '/exams/$examId'
+    | '/exams/list'
+    | '/exams/new'
+    | '/exams/rankings'
+    | '/exams/report-cards'
+    | '/exams/schedule'
+    | '/exams/settings'
     | '/fees/collect'
     | '/fees/defaulters'
     | '/fees/discounts'
@@ -1074,6 +1367,8 @@ export interface FileRouteTypes {
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
+    | '/communication/'
+    | '/exams/'
     | '/fees/'
     | '/parents/'
     | '/students/'
@@ -1098,6 +1393,13 @@ export interface FileRouteTypes {
     | '/attendance/staff/take'
     | '/attendance/students/$date'
     | '/attendance/students/take'
+    | '/communication/announcements/$id'
+    | '/communication/announcements/new'
+    | '/communication/messages/new'
+    | '/communication/notices/$id'
+    | '/communication/notices/new'
+    | '/exams/marks/$examId'
+    | '/exams/results/$resultId'
     | '/fees/structure/$structureId'
     | '/fees/structure/new'
     | '/fees/students/$studentId'
@@ -1116,6 +1418,11 @@ export interface FileRouteTypes {
     | '/admissions/enquiries/'
     | '/attendance/staff/'
     | '/attendance/students/'
+    | '/communication/announcements/'
+    | '/communication/messages/'
+    | '/communication/notices/'
+    | '/exams/marks/'
+    | '/exams/results/'
     | '/fees/structure/'
     | '/fees/students/'
     | '/timetable/classes/'
@@ -1148,6 +1455,17 @@ export interface RootRouteChildren {
   AttendanceLeaveRoute: typeof AttendanceLeaveRoute
   AttendanceReportsRoute: typeof AttendanceReportsRoute
   AttendanceSettingsRoute: typeof AttendanceSettingsRoute
+  CommunicationHistoryRoute: typeof CommunicationHistoryRoute
+  CommunicationNotificationsRoute: typeof CommunicationNotificationsRoute
+  CommunicationSettingsRoute: typeof CommunicationSettingsRoute
+  CommunicationTemplatesRoute: typeof CommunicationTemplatesRoute
+  ExamsExamIdRoute: typeof ExamsExamIdRoute
+  ExamsListRoute: typeof ExamsListRoute
+  ExamsNewRoute: typeof ExamsNewRoute
+  ExamsRankingsRoute: typeof ExamsRankingsRoute
+  ExamsReportCardsRoute: typeof ExamsReportCardsRoute
+  ExamsScheduleRoute: typeof ExamsScheduleRoute
+  ExamsSettingsRoute: typeof ExamsSettingsRoute
   FeesCollectRoute: typeof FeesCollectRoute
   FeesDefaultersRoute: typeof FeesDefaultersRoute
   FeesDiscountsRoute: typeof FeesDiscountsRoute
@@ -1167,6 +1485,8 @@ export interface RootRouteChildren {
   AcademicsIndexRoute: typeof AcademicsIndexRoute
   AdmissionsIndexRoute: typeof AdmissionsIndexRoute
   AttendanceIndexRoute: typeof AttendanceIndexRoute
+  CommunicationIndexRoute: typeof CommunicationIndexRoute
+  ExamsIndexRoute: typeof ExamsIndexRoute
   FeesIndexRoute: typeof FeesIndexRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
@@ -1191,6 +1511,13 @@ export interface RootRouteChildren {
   AttendanceStaffTakeRoute: typeof AttendanceStaffTakeRoute
   AttendanceStudentsDateRoute: typeof AttendanceStudentsDateRoute
   AttendanceStudentsTakeRoute: typeof AttendanceStudentsTakeRoute
+  CommunicationAnnouncementsIdRoute: typeof CommunicationAnnouncementsIdRoute
+  CommunicationAnnouncementsNewRoute: typeof CommunicationAnnouncementsNewRoute
+  CommunicationMessagesNewRoute: typeof CommunicationMessagesNewRoute
+  CommunicationNoticesIdRoute: typeof CommunicationNoticesIdRoute
+  CommunicationNoticesNewRoute: typeof CommunicationNoticesNewRoute
+  ExamsMarksExamIdRoute: typeof ExamsMarksExamIdRoute
+  ExamsResultsResultIdRoute: typeof ExamsResultsResultIdRoute
   FeesStructureStructureIdRoute: typeof FeesStructureStructureIdRoute
   FeesStructureNewRoute: typeof FeesStructureNewRoute
   FeesStudentsStudentIdRoute: typeof FeesStudentsStudentIdRoute
@@ -1208,6 +1535,11 @@ export interface RootRouteChildren {
   AdmissionsEnquiriesIndexRoute: typeof AdmissionsEnquiriesIndexRoute
   AttendanceStaffIndexRoute: typeof AttendanceStaffIndexRoute
   AttendanceStudentsIndexRoute: typeof AttendanceStudentsIndexRoute
+  CommunicationAnnouncementsIndexRoute: typeof CommunicationAnnouncementsIndexRoute
+  CommunicationMessagesIndexRoute: typeof CommunicationMessagesIndexRoute
+  CommunicationNoticesIndexRoute: typeof CommunicationNoticesIndexRoute
+  ExamsMarksIndexRoute: typeof ExamsMarksIndexRoute
+  ExamsResultsIndexRoute: typeof ExamsResultsIndexRoute
   FeesStructureIndexRoute: typeof FeesStructureIndexRoute
   FeesStudentsIndexRoute: typeof FeesStudentsIndexRoute
   TimetableClassesIndexRoute: typeof TimetableClassesIndexRoute
@@ -1399,6 +1731,97 @@ declare module '@tanstack/react-router' {
       path: '/attendance/settings'
       fullPath: '/attendance/settings'
       preLoaderRoute: typeof AttendanceSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/': {
+      id: '/communication/'
+      path: '/communication'
+      fullPath: '/communication/'
+      preLoaderRoute: typeof CommunicationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/history': {
+      id: '/communication/history'
+      path: '/communication/history'
+      fullPath: '/communication/history'
+      preLoaderRoute: typeof CommunicationHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/notifications': {
+      id: '/communication/notifications'
+      path: '/communication/notifications'
+      fullPath: '/communication/notifications'
+      preLoaderRoute: typeof CommunicationNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/settings': {
+      id: '/communication/settings'
+      path: '/communication/settings'
+      fullPath: '/communication/settings'
+      preLoaderRoute: typeof CommunicationSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/templates': {
+      id: '/communication/templates'
+      path: '/communication/templates'
+      fullPath: '/communication/templates'
+      preLoaderRoute: typeof CommunicationTemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/': {
+      id: '/exams/'
+      path: '/exams'
+      fullPath: '/exams/'
+      preLoaderRoute: typeof ExamsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/$examId': {
+      id: '/exams/$examId'
+      path: '/exams/$examId'
+      fullPath: '/exams/$examId'
+      preLoaderRoute: typeof ExamsExamIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/list': {
+      id: '/exams/list'
+      path: '/exams/list'
+      fullPath: '/exams/list'
+      preLoaderRoute: typeof ExamsListRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/new': {
+      id: '/exams/new'
+      path: '/exams/new'
+      fullPath: '/exams/new'
+      preLoaderRoute: typeof ExamsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/rankings': {
+      id: '/exams/rankings'
+      path: '/exams/rankings'
+      fullPath: '/exams/rankings'
+      preLoaderRoute: typeof ExamsRankingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/report-cards': {
+      id: '/exams/report-cards'
+      path: '/exams/report-cards'
+      fullPath: '/exams/report-cards'
+      preLoaderRoute: typeof ExamsReportCardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/schedule': {
+      id: '/exams/schedule'
+      path: '/exams/schedule'
+      fullPath: '/exams/schedule'
+      preLoaderRoute: typeof ExamsScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/settings': {
+      id: '/exams/settings'
+      path: '/exams/settings'
+      fullPath: '/exams/settings'
+      preLoaderRoute: typeof ExamsSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fees/': {
@@ -1758,6 +2181,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AttendanceStudentsTakeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/communication/announcements/': {
+      id: '/communication/announcements/'
+      path: '/communication/announcements'
+      fullPath: '/communication/announcements/'
+      preLoaderRoute: typeof CommunicationAnnouncementsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/announcements/$id': {
+      id: '/communication/announcements/$id'
+      path: '/communication/announcements/$id'
+      fullPath: '/communication/announcements/$id'
+      preLoaderRoute: typeof CommunicationAnnouncementsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/announcements/new': {
+      id: '/communication/announcements/new'
+      path: '/communication/announcements/new'
+      fullPath: '/communication/announcements/new'
+      preLoaderRoute: typeof CommunicationAnnouncementsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/messages/': {
+      id: '/communication/messages/'
+      path: '/communication/messages'
+      fullPath: '/communication/messages/'
+      preLoaderRoute: typeof CommunicationMessagesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/messages/new': {
+      id: '/communication/messages/new'
+      path: '/communication/messages/new'
+      fullPath: '/communication/messages/new'
+      preLoaderRoute: typeof CommunicationMessagesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/notices/': {
+      id: '/communication/notices/'
+      path: '/communication/notices'
+      fullPath: '/communication/notices/'
+      preLoaderRoute: typeof CommunicationNoticesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/notices/$id': {
+      id: '/communication/notices/$id'
+      path: '/communication/notices/$id'
+      fullPath: '/communication/notices/$id'
+      preLoaderRoute: typeof CommunicationNoticesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communication/notices/new': {
+      id: '/communication/notices/new'
+      path: '/communication/notices/new'
+      fullPath: '/communication/notices/new'
+      preLoaderRoute: typeof CommunicationNoticesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/marks/': {
+      id: '/exams/marks/'
+      path: '/exams/marks'
+      fullPath: '/exams/marks/'
+      preLoaderRoute: typeof ExamsMarksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/marks/$examId': {
+      id: '/exams/marks/$examId'
+      path: '/exams/marks/$examId'
+      fullPath: '/exams/marks/$examId'
+      preLoaderRoute: typeof ExamsMarksExamIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/results/': {
+      id: '/exams/results/'
+      path: '/exams/results'
+      fullPath: '/exams/results/'
+      preLoaderRoute: typeof ExamsResultsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams/results/$resultId': {
+      id: '/exams/results/$resultId'
+      path: '/exams/results/$resultId'
+      fullPath: '/exams/results/$resultId'
+      preLoaderRoute: typeof ExamsResultsResultIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fees/structure/': {
       id: '/fees/structure/'
       path: '/fees/structure'
@@ -1886,6 +2393,17 @@ const rootRouteChildren: RootRouteChildren = {
   AttendanceLeaveRoute: AttendanceLeaveRoute,
   AttendanceReportsRoute: AttendanceReportsRoute,
   AttendanceSettingsRoute: AttendanceSettingsRoute,
+  CommunicationHistoryRoute: CommunicationHistoryRoute,
+  CommunicationNotificationsRoute: CommunicationNotificationsRoute,
+  CommunicationSettingsRoute: CommunicationSettingsRoute,
+  CommunicationTemplatesRoute: CommunicationTemplatesRoute,
+  ExamsExamIdRoute: ExamsExamIdRoute,
+  ExamsListRoute: ExamsListRoute,
+  ExamsNewRoute: ExamsNewRoute,
+  ExamsRankingsRoute: ExamsRankingsRoute,
+  ExamsReportCardsRoute: ExamsReportCardsRoute,
+  ExamsScheduleRoute: ExamsScheduleRoute,
+  ExamsSettingsRoute: ExamsSettingsRoute,
   FeesCollectRoute: FeesCollectRoute,
   FeesDefaultersRoute: FeesDefaultersRoute,
   FeesDiscountsRoute: FeesDiscountsRoute,
@@ -1905,6 +2423,8 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicsIndexRoute: AcademicsIndexRoute,
   AdmissionsIndexRoute: AdmissionsIndexRoute,
   AttendanceIndexRoute: AttendanceIndexRoute,
+  CommunicationIndexRoute: CommunicationIndexRoute,
+  ExamsIndexRoute: ExamsIndexRoute,
   FeesIndexRoute: FeesIndexRoute,
   ParentsIndexRoute: ParentsIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
@@ -1931,6 +2451,13 @@ const rootRouteChildren: RootRouteChildren = {
   AttendanceStaffTakeRoute: AttendanceStaffTakeRoute,
   AttendanceStudentsDateRoute: AttendanceStudentsDateRoute,
   AttendanceStudentsTakeRoute: AttendanceStudentsTakeRoute,
+  CommunicationAnnouncementsIdRoute: CommunicationAnnouncementsIdRoute,
+  CommunicationAnnouncementsNewRoute: CommunicationAnnouncementsNewRoute,
+  CommunicationMessagesNewRoute: CommunicationMessagesNewRoute,
+  CommunicationNoticesIdRoute: CommunicationNoticesIdRoute,
+  CommunicationNoticesNewRoute: CommunicationNoticesNewRoute,
+  ExamsMarksExamIdRoute: ExamsMarksExamIdRoute,
+  ExamsResultsResultIdRoute: ExamsResultsResultIdRoute,
   FeesStructureStructureIdRoute: FeesStructureStructureIdRoute,
   FeesStructureNewRoute: FeesStructureNewRoute,
   FeesStudentsStudentIdRoute: FeesStudentsStudentIdRoute,
@@ -1948,6 +2475,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdmissionsEnquiriesIndexRoute: AdmissionsEnquiriesIndexRoute,
   AttendanceStaffIndexRoute: AttendanceStaffIndexRoute,
   AttendanceStudentsIndexRoute: AttendanceStudentsIndexRoute,
+  CommunicationAnnouncementsIndexRoute: CommunicationAnnouncementsIndexRoute,
+  CommunicationMessagesIndexRoute: CommunicationMessagesIndexRoute,
+  CommunicationNoticesIndexRoute: CommunicationNoticesIndexRoute,
+  ExamsMarksIndexRoute: ExamsMarksIndexRoute,
+  ExamsResultsIndexRoute: ExamsResultsIndexRoute,
   FeesStructureIndexRoute: FeesStructureIndexRoute,
   FeesStudentsIndexRoute: FeesStudentsIndexRoute,
   TimetableClassesIndexRoute: TimetableClassesIndexRoute,

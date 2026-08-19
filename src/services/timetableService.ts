@@ -218,6 +218,15 @@ export async function updateRoom(
   });
 }
 
+export const listRooms = getRooms;
+
+export async function getRoomById(organizationId: string, roomId: string): Promise<Room | null> {
+  const docRef = doc(db, "organizations", organizationId, "rooms", roomId);
+  const snap = await getDoc(docRef);
+  if (!snap.exists()) return null;
+  return snap.data() as Room;
+}
+
 export async function deleteRoom(organizationId: string, roomId: string): Promise<void> {
   const entriesSnap = await getDocs(
     query(

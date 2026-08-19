@@ -25,6 +25,7 @@ import {
   Plus,
   CreditCard,
   Receipt,
+  Award,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { getStudent, deactivateStudent } from "@/services/studentService";
@@ -37,6 +38,7 @@ import {
 import { getAuditLogsForEntity } from "@/services/auditService";
 import { getStudentAttendanceSummary } from "@/services/attendanceService";
 import { getStudentFeeSummary } from "@/services/feeService";
+import { getStudentResultHistory } from "@/services/examService";
 import type {
   Student,
   Parent,
@@ -45,6 +47,7 @@ import type {
   DocumentType,
   StudentAttendanceSummary,
   StudentFeeSummary,
+  ExamResult,
 } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,10 +76,11 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
   const [activities, setActivities] = useState<AuditLog[]>([]);
   const [attendanceSummary, setAttendanceSummary] = useState<StudentAttendanceSummary | null>(null);
   const [feeSummary, setFeeSummary] = useState<StudentFeeSummary | null>(null);
+  const [examResults, setExamResults] = useState<ExamResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "parents" | "fees" | "documents" | "activity">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "exams" | "fees" | "parents" | "documents" | "activity">("overview");
 
   // Deactivate modal
   const [isDeactivateOpen, setIsDeactivateOpen] = useState(false);
@@ -108,18 +112,20 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
           parentPromises.push(getParent(organization.id, studentData.parentIds.motherId).then(setMother));
         }
 
-        // Fetch Documents, Audit Activity, Attendance Summary & Fee Summary
-        const [docs, logs, attSummary, fSummary] = await Promise.all([
+        // Fetch Documents, Audit Activity, Attendance, Fee Summary & Exam Results
+        const [docs, logs, attSummary, fSummary, exResults] = await Promise.all([
           getStudentDocuments(organization.id, studentData.id),
           getAuditLogsForEntity(organization.id, studentData.id),
           getStudentAttendanceSummary(organization.id, studentData.id, selectedSession?.id).catch(() => null),
           getStudentFeeSummary(organization.id, studentData.id).catch(() => null),
+          getStudentResultHistory(organization.id, studentData.id).catch(() => []),
           ...parentPromises,
         ]);
         setDocuments(docs);
         setActivities(logs);
         setAttendanceSummary(attSummary);
         setFeeSummary(fSummary);
+        setExamResults(exResults);
       }
     } catch (err) {
       console.error("Error loading student profile:", err);
@@ -216,6 +222,7 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
     { id: "overview", label: "Overview", icon: User },
     { id: "academic", label: "Academic", icon: GraduationCap },
     { id: "attendance", label: "Attendance", icon: Calendar },
+    { id: "exams", label: `Examinations (${examResults.length})`, icon: Award },
     { id: "fees", label: "Fees & Ledger", icon: CreditCard },
     { id: "parents", label: "Parents & Guardians", icon: Users },
     { id: "documents", label: `Documents (${documents.length})`, icon: FileText },
@@ -590,6 +597,80 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
               </div>
             ) : (
               <p className="py-4 text-xs text-muted-foreground">No mother record linked to this student.</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: Examinations & Results */}
+      {activeTab === "exams" && (
+        <div className="space-y-6">
+          <div className="rounded-3xl border border-border bg-card shadow-soft overflow-hidden">
+            <div className="flex items-center justify-between border-b border-border px-6 py-4">
+              <div>
+                <h3 className="text-sm font-extrabold text-foreground">Examination Scorecards ({examResults.length})</h3>
+                <p className="text-xs text-muted-foreground">Official published assessments and performance grades</p>
+              </div>
+              <Button variant="outline" size="sm" asChild className="rounded-xl text-xs font-semibold">
+                <Link to="/exams/report-cards">
+                  <Printer className="size-3.5 mr-1.5" /> Printable Report Cards
+                </Link>
+              </Button>
+            </div>
+
+            {examResults.length === 0 ? (
+              <p className="py-8 text-center text-xs text-muted-foreground italic">
+                No examination results published for this student yet.
+              </p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="border-b border-border bg-surface/50 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <tr>
+                      <th className="px-6 py-3.5">Examination</th>
+                      <th className="px-4 py-3.5">Total Marks</th>
+                      <th className="px-4 py-3.5">Percentage</th>
+                      <th className="px-4 py-3.5">Grade</th>
+                      <th className="px-4 py-3.5">Rank</th>
+                      <th className="px-4 py-3.5">Result</th>
+                      <th className="px-6 py-3.5 text-right">Scorecard</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border font-medium">
+                    {examResults.map((res) => (
+                      <tr key={res.id} className="hover:bg-surface/30 transition-colors">
+                        <td className="px-6 py-3.5 font-bold text-foreground">{res.examName}</td>
+                        <td className="px-4 py-3.5 text-foreground font-mono">
+                          {res.totalObtained} / {res.totalMaximum}
+                        </td>
+                        <td className="px-4 py-3.5 font-bold text-foreground">{res.percentage}%</td>
+                        <td className="px-4 py-3.5 font-bold text-primary">{res.grade}</td>
+                        <td className="px-4 py-3.5 font-mono text-muted-foreground">
+                          {res.rank ? `#${res.rank}` : "—"}
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <span
+                            className={`inline-block rounded-md px-2 py-0.5 text-[10px] font-bold ${
+                              res.resultStatus === "Pass"
+                                ? "bg-emerald-500/10 text-emerald-600"
+                                : "bg-destructive/10 text-destructive"
+                            }`}
+                          >
+                            {res.resultStatus}
+                          </span>
+                        </td>
+                        <td className="px-6 py-3.5 text-right">
+                          <Button variant="ghost" size="sm" asChild className="h-7 px-2 text-xs">
+                            <Link to="/exams/results/$resultId" params={{ resultId: res.id }}>
+                              View Breakdown →
+                            </Link>
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </div>

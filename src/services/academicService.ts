@@ -1381,3 +1381,26 @@ export const getAcademicDashboardStats = async (
     unassignedClassesCount,
   };
 };
+
+export const getSectionsByClass = async (
+  organizationId: string,
+  classId: string
+): Promise<Section[]> => {
+  return await getSections(organizationId, classId);
+};
+
+export const getSubjectsByClass = async (
+  organizationId: string,
+  classId: string
+): Promise<Subject[]> => {
+  const mappings = await getClassSubjects(organizationId, classId);
+  if (mappings.length > 0) {
+    const subjs = await Promise.all(
+      mappings.map((m) => getSubjectById(organizationId, m.subjectId))
+    );
+    const valid = subjs.filter(Boolean) as Subject[];
+    if (valid.length > 0) return valid;
+  }
+  return await getSubjects(organizationId);
+};
+
