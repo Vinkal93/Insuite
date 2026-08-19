@@ -16,12 +16,25 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SetupRouteImport } from './routes/setup'
+import { Route as AdmissionsIndexRouteImport } from './routes/admissions/index'
+import { Route as AdmissionsCounsellingRouteImport } from './routes/admissions/counselling'
+import { Route as AdmissionsDocumentsRouteImport } from './routes/admissions/documents'
+import { Route as AdmissionsFollowUpsRouteImport } from './routes/admissions/follow-ups'
+import { Route as AdmissionsSettingsRouteImport } from './routes/admissions/settings'
 import { Route as ParentsIndexRouteImport } from './routes/parents/index'
 import { Route as ParentsParentIdRouteImport } from './routes/parents/$parentId'
 import { Route as StudentsIndexRouteImport } from './routes/students/index'
 import { Route as StudentsStudentIdRouteImport } from './routes/students/$studentId'
 import { Route as StudentsNewRouteImport } from './routes/students/new'
 import { Route as StudentsPromotionsRouteImport } from './routes/students/promotions'
+import { Route as AdmissionsAdmittedIndexRouteImport } from './routes/admissions/admitted/index'
+import { Route as AdmissionsAdmittedAdmissionIdRouteImport } from './routes/admissions/admitted/$admissionId'
+import { Route as AdmissionsApplicationsIndexRouteImport } from './routes/admissions/applications/index'
+import { Route as AdmissionsApplicationsApplicationIdRouteImport } from './routes/admissions/applications/$applicationId'
+import { Route as AdmissionsApplicationsNewRouteImport } from './routes/admissions/applications/new'
+import { Route as AdmissionsEnquiriesIndexRouteImport } from './routes/admissions/enquiries/index'
+import { Route as AdmissionsEnquiriesEnquiryIdRouteImport } from './routes/admissions/enquiries/$enquiryId'
+import { Route as AdmissionsEnquiriesNewRouteImport } from './routes/admissions/enquiries/new'
 import { Route as StudentsStudentIdEditRouteImport } from './routes/students/$studentId.edit'
 
 const IndexRoute = IndexRouteImport.update({
@@ -59,6 +72,31 @@ const SetupRoute = SetupRouteImport.update({
   path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdmissionsIndexRoute = AdmissionsIndexRouteImport.update({
+  id: '/admissions/',
+  path: '/admissions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsCounsellingRoute = AdmissionsCounsellingRouteImport.update({
+  id: '/admissions/counselling',
+  path: '/admissions/counselling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsDocumentsRoute = AdmissionsDocumentsRouteImport.update({
+  id: '/admissions/documents',
+  path: '/admissions/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsFollowUpsRoute = AdmissionsFollowUpsRouteImport.update({
+  id: '/admissions/follow-ups',
+  path: '/admissions/follow-ups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsSettingsRoute = AdmissionsSettingsRouteImport.update({
+  id: '/admissions/settings',
+  path: '/admissions/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ParentsIndexRoute = ParentsIndexRouteImport.update({
   id: '/parents/',
   path: '/parents/',
@@ -89,6 +127,52 @@ const StudentsPromotionsRoute = StudentsPromotionsRouteImport.update({
   path: '/students/promotions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdmissionsAdmittedIndexRoute = AdmissionsAdmittedIndexRouteImport.update({
+  id: '/admissions/admitted/',
+  path: '/admissions/admitted/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsAdmittedAdmissionIdRoute =
+  AdmissionsAdmittedAdmissionIdRouteImport.update({
+    id: '/admissions/admitted/$admissionId',
+    path: '/admissions/admitted/$admissionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdmissionsApplicationsIndexRoute =
+  AdmissionsApplicationsIndexRouteImport.update({
+    id: '/admissions/applications/',
+    path: '/admissions/applications/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdmissionsApplicationsApplicationIdRoute =
+  AdmissionsApplicationsApplicationIdRouteImport.update({
+    id: '/admissions/applications/$applicationId',
+    path: '/admissions/applications/$applicationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdmissionsApplicationsNewRoute =
+  AdmissionsApplicationsNewRouteImport.update({
+    id: '/admissions/applications/new',
+    path: '/admissions/applications/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdmissionsEnquiriesIndexRoute =
+  AdmissionsEnquiriesIndexRouteImport.update({
+    id: '/admissions/enquiries/',
+    path: '/admissions/enquiries/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdmissionsEnquiriesEnquiryIdRoute =
+  AdmissionsEnquiriesEnquiryIdRouteImport.update({
+    id: '/admissions/enquiries/$enquiryId',
+    path: '/admissions/enquiries/$enquiryId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdmissionsEnquiriesNewRoute = AdmissionsEnquiriesNewRouteImport.update({
+  id: '/admissions/enquiries/new',
+  path: '/admissions/enquiries/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentsStudentIdEditRoute = StudentsStudentIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -103,13 +187,26 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/admissions/counselling': typeof AdmissionsCounsellingRoute
+  '/admissions/documents': typeof AdmissionsDocumentsRoute
+  '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
+  '/admissions/settings': typeof AdmissionsSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/admissions/': typeof AdmissionsIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/admissions/admitted/$admissionId': typeof AdmissionsAdmittedAdmissionIdRoute
+  '/admissions/applications/$applicationId': typeof AdmissionsApplicationsApplicationIdRoute
+  '/admissions/applications/new': typeof AdmissionsApplicationsNewRoute
+  '/admissions/enquiries/$enquiryId': typeof AdmissionsEnquiriesEnquiryIdRoute
+  '/admissions/enquiries/new': typeof AdmissionsEnquiriesNewRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/admissions/admitted/': typeof AdmissionsAdmittedIndexRoute
+  '/admissions/applications/': typeof AdmissionsApplicationsIndexRoute
+  '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -119,13 +216,26 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/admissions/counselling': typeof AdmissionsCounsellingRoute
+  '/admissions/documents': typeof AdmissionsDocumentsRoute
+  '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
+  '/admissions/settings': typeof AdmissionsSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/admissions': typeof AdmissionsIndexRoute
   '/parents': typeof ParentsIndexRoute
   '/students': typeof StudentsIndexRoute
+  '/admissions/admitted/$admissionId': typeof AdmissionsAdmittedAdmissionIdRoute
+  '/admissions/applications/$applicationId': typeof AdmissionsApplicationsApplicationIdRoute
+  '/admissions/applications/new': typeof AdmissionsApplicationsNewRoute
+  '/admissions/enquiries/$enquiryId': typeof AdmissionsEnquiriesEnquiryIdRoute
+  '/admissions/enquiries/new': typeof AdmissionsEnquiriesNewRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/admissions/admitted': typeof AdmissionsAdmittedIndexRoute
+  '/admissions/applications': typeof AdmissionsApplicationsIndexRoute
+  '/admissions/enquiries': typeof AdmissionsEnquiriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -136,13 +246,26 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/admissions/counselling': typeof AdmissionsCounsellingRoute
+  '/admissions/documents': typeof AdmissionsDocumentsRoute
+  '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
+  '/admissions/settings': typeof AdmissionsSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/admissions/': typeof AdmissionsIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/admissions/admitted/$admissionId': typeof AdmissionsAdmittedAdmissionIdRoute
+  '/admissions/applications/$applicationId': typeof AdmissionsApplicationsApplicationIdRoute
+  '/admissions/applications/new': typeof AdmissionsApplicationsNewRoute
+  '/admissions/enquiries/$enquiryId': typeof AdmissionsEnquiriesEnquiryIdRoute
+  '/admissions/enquiries/new': typeof AdmissionsEnquiriesNewRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/admissions/admitted/': typeof AdmissionsAdmittedIndexRoute
+  '/admissions/applications/': typeof AdmissionsApplicationsIndexRoute
+  '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -154,13 +277,26 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/setup'
+    | '/admissions/counselling'
+    | '/admissions/documents'
+    | '/admissions/follow-ups'
+    | '/admissions/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/admissions/'
     | '/parents/'
     | '/students/'
+    | '/admissions/admitted/$admissionId'
+    | '/admissions/applications/$applicationId'
+    | '/admissions/applications/new'
+    | '/admissions/enquiries/$enquiryId'
+    | '/admissions/enquiries/new'
     | '/students/$studentId/edit'
+    | '/admissions/admitted/'
+    | '/admissions/applications/'
+    | '/admissions/enquiries/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -170,13 +306,26 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/setup'
+    | '/admissions/counselling'
+    | '/admissions/documents'
+    | '/admissions/follow-ups'
+    | '/admissions/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/admissions'
     | '/parents'
     | '/students'
+    | '/admissions/admitted/$admissionId'
+    | '/admissions/applications/$applicationId'
+    | '/admissions/applications/new'
+    | '/admissions/enquiries/$enquiryId'
+    | '/admissions/enquiries/new'
     | '/students/$studentId/edit'
+    | '/admissions/admitted'
+    | '/admissions/applications'
+    | '/admissions/enquiries'
   id:
     | '__root__'
     | '/'
@@ -186,13 +335,26 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/setup'
+    | '/admissions/counselling'
+    | '/admissions/documents'
+    | '/admissions/follow-ups'
+    | '/admissions/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/admissions/'
     | '/parents/'
     | '/students/'
+    | '/admissions/admitted/$admissionId'
+    | '/admissions/applications/$applicationId'
+    | '/admissions/applications/new'
+    | '/admissions/enquiries/$enquiryId'
+    | '/admissions/enquiries/new'
     | '/students/$studentId/edit'
+    | '/admissions/admitted/'
+    | '/admissions/applications/'
+    | '/admissions/enquiries/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -203,12 +365,25 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SettingsRoute: typeof SettingsRoute
   SetupRoute: typeof SetupRoute
+  AdmissionsCounsellingRoute: typeof AdmissionsCounsellingRoute
+  AdmissionsDocumentsRoute: typeof AdmissionsDocumentsRoute
+  AdmissionsFollowUpsRoute: typeof AdmissionsFollowUpsRoute
+  AdmissionsSettingsRoute: typeof AdmissionsSettingsRoute
   ParentsParentIdRoute: typeof ParentsParentIdRoute
   StudentsStudentIdRoute: typeof StudentsStudentIdRouteWithChildren
   StudentsNewRoute: typeof StudentsNewRoute
   StudentsPromotionsRoute: typeof StudentsPromotionsRoute
+  AdmissionsIndexRoute: typeof AdmissionsIndexRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
+  AdmissionsAdmittedAdmissionIdRoute: typeof AdmissionsAdmittedAdmissionIdRoute
+  AdmissionsApplicationsApplicationIdRoute: typeof AdmissionsApplicationsApplicationIdRoute
+  AdmissionsApplicationsNewRoute: typeof AdmissionsApplicationsNewRoute
+  AdmissionsEnquiriesEnquiryIdRoute: typeof AdmissionsEnquiriesEnquiryIdRoute
+  AdmissionsEnquiriesNewRoute: typeof AdmissionsEnquiriesNewRoute
+  AdmissionsAdmittedIndexRoute: typeof AdmissionsAdmittedIndexRoute
+  AdmissionsApplicationsIndexRoute: typeof AdmissionsApplicationsIndexRoute
+  AdmissionsEnquiriesIndexRoute: typeof AdmissionsEnquiriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -262,6 +437,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admissions/': {
+      id: '/admissions/'
+      path: '/admissions'
+      fullPath: '/admissions/'
+      preLoaderRoute: typeof AdmissionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/counselling': {
+      id: '/admissions/counselling'
+      path: '/admissions/counselling'
+      fullPath: '/admissions/counselling'
+      preLoaderRoute: typeof AdmissionsCounsellingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/documents': {
+      id: '/admissions/documents'
+      path: '/admissions/documents'
+      fullPath: '/admissions/documents'
+      preLoaderRoute: typeof AdmissionsDocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/follow-ups': {
+      id: '/admissions/follow-ups'
+      path: '/admissions/follow-ups'
+      fullPath: '/admissions/follow-ups'
+      preLoaderRoute: typeof AdmissionsFollowUpsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/settings': {
+      id: '/admissions/settings'
+      path: '/admissions/settings'
+      fullPath: '/admissions/settings'
+      preLoaderRoute: typeof AdmissionsSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/parents/': {
       id: '/parents/'
       path: '/parents'
@@ -304,6 +514,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentsPromotionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admissions/admitted/': {
+      id: '/admissions/admitted/'
+      path: '/admissions/admitted'
+      fullPath: '/admissions/admitted/'
+      preLoaderRoute: typeof AdmissionsAdmittedIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/admitted/$admissionId': {
+      id: '/admissions/admitted/$admissionId'
+      path: '/admissions/admitted/$admissionId'
+      fullPath: '/admissions/admitted/$admissionId'
+      preLoaderRoute: typeof AdmissionsAdmittedAdmissionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/applications/': {
+      id: '/admissions/applications/'
+      path: '/admissions/applications'
+      fullPath: '/admissions/applications/'
+      preLoaderRoute: typeof AdmissionsApplicationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/applications/$applicationId': {
+      id: '/admissions/applications/$applicationId'
+      path: '/admissions/applications/$applicationId'
+      fullPath: '/admissions/applications/$applicationId'
+      preLoaderRoute: typeof AdmissionsApplicationsApplicationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/applications/new': {
+      id: '/admissions/applications/new'
+      path: '/admissions/applications/new'
+      fullPath: '/admissions/applications/new'
+      preLoaderRoute: typeof AdmissionsApplicationsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/enquiries/': {
+      id: '/admissions/enquiries/'
+      path: '/admissions/enquiries'
+      fullPath: '/admissions/enquiries/'
+      preLoaderRoute: typeof AdmissionsEnquiriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/enquiries/$enquiryId': {
+      id: '/admissions/enquiries/$enquiryId'
+      path: '/admissions/enquiries/$enquiryId'
+      fullPath: '/admissions/enquiries/$enquiryId'
+      preLoaderRoute: typeof AdmissionsEnquiriesEnquiryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/enquiries/new': {
+      id: '/admissions/enquiries/new'
+      path: '/admissions/enquiries/new'
+      fullPath: '/admissions/enquiries/new'
+      preLoaderRoute: typeof AdmissionsEnquiriesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students/$studentId/edit': {
       id: '/students/$studentId/edit'
       path: '/edit'
@@ -333,12 +599,26 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SettingsRoute: SettingsRoute,
   SetupRoute: SetupRoute,
+  AdmissionsCounsellingRoute: AdmissionsCounsellingRoute,
+  AdmissionsDocumentsRoute: AdmissionsDocumentsRoute,
+  AdmissionsFollowUpsRoute: AdmissionsFollowUpsRoute,
+  AdmissionsSettingsRoute: AdmissionsSettingsRoute,
   ParentsParentIdRoute: ParentsParentIdRoute,
   StudentsStudentIdRoute: StudentsStudentIdRouteWithChildren,
   StudentsNewRoute: StudentsNewRoute,
   StudentsPromotionsRoute: StudentsPromotionsRoute,
+  AdmissionsIndexRoute: AdmissionsIndexRoute,
   ParentsIndexRoute: ParentsIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
+  AdmissionsAdmittedAdmissionIdRoute: AdmissionsAdmittedAdmissionIdRoute,
+  AdmissionsApplicationsApplicationIdRoute:
+    AdmissionsApplicationsApplicationIdRoute,
+  AdmissionsApplicationsNewRoute: AdmissionsApplicationsNewRoute,
+  AdmissionsEnquiriesEnquiryIdRoute: AdmissionsEnquiriesEnquiryIdRoute,
+  AdmissionsEnquiriesNewRoute: AdmissionsEnquiriesNewRoute,
+  AdmissionsAdmittedIndexRoute: AdmissionsAdmittedIndexRoute,
+  AdmissionsApplicationsIndexRoute: AdmissionsApplicationsIndexRoute,
+  AdmissionsEnquiriesIndexRoute: AdmissionsEnquiriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

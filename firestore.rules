@@ -45,11 +45,9 @@ service cloud.firestore {
         allow write: if isOrgOwner(orgId);
       }
 
-      // Students
+      // Students & Documents
       match /students/{studentId} {
         allow read, write: if isOrgMember(orgId);
-
-        // Student Documents
         match /documents/{docId} {
           allow read, write: if isOrgMember(orgId);
         }
@@ -57,6 +55,31 @@ service cloud.firestore {
 
       // Parents
       match /parents/{parentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Admissions & CRM Modules
+      match /enquiries/{enquiryId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /followUps/{followUpId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /counselling/{counsellingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /applications/{applicationId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /admissions/{admissionId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /admissionSettings/{settingId} {
         allow read, write: if isOrgMember(orgId);
       }
 

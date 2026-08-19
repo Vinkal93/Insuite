@@ -6,3 +6,4 @@ export * from "./studentService";
 export * from "./parentService";
 export * from "./documentService";
 export * from "./auditService";
+export * from "./admissionService";

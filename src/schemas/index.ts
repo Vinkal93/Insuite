@@ -3,3 +3,4 @@ export * from "./setup";
 export * from "./profile";
 export * from "./student";
 export * from "./parent";
+export * from "./admission";

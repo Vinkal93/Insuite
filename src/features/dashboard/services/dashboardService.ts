@@ -1,5 +1,6 @@
 import type { Organization, AcademicSession } from "@/types";
 import { getStudentCount } from "@/services/studentService";
+import { getAdmissionDashboardStats } from "@/services/admissionService";
 import type {
   DashboardMetrics,
   SetupProgressData,
@@ -12,10 +13,16 @@ export const getDashboardMetrics = async (
   sessionId?: string
 ): Promise<DashboardMetrics> => {
   let studentCountData = { total: 0, active: 0 };
+  let admissionStatsData = { admissionsCompleted: 0, totalEnquiries: 0 };
   try {
-    studentCountData = await getStudentCount(orgId, sessionId);
+    const [sc, adm] = await Promise.all([
+      getStudentCount(orgId, sessionId),
+      getAdmissionDashboardStats(orgId, sessionId).catch(() => ({ admissionsCompleted: 0, totalEnquiries: 0 })),
+    ]);
+    studentCountData = sc;
+    admissionStatsData = adm as any;
   } catch (e) {
-    console.warn("Failed to fetch student count:", e);
+    console.warn("Failed to fetch dashboard metric counts:", e);
   }
 
   return {
@@ -57,9 +64,11 @@ export const getDashboardMetrics = async (
     newAdmissions: {
       id: "admissions",
       title: "New Admissions",
-      value: 0,
-      subtext: "Session enquiries & intake",
-      isConfigured: false,
+      value: admissionStatsData.admissionsCompleted,
+      subtext: admissionStatsData.admissionsCompleted > 0
+        ? `${admissionStatsData.admissionsCompleted} completed • ${admissionStatsData.totalEnquiries} enquiries`
+        : "No admissions finalized yet",
+      isConfigured: admissionStatsData.admissionsCompleted > 0,
     },
     activeClasses: {
       id: "classes",

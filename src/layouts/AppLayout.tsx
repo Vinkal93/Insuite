@@ -19,6 +19,12 @@ import {
   GraduationCap,
   Users,
   UserPlus,
+  PhoneCall,
+  FileCheck,
+  Clock,
+  MessageSquare,
+  FileText,
+  CheckCircle2,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
@@ -41,6 +47,19 @@ const navSections = [
       { label: "Enroll Student", href: "/students/new", icon: UserPlus },
       { label: "Student Promotions", href: "/students/promotions", icon: Building2 },
       { label: "Parents & Guardians", href: "/parents", icon: Users },
+    ],
+  },
+  {
+    title: "Admissions CRM",
+    items: [
+      { label: "Dashboard", href: "/admissions", icon: LayoutDashboard },
+      { label: "Enquiries", href: "/admissions/enquiries", icon: PhoneCall },
+      { label: "Applications", href: "/admissions/applications", icon: FileCheck },
+      { label: "Admissions", href: "/admissions/admitted", icon: CheckCircle2 },
+      { label: "Follow-ups", href: "/admissions/follow-ups", icon: Clock },
+      { label: "Counselling", href: "/admissions/counselling", icon: MessageSquare },
+      { label: "Documents", href: "/admissions/documents", icon: FileText },
+      { label: "Settings", href: "/admissions/settings", icon: Settings },
     ],
   },
   {
