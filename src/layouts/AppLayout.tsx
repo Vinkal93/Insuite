@@ -39,6 +39,7 @@ const navSections = [
       { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { label: "Students Directory", href: "/students", icon: GraduationCap },
       { label: "Enroll Student", href: "/students/new", icon: UserPlus },
+      { label: "Student Promotions", href: "/students/promotions", icon: Building2 },
       { label: "Parents & Guardians", href: "/parents", icon: Users },
     ],
   },

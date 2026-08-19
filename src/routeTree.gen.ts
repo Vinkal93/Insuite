@@ -17,8 +17,12 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SetupRouteImport } from './routes/setup'
 import { Route as ParentsIndexRouteImport } from './routes/parents/index'
+import { Route as ParentsParentIdRouteImport } from './routes/parents/$parentId'
 import { Route as StudentsIndexRouteImport } from './routes/students/index'
+import { Route as StudentsStudentIdRouteImport } from './routes/students/$studentId'
 import { Route as StudentsNewRouteImport } from './routes/students/new'
+import { Route as StudentsPromotionsRouteImport } from './routes/students/promotions'
+import { Route as StudentsStudentIdEditRouteImport } from './routes/students/$studentId.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -60,15 +64,35 @@ const ParentsIndexRoute = ParentsIndexRouteImport.update({
   path: '/parents/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentsParentIdRoute = ParentsParentIdRouteImport.update({
+  id: '/parents/$parentId',
+  path: '/parents/$parentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentsIndexRoute = StudentsIndexRouteImport.update({
   id: '/students/',
   path: '/students/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentsStudentIdRoute = StudentsStudentIdRouteImport.update({
+  id: '/students/$studentId',
+  path: '/students/$studentId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentsNewRoute = StudentsNewRouteImport.update({
   id: '/students/new',
   path: '/students/new',
   getParentRoute: () => rootRouteImport,
+} as any)
+const StudentsPromotionsRoute = StudentsPromotionsRouteImport.update({
+  id: '/students/promotions',
+  path: '/students/promotions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentsStudentIdEditRoute = StudentsStudentIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => StudentsStudentIdRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -79,9 +103,13 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/parents/$parentId': typeof ParentsParentIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
+  '/students/promotions': typeof StudentsPromotionsRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,9 +119,13 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/parents/$parentId': typeof ParentsParentIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
+  '/students/promotions': typeof StudentsPromotionsRoute
   '/parents': typeof ParentsIndexRoute
   '/students': typeof StudentsIndexRoute
+  '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,9 +136,13 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/parents/$parentId': typeof ParentsParentIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
+  '/students/promotions': typeof StudentsPromotionsRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,9 +154,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/setup'
+    | '/parents/$parentId'
+    | '/students/$studentId'
     | '/students/new'
+    | '/students/promotions'
     | '/parents/'
     | '/students/'
+    | '/students/$studentId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,9 +170,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/setup'
+    | '/parents/$parentId'
+    | '/students/$studentId'
     | '/students/new'
+    | '/students/promotions'
     | '/parents'
     | '/students'
+    | '/students/$studentId/edit'
   id:
     | '__root__'
     | '/'
@@ -142,9 +186,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/setup'
+    | '/parents/$parentId'
+    | '/students/$studentId'
     | '/students/new'
+    | '/students/promotions'
     | '/parents/'
     | '/students/'
+    | '/students/$studentId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -155,7 +203,10 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SettingsRoute: typeof SettingsRoute
   SetupRoute: typeof SetupRoute
+  ParentsParentIdRoute: typeof ParentsParentIdRoute
+  StudentsStudentIdRoute: typeof StudentsStudentIdRouteWithChildren
   StudentsNewRoute: typeof StudentsNewRoute
+  StudentsPromotionsRoute: typeof StudentsPromotionsRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
 }
@@ -218,11 +269,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parents/$parentId': {
+      id: '/parents/$parentId'
+      path: '/parents/$parentId'
+      fullPath: '/parents/$parentId'
+      preLoaderRoute: typeof ParentsParentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students/': {
       id: '/students/'
       path: '/students'
       fullPath: '/students/'
       preLoaderRoute: typeof StudentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/$studentId': {
+      id: '/students/$studentId'
+      path: '/students/$studentId'
+      fullPath: '/students/$studentId'
+      preLoaderRoute: typeof StudentsStudentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/students/new': {
@@ -232,8 +297,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/students/promotions': {
+      id: '/students/promotions'
+      path: '/students/promotions'
+      fullPath: '/students/promotions'
+      preLoaderRoute: typeof StudentsPromotionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/$studentId/edit': {
+      id: '/students/$studentId/edit'
+      path: '/edit'
+      fullPath: '/students/$studentId/edit'
+      preLoaderRoute: typeof StudentsStudentIdEditRouteImport
+      parentRoute: typeof StudentsStudentIdRoute
+    }
   }
 }
+
+interface StudentsStudentIdRouteChildren {
+  StudentsStudentIdEditRoute: typeof StudentsStudentIdEditRoute
+}
+
+const StudentsStudentIdRouteChildren: StudentsStudentIdRouteChildren = {
+  StudentsStudentIdEditRoute: StudentsStudentIdEditRoute,
+}
+
+const StudentsStudentIdRouteWithChildren =
+  StudentsStudentIdRoute._addFileChildren(StudentsStudentIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -243,7 +333,10 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SettingsRoute: SettingsRoute,
   SetupRoute: SetupRoute,
+  ParentsParentIdRoute: ParentsParentIdRoute,
+  StudentsStudentIdRoute: StudentsStudentIdRouteWithChildren,
   StudentsNewRoute: StudentsNewRoute,
+  StudentsPromotionsRoute: StudentsPromotionsRoute,
   ParentsIndexRoute: ParentsIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
 }
