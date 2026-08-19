@@ -1,4 +1,4 @@
-﻿import {
+import {
   collection,
   doc,
   getDoc,
@@ -70,11 +70,23 @@ export const createOrganization = async (
     uid: userId,
     role: "OWNER",
     status: "active",
-    joinedAt: serverTimestamp() as any,
-    createdAt: serverTimestamp() as any,
-    updatedAt: serverTimestamp() as any,
+    joinedAt: new Date().toISOString() as any,
+    createdAt: new Date().toISOString() as any,
+    updatedAt: new Date().toISOString() as any,
   };
   await setDoc(memberRef, memberData);
+
+  // Create default Academic Session
+  const sessionRef = doc(collection(db, "organizations", orgId, "academicSessions"));
+  await setDoc(sessionRef, {
+    id: sessionRef.id,
+    name: "2026-27",
+    startDate: "2026-04-01",
+    endDate: "2027-03-31",
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
 
   // Update user's currentOrganizationId
   await updateDoc(doc(db, "users", userId), {
@@ -83,6 +95,72 @@ export const createOrganization = async (
   });
 
   return newOrg;
+};
+
+export const autoProvisionDefaultOrganization = async (
+  userId: string,
+  email: string,
+  displayName?: string | null
+): Promise<Organization> => {
+  const schoolName = displayName ? `${displayName}'s School` : "InSuite Academy";
+  const randomCode = `INS${Math.floor(1000 + Math.random() * 9000)}`;
+
+  const orgRef = doc(collection(db, "organizations"));
+  const orgId = orgRef.id;
+
+  const defaultOrg: Organization = {
+    id: orgId,
+    name: schoolName,
+    code: randomCode,
+    logoUrl: null,
+    email: email || null,
+    phone: null,
+    alternatePhone: null,
+    website: null,
+    address: "Campus Main Road",
+    city: "New Delhi",
+    state: "Delhi",
+    postalCode: "110001",
+    country: "India",
+    principalName: displayName || "Administrator",
+    primaryColor: "#1E40AF",
+    secondaryColor: "#F59E0B",
+    setupCompleted: true,
+    status: "active",
+    createdBy: userId,
+    createdAt: new Date().toISOString() as any,
+    updatedAt: new Date().toISOString() as any,
+  };
+
+  await setDoc(orgRef, defaultOrg);
+
+  const memberRef = doc(db, "organizations", orgId, "members", userId);
+  await setDoc(memberRef, {
+    uid: userId,
+    role: "OWNER",
+    status: "active",
+    joinedAt: new Date().toISOString(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
+
+  const sessionRef = doc(collection(db, "organizations", orgId, "academicSessions"));
+  await setDoc(sessionRef, {
+    id: sessionRef.id,
+    name: "2026-27",
+    startDate: "2026-04-01",
+    endDate: "2027-03-31",
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
+
+  await updateDoc(doc(db, "users", userId), {
+    currentOrganizationId: orgId,
+    updatedAt: serverTimestamp(),
+  });
+
+  return defaultOrg;
 };
 
 export const updateOrganization = async (
@@ -107,24 +185,32 @@ export const getUserOrganizationMembership = async (
 
 export const getUserOrganizations = async (uid: string): Promise<Organization[]> => {
   try {
-    const membersQuery = query(collectionGroup(db, "members"), where("uid", "==", uid));
-    const membersSnap = await getDocs(membersQuery);
-    
-    const orgPromises = membersSnap.docs.map(async (memberDoc) => {
-      const orgRef = memberDoc.ref.parent.parent;
-      if (orgRef) {
-        const orgSnap = await getDoc(orgRef);
-        if (orgSnap.exists()) {
-          return { id: orgSnap.id, ...orgSnap.data() } as Organization;
-        }
-      }
-      return null;
-    });
+    // Fast timeout promise so collectionGroup never blocks auth resolution
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout")), 1200)
+    );
 
-    const orgs = await Promise.all(orgPromises);
-    return orgs.filter((org): org is Organization => org !== null);
+    const fetchPromise = (async () => {
+      const membersQuery = query(collectionGroup(db, "members"), where("uid", "==", uid));
+      const membersSnap = await getDocs(membersQuery);
+      
+      const orgPromises = membersSnap.docs.map(async (memberDoc) => {
+        const orgRef = memberDoc.ref.parent.parent;
+        if (orgRef) {
+          const orgSnap = await getDoc(orgRef);
+          if (orgSnap.exists()) {
+            return { id: orgSnap.id, ...orgSnap.data() } as Organization;
+          }
+        }
+        return null;
+      });
+
+      const orgs = await Promise.all(orgPromises);
+      return orgs.filter((org): org is Organization => org !== null);
+    })();
+
+    return await Promise.race([fetchPromise, timeoutPromise]);
   } catch (err) {
-    console.warn("Could not query collectionGroup members:", err);
     return [];
   }
 };

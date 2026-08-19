@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { ProtectedRoute } from "@/components/common/ProtectedRoute";
 import { SetupWizard } from "@/features/setup";
 import { useAuth } from "@/hooks/useAuth";
@@ -30,9 +30,14 @@ function SetupPage() {
             </div>
             <span className="font-display text-base font-extrabold">InSuite Setup</span>
           </Link>
-          <Button variant="ghost" size="sm" onClick={logout} className="text-xs text-muted-foreground">
-            <LogOut className="size-3.5 mr-1.5" /> Sign Out
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild className="rounded-xl text-xs font-semibold">
+              <Link to="/dashboard">Go to Dashboard →</Link>
+            </Button>
+            <Button variant="ghost" size="sm" onClick={logout} className="text-xs text-muted-foreground">
+              <LogOut className="size-3.5 mr-1.5" /> Sign Out
+            </Button>
+          </div>
         </header>
 
         <main className="px-4 pb-16">

@@ -1,4 +1,4 @@
-﻿export * from "./user";
+export * from "./user";
 export * from "./organization";
 export * from "./session";
 export * from "./student";
@@ -6,3 +6,6 @@ export * from "./parent";
 export * from "./document";
 export * from "./audit";
 export * from "./admission";
+export * from "./academic";
+export * from "./attendance";
+export * from "./timetable";

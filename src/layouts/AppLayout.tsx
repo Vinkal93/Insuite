@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import {
-  LayoutDashboard,
   User,
   Settings,
-  SlidersHorizontal,
   Menu,
   X,
   Search,
@@ -14,20 +12,11 @@ import {
   Moon,
   LogOut,
   ChevronDown,
-  Building2,
   Calendar,
-  GraduationCap,
-  Users,
-  UserPlus,
-  PhoneCall,
-  FileCheck,
-  Clock,
-  MessageSquare,
-  FileText,
-  CheckCircle2,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
+import { getFilteredNavigation } from "@/config/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,40 +26,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-
-const navSections = [
-  {
-    title: "Core Operations",
-    items: [
-      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-      { label: "Students Directory", href: "/students", icon: GraduationCap },
-      { label: "Enroll Student", href: "/students/new", icon: UserPlus },
-      { label: "Student Promotions", href: "/students/promotions", icon: Building2 },
-      { label: "Parents & Guardians", href: "/parents", icon: Users },
-    ],
-  },
-  {
-    title: "Admissions CRM",
-    items: [
-      { label: "Dashboard", href: "/admissions", icon: LayoutDashboard },
-      { label: "Enquiries", href: "/admissions/enquiries", icon: PhoneCall },
-      { label: "Applications", href: "/admissions/applications", icon: FileCheck },
-      { label: "Admissions", href: "/admissions/admitted", icon: CheckCircle2 },
-      { label: "Follow-ups", href: "/admissions/follow-ups", icon: Clock },
-      { label: "Counselling", href: "/admissions/counselling", icon: MessageSquare },
-      { label: "Documents", href: "/admissions/documents", icon: FileText },
-      { label: "Settings", href: "/admissions/settings", icon: Settings },
-    ],
-  },
-  {
-    title: "Administration",
-    items: [
-      { label: "School Setup", href: "/setup", icon: SlidersHorizontal },
-      { label: "System Settings", href: "/settings", icon: Settings },
-      { label: "My Profile", href: "/profile", icon: User },
-    ],
-  },
-];
 
 export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string }> = ({
   children,
@@ -82,6 +37,7 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const currentPath = location.pathname;
+  const filteredNavSections = getFilteredNavigation(membership?.role);
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
@@ -115,20 +71,22 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
 
         {/* Navigation Items */}
         <nav className="mt-4 flex-1 space-y-4 px-3 overflow-y-auto">
-          {navSections.map((section) => (
+          {filteredNavSections.map((section) => (
             <div key={section.title} className="space-y-1">
               <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
                 {section.title}
               </p>
               {section.items.map((item) => {
-                const isActive = currentPath === item.href || (item.href !== "/dashboard" && currentPath.startsWith(`${item.href}/`));
+                const isActive =
+                  currentPath === item.route ||
+                  (item.route !== "/dashboard" && currentPath.startsWith(`${item.route}/`));
                 return (
                   <Link
-                    key={item.href}
-                    to={item.href}
+                    key={item.id}
+                    to={item.route}
                     className={`flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold transition-all ${
                       isActive
-                        ? "bg-primary text-primary-foreground shadow-sm"
+                        ? "bg-primary text-primary-foreground shadow-sm font-bold"
                         : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                     }`}
                   >
@@ -162,7 +120,10 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
         <div className="fixed inset-0 z-50 flex bg-background/80 backdrop-blur-sm lg:hidden">
           <div className="flex w-64 flex-col border-r border-border bg-card p-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-border pb-3">
-              <span className="font-display text-base font-extrabold">InSuite</span>
+              <div className="flex items-center gap-2">
+                <img src="/logo.png" alt="InSuite" className="size-6 object-contain" />
+                <span className="font-display text-base font-extrabold">InSuite</span>
+              </div>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
@@ -172,18 +133,20 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
               </button>
             </div>
             <nav className="mt-4 flex-1 space-y-4 overflow-y-auto">
-              {navSections.map((section) => (
+              {filteredNavSections.map((section) => (
                 <div key={section.title} className="space-y-1">
                   <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                     {section.title}
                   </p>
                   {section.items.map((item) => (
                     <Link
-                      key={item.href}
-                      to={item.href}
+                      key={item.id}
+                      to={item.route}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold ${
-                        currentPath === item.href ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"
+                        currentPath === item.route
+                          ? "bg-primary text-primary-foreground font-bold"
+                          : "text-muted-foreground hover:bg-secondary"
                       }`}
                     >
                       <item.icon className="size-4" />
@@ -193,7 +156,7 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
                 </div>
               ))}
             </nav>
-            <Button variant="outline" size="sm" onClick={logout} className="mt-auto flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={logout} className="mt-auto flex items-center gap-2 rounded-xl text-xs">
               <LogOut className="size-4" /> Log out
             </Button>
           </div>
@@ -222,15 +185,14 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
             </div>
           </div>
 
-          {/* Center: Global Search UI Placeholder */}
+          {/* Center: Global Search UI */}
           <div className="hidden max-w-md flex-1 px-8 md:block">
             <div className="relative flex items-center">
               <Search className="absolute left-3 size-4 text-muted-foreground" />
               <input
                 type="text"
-                disabled
-                placeholder="Search students, staff, classes... (Phase 1 UI placeholder)"
-                className="w-full rounded-xl border border-border bg-secondary/50 py-1.5 pl-9 pr-4 text-xs text-muted-foreground cursor-not-allowed opacity-75"
+                placeholder="Search students, staff, classes, admissions..."
+                className="w-full rounded-xl border border-border bg-surface py-1.5 pl-9 pr-4 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>
@@ -276,17 +238,22 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="size-8 rounded-lg text-muted-foreground hover:text-foreground"
-              title="Toggle theme"
+              className="size-9 rounded-xl text-muted-foreground hover:bg-secondary hover:text-foreground transition-all active:scale-95"
+              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
             >
-              {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+              {theme === "dark" ? (
+                <Sun className="size-4 text-amber-400 transition-transform duration-200 hover:rotate-45" />
+              ) : (
+                <Moon className="size-4 text-slate-700 dark:text-slate-200 transition-transform duration-200 hover:-rotate-12" />
+              )}
             </Button>
 
             <Button
               variant="ghost"
               size="icon"
               className="size-8 rounded-lg text-muted-foreground opacity-60 cursor-not-allowed"
-              title="Notifications placeholder"
+              title="Notifications"
             >
               <Bell className="size-4" />
             </Button>
@@ -295,7 +262,7 @@ export const AppLayout: React.FC<{ children: React.ReactNode; pageTitle?: string
               variant="ghost"
               size="icon"
               className="size-8 rounded-lg text-muted-foreground opacity-60 cursor-not-allowed"
-              title="Help placeholder"
+              title="Help"
             >
               <HelpCircle className="size-4" />
             </Button>

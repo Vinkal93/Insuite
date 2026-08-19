@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -13,6 +13,8 @@ import {
   Upload,
   CalendarDays,
   Send,
+  Sun,
+  Moon,
 } from "lucide-react";
 import {
   schoolInfoSchema,
@@ -31,6 +33,7 @@ import {
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
+import { useTheme } from "@/hooks/useTheme";
 import type { AcademicSession } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +42,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 export const SettingsView: React.FC = () => {
   const { firebaseUser, organization, refreshUserData } = useAuth();
+  const { theme, setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<"school" | "session" | "branding" | "account">("school");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -449,25 +453,69 @@ export const SettingsView: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="secondaryColor" className="text-xs font-semibold">Secondary Accent Color</Label>
-                  <div className="mt-1 flex items-center gap-2">
-                    <input
-                      id="secondaryColor"
-                      type="color"
-                      {...brandingForm.register("secondaryColor")}
-                      className="size-8 rounded-lg border border-border cursor-pointer"
-                    />
-                    <Input {...brandingForm.register("secondaryColor")} className="rounded-xl font-mono text-xs" />
+                  <div>
+                    <Label htmlFor="secondaryColor" className="text-xs font-semibold">Secondary Accent Color</Label>
+                    <div className="mt-1 flex items-center gap-2">
+                      <input
+                        id="secondaryColor"
+                        type="color"
+                        {...brandingForm.register("secondaryColor")}
+                        className="size-8 rounded-lg border border-border cursor-pointer"
+                      />
+                      <Input {...brandingForm.register("secondaryColor")} className="rounded-xl font-mono text-xs" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="pt-4 border-t border-border flex justify-end">
-              <Button type="submit" variant="hero" disabled={isSubmitting} className="rounded-xl font-bold">
-                {isSubmitting ? <Loader2 className="size-4 animate-spin mr-2" /> : null}
-                Save Branding Settings
-              </Button>
+              {/* Theme Mode Selector */}
+              <div className="mt-6 space-y-3 rounded-2xl border border-border bg-surface p-4">
+                <Label className="text-xs font-semibold">Interface Theme Preference</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setTheme("light")}
+                    className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-all ${
+                      theme === "light"
+                        ? "border-primary bg-card text-foreground shadow-sm ring-2 ring-primary/20"
+                        : "border-border bg-card/60 text-muted-foreground hover:bg-card hover:text-foreground"
+                    }`}
+                  >
+                    <div className="grid size-8 place-items-center rounded-lg bg-amber-500/10 text-amber-500">
+                      <Sun className="size-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold">Light Mode</p>
+                      <p className="text-[10px] text-muted-foreground">Clean, high-clarity daylight theme</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setTheme("dark")}
+                    className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-all ${
+                      theme === "dark"
+                        ? "border-primary bg-card text-foreground shadow-sm ring-2 ring-primary/20"
+                        : "border-border bg-card/60 text-muted-foreground hover:bg-card hover:text-foreground"
+                    }`}
+                  >
+                    <div className="grid size-8 place-items-center rounded-lg bg-indigo-500/10 text-indigo-400">
+                      <Moon className="size-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold">Dark Mode</p>
+                      <p className="text-[10px] text-muted-foreground">Deep contrast night theme</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-border flex justify-end">
+                <Button type="submit" variant="hero" disabled={isSubmitting} className="rounded-xl font-bold">
+                  {isSubmitting ? <Loader2 className="size-4 animate-spin mr-2" /> : null}
+                  Save Branding Settings
+                </Button>
+              </div>
             </div>
           </form>
         </div>

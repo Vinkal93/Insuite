@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,18 +30,20 @@ export const ForgotPasswordForm: React.FC = () => {
 
     try {
       await sendPasswordResetEmail(auth, data.email);
+      // Always show generic success to protect email enumeration
       setStatus("success");
     } catch (err: any) {
       console.error("Password reset error:", err);
-      setStatus("error");
-      if (err.code === "auth/user-not-found") {
-        setErrorMessage("No InSuite account found with this email address.");
-      } else if (err.code === "auth/invalid-email") {
-        setErrorMessage("Please enter a valid email address.");
-      } else if (err.code === "auth/network-request-failed") {
-        setErrorMessage("Network error. Check your connection and try again.");
+      // For network errors or rate limit, show safe error message
+      if (err.code === "auth/network-request-failed") {
+        setStatus("error");
+        setErrorMessage("Network error. Please check your internet connection.");
+      } else if (err.code === "auth/too-many-requests") {
+        setStatus("error");
+        setErrorMessage("Too many requests. Please wait a few moments and try again.");
       } else {
-        setErrorMessage(err.message || "Failed to send reset link.");
+        // Generic success to prevent account enumeration
+        setStatus("success");
       }
     } finally {
       setIsSubmitting(false);
@@ -57,8 +59,7 @@ export const ForgotPasswordForm: React.FC = () => {
         <div>
           <h3 className="text-base font-bold text-foreground">Password Reset Link Sent</h3>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-            We have sent a secure password reset link to your email address. Follow the link in the
-            email to set a new password.
+            If an account exists for this email, a password reset link has been sent. Please check your inbox and spam folder.
           </p>
         </div>
         <Button variant="outline" size="sm" asChild className="w-full rounded-xl">

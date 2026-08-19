@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   User,
@@ -33,12 +33,14 @@ import {
   deleteStudentDocument,
 } from "@/services/documentService";
 import { getAuditLogsForEntity } from "@/services/auditService";
+import { getStudentAttendanceSummary } from "@/services/attendanceService";
 import type {
   Student,
   Parent,
   StudentDocument,
   AuditLog,
   DocumentType,
+  StudentAttendanceSummary,
 } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,17 +60,18 @@ interface StudentProfileViewProps {
 }
 
 export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentId }) => {
-  const { organization, firebaseUser, userProfile } = useAuth();
+  const { organization, firebaseUser, userProfile, selectedSession } = useAuth();
 
   const [student, setStudent] = useState<Student | null>(null);
   const [father, setFather] = useState<Parent | null>(null);
   const [mother, setMother] = useState<Parent | null>(null);
   const [documents, setDocuments] = useState<StudentDocument[]>([]);
   const [activities, setActivities] = useState<AuditLog[]>([]);
+  const [attendanceSummary, setAttendanceSummary] = useState<StudentAttendanceSummary | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "parents" | "documents" | "activity">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "parents" | "documents" | "activity">("overview");
 
   // Deactivate modal
   const [isDeactivateOpen, setIsDeactivateOpen] = useState(false);
@@ -100,21 +103,23 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
           parentPromises.push(getParent(organization.id, studentData.parentIds.motherId).then(setMother));
         }
 
-        // Fetch Documents & Audit Activity
-        const [docs, logs] = await Promise.all([
+        // Fetch Documents, Audit Activity & Attendance Summary
+        const [docs, logs, attSummary] = await Promise.all([
           getStudentDocuments(organization.id, studentData.id),
           getAuditLogsForEntity(organization.id, studentData.id),
+          getStudentAttendanceSummary(organization.id, studentData.id, selectedSession?.id).catch(() => null),
           ...parentPromises,
         ]);
         setDocuments(docs);
         setActivities(logs);
+        setAttendanceSummary(attSummary);
       }
     } catch (err) {
       console.error("Error loading student profile:", err);
     } finally {
       setIsLoading(false);
     }
-  }, [organization, studentId]);
+  }, [organization, studentId, selectedSession]);
 
   useEffect(() => {
     loadStudentData();
@@ -203,6 +208,7 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
   const tabs = [
     { id: "overview", label: "Overview", icon: User },
     { id: "academic", label: "Academic", icon: GraduationCap },
+    { id: "attendance", label: "Attendance", icon: Calendar },
     { id: "parents", label: "Parents & Guardians", icon: Users },
     { id: "documents", label: `Documents (${documents.length})`, icon: FileText },
     { id: "activity", label: "Audit Activity", icon: Activity },
@@ -393,7 +399,120 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
         </div>
       )}
 
-      {/* TAB 3: Parents */}
+      {/* TAB: Attendance */}
+      {activeTab === "attendance" && (
+        <div className="space-y-6">
+          {/* Summary KPIs */}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-soft">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Attendance %</span>
+              <p className="mt-1 text-2xl font-black text-foreground">
+                {attendanceSummary?.percentage ?? 0}%
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Overall Presence</p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-soft">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Present</span>
+              <p className="mt-1 text-2xl font-black text-emerald-600">
+                {attendanceSummary?.present ?? 0}
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Days In School</p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-soft">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-rose-500">Absent</span>
+              <p className="mt-1 text-2xl font-black text-rose-500">
+                {attendanceSummary?.absent ?? 0}
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Days Absent</p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-soft">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500">Late</span>
+              <p className="mt-1 text-2xl font-black text-amber-500">
+                {attendanceSummary?.late ?? 0}
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Tardy Arrivals</p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-soft">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">Leave</span>
+              <p className="mt-1 text-2xl font-black text-blue-500">
+                {attendanceSummary?.leave ?? 0}
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Authorized Leaves</p>
+            </div>
+          </div>
+
+          {/* Roll Call History Log */}
+          <div className="rounded-3xl border border-border bg-card p-6 shadow-soft space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Attendance Calendar Log
+              </h3>
+              <span className="text-xs font-semibold text-muted-foreground">
+                Total Days: {attendanceSummary?.totalDays ?? 0}
+              </span>
+            </div>
+
+            {(!attendanceSummary?.records || attendanceSummary.records.length === 0) ? (
+              <p className="py-8 text-center text-xs text-muted-foreground">
+                No attendance roll call records found for this student.
+              </p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="border-b border-border bg-surface/50 text-muted-foreground uppercase tracking-wider text-[10px]">
+                    <tr>
+                      <th className="px-4 py-3 font-bold">Date</th>
+                      <th className="px-4 py-3 font-bold">Status</th>
+                      <th className="px-4 py-3 font-bold">Marked At</th>
+                      <th className="px-4 py-3 font-bold">Marked By</th>
+                      <th className="px-4 py-3 font-bold">Remarks / Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {attendanceSummary.records.map((rec) => (
+                      <tr key={rec.id} className="hover:bg-secondary/40 transition-colors">
+                        <td className="px-4 py-3 font-mono font-bold text-foreground">
+                          {rec.date}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold uppercase ${
+                              rec.status === "present"
+                                ? "bg-success/15 text-success"
+                                : rec.status === "absent"
+                                ? "bg-rose-500/15 text-rose-500"
+                                : rec.status === "late"
+                                ? "bg-amber-500/15 text-amber-500"
+                                : "bg-blue-500/15 text-blue-500"
+                            }`}
+                          >
+                            {rec.status.replace("_", " ")}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 font-mono text-muted-foreground text-[11px]">
+                          {new Date(rec.markedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {rec.markedByName || "Admin"}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {rec.changeReason || rec.remarks || "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: Parents */}
       {activeTab === "parents" && (
         <div className="grid gap-6 sm:grid-cols-2">
           {/* Father Card */}

@@ -14,19 +14,47 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SetupRouteImport } from './routes/setup'
+import { Route as AcademicsIndexRouteImport } from './routes/academics/index'
+import { Route as AcademicsAssignmentsRouteImport } from './routes/academics/assignments'
+import { Route as AcademicsSettingsRouteImport } from './routes/academics/settings'
 import { Route as AdmissionsIndexRouteImport } from './routes/admissions/index'
 import { Route as AdmissionsCounsellingRouteImport } from './routes/admissions/counselling'
 import { Route as AdmissionsDocumentsRouteImport } from './routes/admissions/documents'
 import { Route as AdmissionsFollowUpsRouteImport } from './routes/admissions/follow-ups'
 import { Route as AdmissionsSettingsRouteImport } from './routes/admissions/settings'
+import { Route as AttendanceIndexRouteImport } from './routes/attendance/index'
+import { Route as AttendanceLeaveRouteImport } from './routes/attendance/leave'
+import { Route as AttendanceReportsRouteImport } from './routes/attendance/reports'
+import { Route as AttendanceSettingsRouteImport } from './routes/attendance/settings'
 import { Route as ParentsIndexRouteImport } from './routes/parents/index'
 import { Route as ParentsParentIdRouteImport } from './routes/parents/$parentId'
 import { Route as StudentsIndexRouteImport } from './routes/students/index'
 import { Route as StudentsStudentIdRouteImport } from './routes/students/$studentId'
 import { Route as StudentsNewRouteImport } from './routes/students/new'
 import { Route as StudentsPromotionsRouteImport } from './routes/students/promotions'
+import { Route as TimetableIndexRouteImport } from './routes/timetable/index'
+import { Route as TimetableCreateRouteImport } from './routes/timetable/create'
+import { Route as TimetablePeriodsRouteImport } from './routes/timetable/periods'
+import { Route as TimetableSettingsRouteImport } from './routes/timetable/settings'
+import { Route as TimetableSubstitutionsRouteImport } from './routes/timetable/substitutions'
+import { Route as AcademicsClassesIndexRouteImport } from './routes/academics/classes/index'
+import { Route as AcademicsClassesClassIdRouteImport } from './routes/academics/classes/$classId'
+import { Route as AcademicsClassesNewRouteImport } from './routes/academics/classes/new'
+import { Route as AcademicsSectionsIndexRouteImport } from './routes/academics/sections/index'
+import { Route as AcademicsSectionsSectionIdRouteImport } from './routes/academics/sections/$sectionId'
+import { Route as AcademicsSectionsNewRouteImport } from './routes/academics/sections/new'
+import { Route as AcademicsSessionsIndexRouteImport } from './routes/academics/sessions/index'
+import { Route as AcademicsSessionsSessionIdRouteImport } from './routes/academics/sessions/$sessionId'
+import { Route as AcademicsSessionsNewRouteImport } from './routes/academics/sessions/new'
+import { Route as AcademicsSubjectsIndexRouteImport } from './routes/academics/subjects/index'
+import { Route as AcademicsSubjectsSubjectIdRouteImport } from './routes/academics/subjects/$subjectId'
+import { Route as AcademicsSubjectsNewRouteImport } from './routes/academics/subjects/new'
+import { Route as AcademicsTeachersIndexRouteImport } from './routes/academics/teachers/index'
+import { Route as AcademicsTeachersTeacherIdRouteImport } from './routes/academics/teachers/$teacherId'
+import { Route as AcademicsTeachersNewRouteImport } from './routes/academics/teachers/new'
 import { Route as AdmissionsAdmittedIndexRouteImport } from './routes/admissions/admitted/index'
 import { Route as AdmissionsAdmittedAdmissionIdRouteImport } from './routes/admissions/admitted/$admissionId'
 import { Route as AdmissionsApplicationsIndexRouteImport } from './routes/admissions/applications/index'
@@ -35,7 +63,17 @@ import { Route as AdmissionsApplicationsNewRouteImport } from './routes/admissio
 import { Route as AdmissionsEnquiriesIndexRouteImport } from './routes/admissions/enquiries/index'
 import { Route as AdmissionsEnquiriesEnquiryIdRouteImport } from './routes/admissions/enquiries/$enquiryId'
 import { Route as AdmissionsEnquiriesNewRouteImport } from './routes/admissions/enquiries/new'
+import { Route as AttendanceStaffIndexRouteImport } from './routes/attendance/staff/index'
+import { Route as AttendanceStaffTakeRouteImport } from './routes/attendance/staff/take'
+import { Route as AttendanceStudentsIndexRouteImport } from './routes/attendance/students/index'
+import { Route as AttendanceStudentsDateRouteImport } from './routes/attendance/students/$date'
+import { Route as AttendanceStudentsTakeRouteImport } from './routes/attendance/students/take'
 import { Route as StudentsStudentIdEditRouteImport } from './routes/students/$studentId.edit'
+import { Route as TimetableClassesIndexRouteImport } from './routes/timetable/classes/index'
+import { Route as TimetableClassesClassIdRouteImport } from './routes/timetable/classes/$classId'
+import { Route as TimetableRoomsIndexRouteImport } from './routes/timetable/rooms/index'
+import { Route as TimetableTeachersIndexRouteImport } from './routes/timetable/teachers/index'
+import { Route as TimetableTeachersTeacherIdRouteImport } from './routes/timetable/teachers/$teacherId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -62,6 +100,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -70,6 +113,21 @@ const SettingsRoute = SettingsRouteImport.update({
 const SetupRoute = SetupRouteImport.update({
   id: '/setup',
   path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsIndexRoute = AcademicsIndexRouteImport.update({
+  id: '/academics/',
+  path: '/academics/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsAssignmentsRoute = AcademicsAssignmentsRouteImport.update({
+  id: '/academics/assignments',
+  path: '/academics/assignments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSettingsRoute = AcademicsSettingsRouteImport.update({
+  id: '/academics/settings',
+  path: '/academics/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdmissionsIndexRoute = AdmissionsIndexRouteImport.update({
@@ -95,6 +153,26 @@ const AdmissionsFollowUpsRoute = AdmissionsFollowUpsRouteImport.update({
 const AdmissionsSettingsRoute = AdmissionsSettingsRouteImport.update({
   id: '/admissions/settings',
   path: '/admissions/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceIndexRoute = AttendanceIndexRouteImport.update({
+  id: '/attendance/',
+  path: '/attendance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceLeaveRoute = AttendanceLeaveRouteImport.update({
+  id: '/attendance/leave',
+  path: '/attendance/leave',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceReportsRoute = AttendanceReportsRouteImport.update({
+  id: '/attendance/reports',
+  path: '/attendance/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceSettingsRoute = AttendanceSettingsRouteImport.update({
+  id: '/attendance/settings',
+  path: '/attendance/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ParentsIndexRoute = ParentsIndexRouteImport.update({
@@ -125,6 +203,110 @@ const StudentsNewRoute = StudentsNewRouteImport.update({
 const StudentsPromotionsRoute = StudentsPromotionsRouteImport.update({
   id: '/students/promotions',
   path: '/students/promotions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableIndexRoute = TimetableIndexRouteImport.update({
+  id: '/timetable/',
+  path: '/timetable/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableCreateRoute = TimetableCreateRouteImport.update({
+  id: '/timetable/create',
+  path: '/timetable/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetablePeriodsRoute = TimetablePeriodsRouteImport.update({
+  id: '/timetable/periods',
+  path: '/timetable/periods',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableSettingsRoute = TimetableSettingsRouteImport.update({
+  id: '/timetable/settings',
+  path: '/timetable/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableSubstitutionsRoute = TimetableSubstitutionsRouteImport.update({
+  id: '/timetable/substitutions',
+  path: '/timetable/substitutions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsClassesIndexRoute = AcademicsClassesIndexRouteImport.update({
+  id: '/academics/classes/',
+  path: '/academics/classes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsClassesClassIdRoute = AcademicsClassesClassIdRouteImport.update({
+  id: '/academics/classes/$classId',
+  path: '/academics/classes/$classId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsClassesNewRoute = AcademicsClassesNewRouteImport.update({
+  id: '/academics/classes/new',
+  path: '/academics/classes/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSectionsIndexRoute = AcademicsSectionsIndexRouteImport.update({
+  id: '/academics/sections/',
+  path: '/academics/sections/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSectionsSectionIdRoute =
+  AcademicsSectionsSectionIdRouteImport.update({
+    id: '/academics/sections/$sectionId',
+    path: '/academics/sections/$sectionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicsSectionsNewRoute = AcademicsSectionsNewRouteImport.update({
+  id: '/academics/sections/new',
+  path: '/academics/sections/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSessionsIndexRoute = AcademicsSessionsIndexRouteImport.update({
+  id: '/academics/sessions/',
+  path: '/academics/sessions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSessionsSessionIdRoute =
+  AcademicsSessionsSessionIdRouteImport.update({
+    id: '/academics/sessions/$sessionId',
+    path: '/academics/sessions/$sessionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicsSessionsNewRoute = AcademicsSessionsNewRouteImport.update({
+  id: '/academics/sessions/new',
+  path: '/academics/sessions/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSubjectsIndexRoute = AcademicsSubjectsIndexRouteImport.update({
+  id: '/academics/subjects/',
+  path: '/academics/subjects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSubjectsSubjectIdRoute =
+  AcademicsSubjectsSubjectIdRouteImport.update({
+    id: '/academics/subjects/$subjectId',
+    path: '/academics/subjects/$subjectId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicsSubjectsNewRoute = AcademicsSubjectsNewRouteImport.update({
+  id: '/academics/subjects/new',
+  path: '/academics/subjects/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsTeachersIndexRoute = AcademicsTeachersIndexRouteImport.update({
+  id: '/academics/teachers/',
+  path: '/academics/teachers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsTeachersTeacherIdRoute =
+  AcademicsTeachersTeacherIdRouteImport.update({
+    id: '/academics/teachers/$teacherId',
+    path: '/academics/teachers/$teacherId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicsTeachersNewRoute = AcademicsTeachersNewRouteImport.update({
+  id: '/academics/teachers/new',
+  path: '/academics/teachers/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdmissionsAdmittedIndexRoute = AdmissionsAdmittedIndexRouteImport.update({
@@ -173,11 +355,62 @@ const AdmissionsEnquiriesNewRoute = AdmissionsEnquiriesNewRouteImport.update({
   path: '/admissions/enquiries/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AttendanceStaffIndexRoute = AttendanceStaffIndexRouteImport.update({
+  id: '/attendance/staff/',
+  path: '/attendance/staff/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceStaffTakeRoute = AttendanceStaffTakeRouteImport.update({
+  id: '/attendance/staff/take',
+  path: '/attendance/staff/take',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceStudentsIndexRoute = AttendanceStudentsIndexRouteImport.update({
+  id: '/attendance/students/',
+  path: '/attendance/students/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceStudentsDateRoute = AttendanceStudentsDateRouteImport.update({
+  id: '/attendance/students/$date',
+  path: '/attendance/students/$date',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceStudentsTakeRoute = AttendanceStudentsTakeRouteImport.update({
+  id: '/attendance/students/take',
+  path: '/attendance/students/take',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentsStudentIdEditRoute = StudentsStudentIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
   getParentRoute: () => StudentsStudentIdRoute,
 } as any)
+const TimetableClassesIndexRoute = TimetableClassesIndexRouteImport.update({
+  id: '/timetable/classes/',
+  path: '/timetable/classes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableClassesClassIdRoute = TimetableClassesClassIdRouteImport.update({
+  id: '/timetable/classes/$classId',
+  path: '/timetable/classes/$classId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableRoomsIndexRoute = TimetableRoomsIndexRouteImport.update({
+  id: '/timetable/rooms/',
+  path: '/timetable/rooms/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableTeachersIndexRoute = TimetableTeachersIndexRouteImport.update({
+  id: '/timetable/teachers/',
+  path: '/timetable/teachers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimetableTeachersTeacherIdRoute =
+  TimetableTeachersTeacherIdRouteImport.update({
+    id: '/timetable/teachers/$teacherId',
+    path: '/timetable/teachers/$teacherId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -185,28 +418,66 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/academics/assignments': typeof AcademicsAssignmentsRoute
+  '/academics/settings': typeof AcademicsSettingsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
   '/admissions/documents': typeof AdmissionsDocumentsRoute
   '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
   '/admissions/settings': typeof AdmissionsSettingsRoute
+  '/attendance/leave': typeof AttendanceLeaveRoute
+  '/attendance/reports': typeof AttendanceReportsRoute
+  '/attendance/settings': typeof AttendanceSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/timetable/create': typeof TimetableCreateRoute
+  '/timetable/periods': typeof TimetablePeriodsRoute
+  '/timetable/settings': typeof TimetableSettingsRoute
+  '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
+  '/attendance/': typeof AttendanceIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/timetable/': typeof TimetableIndexRoute
+  '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
+  '/academics/classes/new': typeof AcademicsClassesNewRoute
+  '/academics/sections/$sectionId': typeof AcademicsSectionsSectionIdRoute
+  '/academics/sections/new': typeof AcademicsSectionsNewRoute
+  '/academics/sessions/$sessionId': typeof AcademicsSessionsSessionIdRoute
+  '/academics/sessions/new': typeof AcademicsSessionsNewRoute
+  '/academics/subjects/$subjectId': typeof AcademicsSubjectsSubjectIdRoute
+  '/academics/subjects/new': typeof AcademicsSubjectsNewRoute
+  '/academics/teachers/$teacherId': typeof AcademicsTeachersTeacherIdRoute
+  '/academics/teachers/new': typeof AcademicsTeachersNewRoute
   '/admissions/admitted/$admissionId': typeof AdmissionsAdmittedAdmissionIdRoute
   '/admissions/applications/$applicationId': typeof AdmissionsApplicationsApplicationIdRoute
   '/admissions/applications/new': typeof AdmissionsApplicationsNewRoute
   '/admissions/enquiries/$enquiryId': typeof AdmissionsEnquiriesEnquiryIdRoute
   '/admissions/enquiries/new': typeof AdmissionsEnquiriesNewRoute
+  '/attendance/staff/take': typeof AttendanceStaffTakeRoute
+  '/attendance/students/$date': typeof AttendanceStudentsDateRoute
+  '/attendance/students/take': typeof AttendanceStudentsTakeRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
+  '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/academics/classes/': typeof AcademicsClassesIndexRoute
+  '/academics/sections/': typeof AcademicsSectionsIndexRoute
+  '/academics/sessions/': typeof AcademicsSessionsIndexRoute
+  '/academics/subjects/': typeof AcademicsSubjectsIndexRoute
+  '/academics/teachers/': typeof AcademicsTeachersIndexRoute
   '/admissions/admitted/': typeof AdmissionsAdmittedIndexRoute
   '/admissions/applications/': typeof AdmissionsApplicationsIndexRoute
   '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
+  '/attendance/staff/': typeof AttendanceStaffIndexRoute
+  '/attendance/students/': typeof AttendanceStudentsIndexRoute
+  '/timetable/classes/': typeof TimetableClassesIndexRoute
+  '/timetable/rooms/': typeof TimetableRoomsIndexRoute
+  '/timetable/teachers/': typeof TimetableTeachersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -214,28 +485,66 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/academics/assignments': typeof AcademicsAssignmentsRoute
+  '/academics/settings': typeof AcademicsSettingsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
   '/admissions/documents': typeof AdmissionsDocumentsRoute
   '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
   '/admissions/settings': typeof AdmissionsSettingsRoute
+  '/attendance/leave': typeof AttendanceLeaveRoute
+  '/attendance/reports': typeof AttendanceReportsRoute
+  '/attendance/settings': typeof AttendanceSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/timetable/create': typeof TimetableCreateRoute
+  '/timetable/periods': typeof TimetablePeriodsRoute
+  '/timetable/settings': typeof TimetableSettingsRoute
+  '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/academics': typeof AcademicsIndexRoute
   '/admissions': typeof AdmissionsIndexRoute
+  '/attendance': typeof AttendanceIndexRoute
   '/parents': typeof ParentsIndexRoute
   '/students': typeof StudentsIndexRoute
+  '/timetable': typeof TimetableIndexRoute
+  '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
+  '/academics/classes/new': typeof AcademicsClassesNewRoute
+  '/academics/sections/$sectionId': typeof AcademicsSectionsSectionIdRoute
+  '/academics/sections/new': typeof AcademicsSectionsNewRoute
+  '/academics/sessions/$sessionId': typeof AcademicsSessionsSessionIdRoute
+  '/academics/sessions/new': typeof AcademicsSessionsNewRoute
+  '/academics/subjects/$subjectId': typeof AcademicsSubjectsSubjectIdRoute
+  '/academics/subjects/new': typeof AcademicsSubjectsNewRoute
+  '/academics/teachers/$teacherId': typeof AcademicsTeachersTeacherIdRoute
+  '/academics/teachers/new': typeof AcademicsTeachersNewRoute
   '/admissions/admitted/$admissionId': typeof AdmissionsAdmittedAdmissionIdRoute
   '/admissions/applications/$applicationId': typeof AdmissionsApplicationsApplicationIdRoute
   '/admissions/applications/new': typeof AdmissionsApplicationsNewRoute
   '/admissions/enquiries/$enquiryId': typeof AdmissionsEnquiriesEnquiryIdRoute
   '/admissions/enquiries/new': typeof AdmissionsEnquiriesNewRoute
+  '/attendance/staff/take': typeof AttendanceStaffTakeRoute
+  '/attendance/students/$date': typeof AttendanceStudentsDateRoute
+  '/attendance/students/take': typeof AttendanceStudentsTakeRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
+  '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/academics/classes': typeof AcademicsClassesIndexRoute
+  '/academics/sections': typeof AcademicsSectionsIndexRoute
+  '/academics/sessions': typeof AcademicsSessionsIndexRoute
+  '/academics/subjects': typeof AcademicsSubjectsIndexRoute
+  '/academics/teachers': typeof AcademicsTeachersIndexRoute
   '/admissions/admitted': typeof AdmissionsAdmittedIndexRoute
   '/admissions/applications': typeof AdmissionsApplicationsIndexRoute
   '/admissions/enquiries': typeof AdmissionsEnquiriesIndexRoute
+  '/attendance/staff': typeof AttendanceStaffIndexRoute
+  '/attendance/students': typeof AttendanceStudentsIndexRoute
+  '/timetable/classes': typeof TimetableClassesIndexRoute
+  '/timetable/rooms': typeof TimetableRoomsIndexRoute
+  '/timetable/teachers': typeof TimetableTeachersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -244,28 +553,66 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/academics/assignments': typeof AcademicsAssignmentsRoute
+  '/academics/settings': typeof AcademicsSettingsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
   '/admissions/documents': typeof AdmissionsDocumentsRoute
   '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
   '/admissions/settings': typeof AdmissionsSettingsRoute
+  '/attendance/leave': typeof AttendanceLeaveRoute
+  '/attendance/reports': typeof AttendanceReportsRoute
+  '/attendance/settings': typeof AttendanceSettingsRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/timetable/create': typeof TimetableCreateRoute
+  '/timetable/periods': typeof TimetablePeriodsRoute
+  '/timetable/settings': typeof TimetableSettingsRoute
+  '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
+  '/attendance/': typeof AttendanceIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/timetable/': typeof TimetableIndexRoute
+  '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
+  '/academics/classes/new': typeof AcademicsClassesNewRoute
+  '/academics/sections/$sectionId': typeof AcademicsSectionsSectionIdRoute
+  '/academics/sections/new': typeof AcademicsSectionsNewRoute
+  '/academics/sessions/$sessionId': typeof AcademicsSessionsSessionIdRoute
+  '/academics/sessions/new': typeof AcademicsSessionsNewRoute
+  '/academics/subjects/$subjectId': typeof AcademicsSubjectsSubjectIdRoute
+  '/academics/subjects/new': typeof AcademicsSubjectsNewRoute
+  '/academics/teachers/$teacherId': typeof AcademicsTeachersTeacherIdRoute
+  '/academics/teachers/new': typeof AcademicsTeachersNewRoute
   '/admissions/admitted/$admissionId': typeof AdmissionsAdmittedAdmissionIdRoute
   '/admissions/applications/$applicationId': typeof AdmissionsApplicationsApplicationIdRoute
   '/admissions/applications/new': typeof AdmissionsApplicationsNewRoute
   '/admissions/enquiries/$enquiryId': typeof AdmissionsEnquiriesEnquiryIdRoute
   '/admissions/enquiries/new': typeof AdmissionsEnquiriesNewRoute
+  '/attendance/staff/take': typeof AttendanceStaffTakeRoute
+  '/attendance/students/$date': typeof AttendanceStudentsDateRoute
+  '/attendance/students/take': typeof AttendanceStudentsTakeRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
+  '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/academics/classes/': typeof AcademicsClassesIndexRoute
+  '/academics/sections/': typeof AcademicsSectionsIndexRoute
+  '/academics/sessions/': typeof AcademicsSessionsIndexRoute
+  '/academics/subjects/': typeof AcademicsSubjectsIndexRoute
+  '/academics/teachers/': typeof AcademicsTeachersIndexRoute
   '/admissions/admitted/': typeof AdmissionsAdmittedIndexRoute
   '/admissions/applications/': typeof AdmissionsApplicationsIndexRoute
   '/admissions/enquiries/': typeof AdmissionsEnquiriesIndexRoute
+  '/attendance/staff/': typeof AttendanceStaffIndexRoute
+  '/attendance/students/': typeof AttendanceStudentsIndexRoute
+  '/timetable/classes/': typeof TimetableClassesIndexRoute
+  '/timetable/rooms/': typeof TimetableRoomsIndexRoute
+  '/timetable/teachers/': typeof TimetableTeachersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -275,28 +622,66 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/profile'
+    | '/reset-password'
     | '/settings'
     | '/setup'
+    | '/academics/assignments'
+    | '/academics/settings'
     | '/admissions/counselling'
     | '/admissions/documents'
     | '/admissions/follow-ups'
     | '/admissions/settings'
+    | '/attendance/leave'
+    | '/attendance/reports'
+    | '/attendance/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/timetable/create'
+    | '/timetable/periods'
+    | '/timetable/settings'
+    | '/timetable/substitutions'
+    | '/academics/'
     | '/admissions/'
+    | '/attendance/'
     | '/parents/'
     | '/students/'
+    | '/timetable/'
+    | '/academics/classes/$classId'
+    | '/academics/classes/new'
+    | '/academics/sections/$sectionId'
+    | '/academics/sections/new'
+    | '/academics/sessions/$sessionId'
+    | '/academics/sessions/new'
+    | '/academics/subjects/$subjectId'
+    | '/academics/subjects/new'
+    | '/academics/teachers/$teacherId'
+    | '/academics/teachers/new'
     | '/admissions/admitted/$admissionId'
     | '/admissions/applications/$applicationId'
     | '/admissions/applications/new'
     | '/admissions/enquiries/$enquiryId'
     | '/admissions/enquiries/new'
+    | '/attendance/staff/take'
+    | '/attendance/students/$date'
+    | '/attendance/students/take'
     | '/students/$studentId/edit'
+    | '/timetable/classes/$classId'
+    | '/timetable/teachers/$teacherId'
+    | '/academics/classes/'
+    | '/academics/sections/'
+    | '/academics/sessions/'
+    | '/academics/subjects/'
+    | '/academics/teachers/'
     | '/admissions/admitted/'
     | '/admissions/applications/'
     | '/admissions/enquiries/'
+    | '/attendance/staff/'
+    | '/attendance/students/'
+    | '/timetable/classes/'
+    | '/timetable/rooms/'
+    | '/timetable/teachers/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -304,28 +689,66 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/profile'
+    | '/reset-password'
     | '/settings'
     | '/setup'
+    | '/academics/assignments'
+    | '/academics/settings'
     | '/admissions/counselling'
     | '/admissions/documents'
     | '/admissions/follow-ups'
     | '/admissions/settings'
+    | '/attendance/leave'
+    | '/attendance/reports'
+    | '/attendance/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/timetable/create'
+    | '/timetable/periods'
+    | '/timetable/settings'
+    | '/timetable/substitutions'
+    | '/academics'
     | '/admissions'
+    | '/attendance'
     | '/parents'
     | '/students'
+    | '/timetable'
+    | '/academics/classes/$classId'
+    | '/academics/classes/new'
+    | '/academics/sections/$sectionId'
+    | '/academics/sections/new'
+    | '/academics/sessions/$sessionId'
+    | '/academics/sessions/new'
+    | '/academics/subjects/$subjectId'
+    | '/academics/subjects/new'
+    | '/academics/teachers/$teacherId'
+    | '/academics/teachers/new'
     | '/admissions/admitted/$admissionId'
     | '/admissions/applications/$applicationId'
     | '/admissions/applications/new'
     | '/admissions/enquiries/$enquiryId'
     | '/admissions/enquiries/new'
+    | '/attendance/staff/take'
+    | '/attendance/students/$date'
+    | '/attendance/students/take'
     | '/students/$studentId/edit'
+    | '/timetable/classes/$classId'
+    | '/timetable/teachers/$teacherId'
+    | '/academics/classes'
+    | '/academics/sections'
+    | '/academics/sessions'
+    | '/academics/subjects'
+    | '/academics/teachers'
     | '/admissions/admitted'
     | '/admissions/applications'
     | '/admissions/enquiries'
+    | '/attendance/staff'
+    | '/attendance/students'
+    | '/timetable/classes'
+    | '/timetable/rooms'
+    | '/timetable/teachers'
   id:
     | '__root__'
     | '/'
@@ -333,28 +756,66 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/profile'
+    | '/reset-password'
     | '/settings'
     | '/setup'
+    | '/academics/assignments'
+    | '/academics/settings'
     | '/admissions/counselling'
     | '/admissions/documents'
     | '/admissions/follow-ups'
     | '/admissions/settings'
+    | '/attendance/leave'
+    | '/attendance/reports'
+    | '/attendance/settings'
     | '/parents/$parentId'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/timetable/create'
+    | '/timetable/periods'
+    | '/timetable/settings'
+    | '/timetable/substitutions'
+    | '/academics/'
     | '/admissions/'
+    | '/attendance/'
     | '/parents/'
     | '/students/'
+    | '/timetable/'
+    | '/academics/classes/$classId'
+    | '/academics/classes/new'
+    | '/academics/sections/$sectionId'
+    | '/academics/sections/new'
+    | '/academics/sessions/$sessionId'
+    | '/academics/sessions/new'
+    | '/academics/subjects/$subjectId'
+    | '/academics/subjects/new'
+    | '/academics/teachers/$teacherId'
+    | '/academics/teachers/new'
     | '/admissions/admitted/$admissionId'
     | '/admissions/applications/$applicationId'
     | '/admissions/applications/new'
     | '/admissions/enquiries/$enquiryId'
     | '/admissions/enquiries/new'
+    | '/attendance/staff/take'
+    | '/attendance/students/$date'
+    | '/attendance/students/take'
     | '/students/$studentId/edit'
+    | '/timetable/classes/$classId'
+    | '/timetable/teachers/$teacherId'
+    | '/academics/classes/'
+    | '/academics/sections/'
+    | '/academics/sessions/'
+    | '/academics/subjects/'
+    | '/academics/teachers/'
     | '/admissions/admitted/'
     | '/admissions/applications/'
     | '/admissions/enquiries/'
+    | '/attendance/staff/'
+    | '/attendance/students/'
+    | '/timetable/classes/'
+    | '/timetable/rooms/'
+    | '/timetable/teachers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -363,27 +824,65 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
   SetupRoute: typeof SetupRoute
+  AcademicsAssignmentsRoute: typeof AcademicsAssignmentsRoute
+  AcademicsSettingsRoute: typeof AcademicsSettingsRoute
   AdmissionsCounsellingRoute: typeof AdmissionsCounsellingRoute
   AdmissionsDocumentsRoute: typeof AdmissionsDocumentsRoute
   AdmissionsFollowUpsRoute: typeof AdmissionsFollowUpsRoute
   AdmissionsSettingsRoute: typeof AdmissionsSettingsRoute
+  AttendanceLeaveRoute: typeof AttendanceLeaveRoute
+  AttendanceReportsRoute: typeof AttendanceReportsRoute
+  AttendanceSettingsRoute: typeof AttendanceSettingsRoute
   ParentsParentIdRoute: typeof ParentsParentIdRoute
   StudentsStudentIdRoute: typeof StudentsStudentIdRouteWithChildren
   StudentsNewRoute: typeof StudentsNewRoute
   StudentsPromotionsRoute: typeof StudentsPromotionsRoute
+  TimetableCreateRoute: typeof TimetableCreateRoute
+  TimetablePeriodsRoute: typeof TimetablePeriodsRoute
+  TimetableSettingsRoute: typeof TimetableSettingsRoute
+  TimetableSubstitutionsRoute: typeof TimetableSubstitutionsRoute
+  AcademicsIndexRoute: typeof AcademicsIndexRoute
   AdmissionsIndexRoute: typeof AdmissionsIndexRoute
+  AttendanceIndexRoute: typeof AttendanceIndexRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
+  TimetableIndexRoute: typeof TimetableIndexRoute
+  AcademicsClassesClassIdRoute: typeof AcademicsClassesClassIdRoute
+  AcademicsClassesNewRoute: typeof AcademicsClassesNewRoute
+  AcademicsSectionsSectionIdRoute: typeof AcademicsSectionsSectionIdRoute
+  AcademicsSectionsNewRoute: typeof AcademicsSectionsNewRoute
+  AcademicsSessionsSessionIdRoute: typeof AcademicsSessionsSessionIdRoute
+  AcademicsSessionsNewRoute: typeof AcademicsSessionsNewRoute
+  AcademicsSubjectsSubjectIdRoute: typeof AcademicsSubjectsSubjectIdRoute
+  AcademicsSubjectsNewRoute: typeof AcademicsSubjectsNewRoute
+  AcademicsTeachersTeacherIdRoute: typeof AcademicsTeachersTeacherIdRoute
+  AcademicsTeachersNewRoute: typeof AcademicsTeachersNewRoute
   AdmissionsAdmittedAdmissionIdRoute: typeof AdmissionsAdmittedAdmissionIdRoute
   AdmissionsApplicationsApplicationIdRoute: typeof AdmissionsApplicationsApplicationIdRoute
   AdmissionsApplicationsNewRoute: typeof AdmissionsApplicationsNewRoute
   AdmissionsEnquiriesEnquiryIdRoute: typeof AdmissionsEnquiriesEnquiryIdRoute
   AdmissionsEnquiriesNewRoute: typeof AdmissionsEnquiriesNewRoute
+  AttendanceStaffTakeRoute: typeof AttendanceStaffTakeRoute
+  AttendanceStudentsDateRoute: typeof AttendanceStudentsDateRoute
+  AttendanceStudentsTakeRoute: typeof AttendanceStudentsTakeRoute
+  TimetableClassesClassIdRoute: typeof TimetableClassesClassIdRoute
+  TimetableTeachersTeacherIdRoute: typeof TimetableTeachersTeacherIdRoute
+  AcademicsClassesIndexRoute: typeof AcademicsClassesIndexRoute
+  AcademicsSectionsIndexRoute: typeof AcademicsSectionsIndexRoute
+  AcademicsSessionsIndexRoute: typeof AcademicsSessionsIndexRoute
+  AcademicsSubjectsIndexRoute: typeof AcademicsSubjectsIndexRoute
+  AcademicsTeachersIndexRoute: typeof AcademicsTeachersIndexRoute
   AdmissionsAdmittedIndexRoute: typeof AdmissionsAdmittedIndexRoute
   AdmissionsApplicationsIndexRoute: typeof AdmissionsApplicationsIndexRoute
   AdmissionsEnquiriesIndexRoute: typeof AdmissionsEnquiriesIndexRoute
+  AttendanceStaffIndexRoute: typeof AttendanceStaffIndexRoute
+  AttendanceStudentsIndexRoute: typeof AttendanceStudentsIndexRoute
+  TimetableClassesIndexRoute: typeof TimetableClassesIndexRoute
+  TimetableRoomsIndexRoute: typeof TimetableRoomsIndexRoute
+  TimetableTeachersIndexRoute: typeof TimetableTeachersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -423,6 +922,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -435,6 +941,27 @@ declare module '@tanstack/react-router' {
       path: '/setup'
       fullPath: '/setup'
       preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/': {
+      id: '/academics/'
+      path: '/academics'
+      fullPath: '/academics/'
+      preLoaderRoute: typeof AcademicsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/assignments': {
+      id: '/academics/assignments'
+      path: '/academics/assignments'
+      fullPath: '/academics/assignments'
+      preLoaderRoute: typeof AcademicsAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/settings': {
+      id: '/academics/settings'
+      path: '/academics/settings'
+      fullPath: '/academics/settings'
+      preLoaderRoute: typeof AcademicsSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admissions/': {
@@ -470,6 +997,34 @@ declare module '@tanstack/react-router' {
       path: '/admissions/settings'
       fullPath: '/admissions/settings'
       preLoaderRoute: typeof AdmissionsSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/': {
+      id: '/attendance/'
+      path: '/attendance'
+      fullPath: '/attendance/'
+      preLoaderRoute: typeof AttendanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/leave': {
+      id: '/attendance/leave'
+      path: '/attendance/leave'
+      fullPath: '/attendance/leave'
+      preLoaderRoute: typeof AttendanceLeaveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/reports': {
+      id: '/attendance/reports'
+      path: '/attendance/reports'
+      fullPath: '/attendance/reports'
+      preLoaderRoute: typeof AttendanceReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/settings': {
+      id: '/attendance/settings'
+      path: '/attendance/settings'
+      fullPath: '/attendance/settings'
+      preLoaderRoute: typeof AttendanceSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/parents/': {
@@ -512,6 +1067,146 @@ declare module '@tanstack/react-router' {
       path: '/students/promotions'
       fullPath: '/students/promotions'
       preLoaderRoute: typeof StudentsPromotionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/': {
+      id: '/timetable/'
+      path: '/timetable'
+      fullPath: '/timetable/'
+      preLoaderRoute: typeof TimetableIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/create': {
+      id: '/timetable/create'
+      path: '/timetable/create'
+      fullPath: '/timetable/create'
+      preLoaderRoute: typeof TimetableCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/periods': {
+      id: '/timetable/periods'
+      path: '/timetable/periods'
+      fullPath: '/timetable/periods'
+      preLoaderRoute: typeof TimetablePeriodsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/settings': {
+      id: '/timetable/settings'
+      path: '/timetable/settings'
+      fullPath: '/timetable/settings'
+      preLoaderRoute: typeof TimetableSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/substitutions': {
+      id: '/timetable/substitutions'
+      path: '/timetable/substitutions'
+      fullPath: '/timetable/substitutions'
+      preLoaderRoute: typeof TimetableSubstitutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/classes/': {
+      id: '/academics/classes/'
+      path: '/academics/classes'
+      fullPath: '/academics/classes/'
+      preLoaderRoute: typeof AcademicsClassesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/classes/$classId': {
+      id: '/academics/classes/$classId'
+      path: '/academics/classes/$classId'
+      fullPath: '/academics/classes/$classId'
+      preLoaderRoute: typeof AcademicsClassesClassIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/classes/new': {
+      id: '/academics/classes/new'
+      path: '/academics/classes/new'
+      fullPath: '/academics/classes/new'
+      preLoaderRoute: typeof AcademicsClassesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/sections/': {
+      id: '/academics/sections/'
+      path: '/academics/sections'
+      fullPath: '/academics/sections/'
+      preLoaderRoute: typeof AcademicsSectionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/sections/$sectionId': {
+      id: '/academics/sections/$sectionId'
+      path: '/academics/sections/$sectionId'
+      fullPath: '/academics/sections/$sectionId'
+      preLoaderRoute: typeof AcademicsSectionsSectionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/sections/new': {
+      id: '/academics/sections/new'
+      path: '/academics/sections/new'
+      fullPath: '/academics/sections/new'
+      preLoaderRoute: typeof AcademicsSectionsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/sessions/': {
+      id: '/academics/sessions/'
+      path: '/academics/sessions'
+      fullPath: '/academics/sessions/'
+      preLoaderRoute: typeof AcademicsSessionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/sessions/$sessionId': {
+      id: '/academics/sessions/$sessionId'
+      path: '/academics/sessions/$sessionId'
+      fullPath: '/academics/sessions/$sessionId'
+      preLoaderRoute: typeof AcademicsSessionsSessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/sessions/new': {
+      id: '/academics/sessions/new'
+      path: '/academics/sessions/new'
+      fullPath: '/academics/sessions/new'
+      preLoaderRoute: typeof AcademicsSessionsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/subjects/': {
+      id: '/academics/subjects/'
+      path: '/academics/subjects'
+      fullPath: '/academics/subjects/'
+      preLoaderRoute: typeof AcademicsSubjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/subjects/$subjectId': {
+      id: '/academics/subjects/$subjectId'
+      path: '/academics/subjects/$subjectId'
+      fullPath: '/academics/subjects/$subjectId'
+      preLoaderRoute: typeof AcademicsSubjectsSubjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/subjects/new': {
+      id: '/academics/subjects/new'
+      path: '/academics/subjects/new'
+      fullPath: '/academics/subjects/new'
+      preLoaderRoute: typeof AcademicsSubjectsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/teachers/': {
+      id: '/academics/teachers/'
+      path: '/academics/teachers'
+      fullPath: '/academics/teachers/'
+      preLoaderRoute: typeof AcademicsTeachersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/teachers/$teacherId': {
+      id: '/academics/teachers/$teacherId'
+      path: '/academics/teachers/$teacherId'
+      fullPath: '/academics/teachers/$teacherId'
+      preLoaderRoute: typeof AcademicsTeachersTeacherIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/teachers/new': {
+      id: '/academics/teachers/new'
+      path: '/academics/teachers/new'
+      fullPath: '/academics/teachers/new'
+      preLoaderRoute: typeof AcademicsTeachersNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admissions/admitted/': {
@@ -570,12 +1265,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdmissionsEnquiriesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/attendance/staff/': {
+      id: '/attendance/staff/'
+      path: '/attendance/staff'
+      fullPath: '/attendance/staff/'
+      preLoaderRoute: typeof AttendanceStaffIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/staff/take': {
+      id: '/attendance/staff/take'
+      path: '/attendance/staff/take'
+      fullPath: '/attendance/staff/take'
+      preLoaderRoute: typeof AttendanceStaffTakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/students/': {
+      id: '/attendance/students/'
+      path: '/attendance/students'
+      fullPath: '/attendance/students/'
+      preLoaderRoute: typeof AttendanceStudentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/students/$date': {
+      id: '/attendance/students/$date'
+      path: '/attendance/students/$date'
+      fullPath: '/attendance/students/$date'
+      preLoaderRoute: typeof AttendanceStudentsDateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance/students/take': {
+      id: '/attendance/students/take'
+      path: '/attendance/students/take'
+      fullPath: '/attendance/students/take'
+      preLoaderRoute: typeof AttendanceStudentsTakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students/$studentId/edit': {
       id: '/students/$studentId/edit'
       path: '/edit'
       fullPath: '/students/$studentId/edit'
       preLoaderRoute: typeof StudentsStudentIdEditRouteImport
       parentRoute: typeof StudentsStudentIdRoute
+    }
+    '/timetable/classes/': {
+      id: '/timetable/classes/'
+      path: '/timetable/classes'
+      fullPath: '/timetable/classes/'
+      preLoaderRoute: typeof TimetableClassesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/classes/$classId': {
+      id: '/timetable/classes/$classId'
+      path: '/timetable/classes/$classId'
+      fullPath: '/timetable/classes/$classId'
+      preLoaderRoute: typeof TimetableClassesClassIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/rooms/': {
+      id: '/timetable/rooms/'
+      path: '/timetable/rooms'
+      fullPath: '/timetable/rooms/'
+      preLoaderRoute: typeof TimetableRoomsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/teachers/': {
+      id: '/timetable/teachers/'
+      path: '/timetable/teachers'
+      fullPath: '/timetable/teachers/'
+      preLoaderRoute: typeof TimetableTeachersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timetable/teachers/$teacherId': {
+      id: '/timetable/teachers/$teacherId'
+      path: '/timetable/teachers/$teacherId'
+      fullPath: '/timetable/teachers/$teacherId'
+      preLoaderRoute: typeof TimetableTeachersTeacherIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -597,28 +1362,66 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,
   SetupRoute: SetupRoute,
+  AcademicsAssignmentsRoute: AcademicsAssignmentsRoute,
+  AcademicsSettingsRoute: AcademicsSettingsRoute,
   AdmissionsCounsellingRoute: AdmissionsCounsellingRoute,
   AdmissionsDocumentsRoute: AdmissionsDocumentsRoute,
   AdmissionsFollowUpsRoute: AdmissionsFollowUpsRoute,
   AdmissionsSettingsRoute: AdmissionsSettingsRoute,
+  AttendanceLeaveRoute: AttendanceLeaveRoute,
+  AttendanceReportsRoute: AttendanceReportsRoute,
+  AttendanceSettingsRoute: AttendanceSettingsRoute,
   ParentsParentIdRoute: ParentsParentIdRoute,
   StudentsStudentIdRoute: StudentsStudentIdRouteWithChildren,
   StudentsNewRoute: StudentsNewRoute,
   StudentsPromotionsRoute: StudentsPromotionsRoute,
+  TimetableCreateRoute: TimetableCreateRoute,
+  TimetablePeriodsRoute: TimetablePeriodsRoute,
+  TimetableSettingsRoute: TimetableSettingsRoute,
+  TimetableSubstitutionsRoute: TimetableSubstitutionsRoute,
+  AcademicsIndexRoute: AcademicsIndexRoute,
   AdmissionsIndexRoute: AdmissionsIndexRoute,
+  AttendanceIndexRoute: AttendanceIndexRoute,
   ParentsIndexRoute: ParentsIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
+  TimetableIndexRoute: TimetableIndexRoute,
+  AcademicsClassesClassIdRoute: AcademicsClassesClassIdRoute,
+  AcademicsClassesNewRoute: AcademicsClassesNewRoute,
+  AcademicsSectionsSectionIdRoute: AcademicsSectionsSectionIdRoute,
+  AcademicsSectionsNewRoute: AcademicsSectionsNewRoute,
+  AcademicsSessionsSessionIdRoute: AcademicsSessionsSessionIdRoute,
+  AcademicsSessionsNewRoute: AcademicsSessionsNewRoute,
+  AcademicsSubjectsSubjectIdRoute: AcademicsSubjectsSubjectIdRoute,
+  AcademicsSubjectsNewRoute: AcademicsSubjectsNewRoute,
+  AcademicsTeachersTeacherIdRoute: AcademicsTeachersTeacherIdRoute,
+  AcademicsTeachersNewRoute: AcademicsTeachersNewRoute,
   AdmissionsAdmittedAdmissionIdRoute: AdmissionsAdmittedAdmissionIdRoute,
   AdmissionsApplicationsApplicationIdRoute:
     AdmissionsApplicationsApplicationIdRoute,
   AdmissionsApplicationsNewRoute: AdmissionsApplicationsNewRoute,
   AdmissionsEnquiriesEnquiryIdRoute: AdmissionsEnquiriesEnquiryIdRoute,
   AdmissionsEnquiriesNewRoute: AdmissionsEnquiriesNewRoute,
+  AttendanceStaffTakeRoute: AttendanceStaffTakeRoute,
+  AttendanceStudentsDateRoute: AttendanceStudentsDateRoute,
+  AttendanceStudentsTakeRoute: AttendanceStudentsTakeRoute,
+  TimetableClassesClassIdRoute: TimetableClassesClassIdRoute,
+  TimetableTeachersTeacherIdRoute: TimetableTeachersTeacherIdRoute,
+  AcademicsClassesIndexRoute: AcademicsClassesIndexRoute,
+  AcademicsSectionsIndexRoute: AcademicsSectionsIndexRoute,
+  AcademicsSessionsIndexRoute: AcademicsSessionsIndexRoute,
+  AcademicsSubjectsIndexRoute: AcademicsSubjectsIndexRoute,
+  AcademicsTeachersIndexRoute: AcademicsTeachersIndexRoute,
   AdmissionsAdmittedIndexRoute: AdmissionsAdmittedIndexRoute,
   AdmissionsApplicationsIndexRoute: AdmissionsApplicationsIndexRoute,
   AdmissionsEnquiriesIndexRoute: AdmissionsEnquiriesIndexRoute,
+  AttendanceStaffIndexRoute: AttendanceStaffIndexRoute,
+  AttendanceStudentsIndexRoute: AttendanceStudentsIndexRoute,
+  TimetableClassesIndexRoute: TimetableClassesIndexRoute,
+  TimetableRoomsIndexRoute: TimetableRoomsIndexRoute,
+  TimetableTeachersIndexRoute: TimetableTeachersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

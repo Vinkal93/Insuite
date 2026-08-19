@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -188,10 +188,28 @@ export const SetupWizard: React.FC = () => {
     { num: 4, label: "Review & Complete", icon: CheckCircle2 },
   ];
 
+  const handleSkipSetup = async () => {
+    if (!organization) {
+      window.location.href = "/dashboard";
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      await updateOrganization(organization.id, { setupCompleted: true });
+      await refreshUserData();
+      window.location.href = "/dashboard";
+    } catch (err) {
+      console.error(err);
+      window.location.href = "/dashboard";
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-3xl py-8">
       {/* Wizard Header */}
-      <div className="text-center">
+      <div className="text-center relative">
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold text-primary">
           <Sparkles className="size-3.5" />
           InSuite Guided Onboarding
@@ -202,6 +220,18 @@ export const SetupWizard: React.FC = () => {
         <p className="mt-2 text-xs text-muted-foreground">
           Step {currentStep} of 4 — Set up your school profile, academic calendar, and custom branding.
         </p>
+        <div className="mt-3 flex items-center justify-center">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={handleSkipSetup}
+            disabled={isSubmitting}
+            className="text-xs text-primary font-bold hover:bg-primary/10 rounded-xl"
+          >
+            ⚡ Skip for now & Complete details later in Settings
+          </Button>
+        </div>
       </div>
 
       {/* Stepper Progress */}

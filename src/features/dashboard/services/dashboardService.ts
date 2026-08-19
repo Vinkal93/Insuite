@@ -1,6 +1,11 @@
 import type { Organization, AcademicSession } from "@/types";
 import { getStudentCount } from "@/services/studentService";
 import { getAdmissionDashboardStats } from "@/services/admissionService";
+import {
+  getSchoolClasses,
+  getSections,
+  getTeachers,
+} from "@/services/academicService";
 import type {
   DashboardMetrics,
   SetupProgressData,
@@ -14,13 +19,24 @@ export const getDashboardMetrics = async (
 ): Promise<DashboardMetrics> => {
   let studentCountData = { total: 0, active: 0 };
   let admissionStatsData = { admissionsCompleted: 0, totalEnquiries: 0 };
+  let teachersCount = 0;
+  let classesCount = 0;
+  let sectionsCount = 0;
+
   try {
-    const [sc, adm] = await Promise.all([
-      getStudentCount(orgId, sessionId),
+    const [sc, adm, teachers, classes, sections] = await Promise.all([
+      getStudentCount(orgId, sessionId).catch(() => ({ total: 0, active: 0 })),
       getAdmissionDashboardStats(orgId, sessionId).catch(() => ({ admissionsCompleted: 0, totalEnquiries: 0 })),
+      getTeachers(orgId, "active").catch(() => []),
+      getSchoolClasses(orgId, sessionId).catch(() => []),
+      getSections(orgId, undefined, sessionId).catch(() => []),
     ]);
+
     studentCountData = sc;
     admissionStatsData = adm as any;
+    teachersCount = teachers.length;
+    classesCount = classes.length;
+    sectionsCount = sections.length;
   } catch (e) {
     console.warn("Failed to fetch dashboard metric counts:", e);
   }
@@ -36,9 +52,9 @@ export const getDashboardMetrics = async (
     totalTeachers: {
       id: "teachers",
       title: "Total Teachers",
-      value: 0,
-      subtext: "No faculty assigned yet",
-      isConfigured: false,
+      value: teachersCount,
+      subtext: teachersCount > 0 ? `${teachersCount} faculty educators` : "No faculty assigned yet",
+      isConfigured: teachersCount > 0,
     },
     todayAttendance: {
       id: "attendance",
@@ -73,16 +89,16 @@ export const getDashboardMetrics = async (
     activeClasses: {
       id: "classes",
       title: "Active Classes",
-      value: 0,
-      subtext: "Nursery to Grade 12",
-      isConfigured: false,
+      value: classesCount,
+      subtext: classesCount > 0 ? `${classesCount} grade levels configured` : "No classes added yet",
+      isConfigured: classesCount > 0,
     },
     activeSections: {
       id: "sections",
       title: "Active Sections",
-      value: 0,
-      subtext: "Section divisions",
-      isConfigured: false,
+      value: sectionsCount,
+      subtext: sectionsCount > 0 ? `${sectionsCount} classrooms active` : "Section divisions",
+      isConfigured: sectionsCount > 0,
     },
   };
 };

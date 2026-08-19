@@ -1,4 +1,4 @@
-﻿import {
+import {
   collection,
   doc,
   getDocs,
@@ -40,6 +40,36 @@ export const createAuditLog = async (
   } catch (err) {
     console.warn("Failed to write audit log:", err);
   }
+};
+
+/**
+ * Backwards-compatible alias for logAuditEvent
+ */
+export const logAuditEvent = async (
+  orgId: string,
+  entry: {
+    action: any;
+    entity?: any;
+    entityType?: any;
+    entityId?: string;
+    performedBy?: { uid: string; name: string };
+    actorId?: string;
+    actorName?: string;
+    entityName?: string;
+    metadata?: Record<string, any>;
+  }
+): Promise<void> => {
+  return createAuditLog(orgId, {
+    actorId: entry.performedBy?.uid || entry.actorId || "system",
+    actorName: entry.performedBy?.name || entry.actorName || "System",
+    action: entry.action,
+    entityType: entry.entityType || entry.entity || "SCHOOL",
+    entityId: entry.entityId || "global",
+    metadata: {
+      entityName: entry.entityName,
+      ...entry.metadata,
+    },
+  });
 };
 
 export const getAuditLogsForEntity = async (

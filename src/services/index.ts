@@ -1,4 +1,4 @@
-﻿export * from "./userService";
+export * from "./userService";
 export * from "./organizationService";
 export * from "./sessionService";
 export * from "./storageService";
@@ -7,3 +7,6 @@ export * from "./parentService";
 export * from "./documentService";
 export * from "./auditService";
 export * from "./admissionService";
+export * from "./academicService";
+export * from "./attendanceService";
+export * from "./timetableService";

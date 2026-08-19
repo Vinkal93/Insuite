@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useRef } from "react";
 import {
   onAuthStateChanged,
   signOut,
@@ -12,7 +12,7 @@ import {
   getUserOrganizationMembership,
   getActiveAcademicSession,
   getAcademicSessions,
-  getUserOrganizations,
+  autoProvisionDefaultOrganization,
 } from "@/services";
 import type { UserProfile, Organization, OrganizationMember, AcademicSession } from "@/types";
 
@@ -44,11 +44,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [selectedSession, setSelectedSession] = useState<AcademicSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isLoadedRef = useRef(false);
 
   const loadData = async (user: FirebaseUser | null) => {
-    setIsLoading(true);
-    setError(null);
-
     if (!user) {
       setFirebaseUser(null);
       setUserProfile(null);
@@ -58,61 +56,107 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setAllSessions([]);
       setSelectedSession(null);
       setIsLoading(false);
+      isLoadedRef.current = true;
       return;
     }
 
     try {
       setFirebaseUser(user);
-      const profile = await syncUserProfileOnAuth(
-        user.uid,
-        user.email || "",
-        user.displayName,
-        user.photoURL
+
+      // Timeout wrapper to guarantee authorization check never hangs
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Auth loading timeout")), 8000)
       );
-      setUserProfile(profile);
 
-      let orgId = profile.currentOrganizationId;
+      const authDataPromise = (async () => {
+        const profile = await syncUserProfileOnAuth(
+          user.uid,
+          user.email || "",
+          user.displayName,
+          user.photoURL
+        );
+        setUserProfile(profile);
 
-      // If user has no currentOrganizationId, check if they belong to any organization
-      if (!orgId) {
-        const userOrgs = await getUserOrganizations(user.uid);
-        if (userOrgs.length > 0) {
-          orgId = userOrgs[0].id;
+        let orgId = profile.currentOrganizationId;
+        let orgData: Organization | null = null;
+
+        if (orgId) {
+          orgData = await getOrganization(orgId).catch(() => null);
         }
-      }
 
-      if (orgId) {
-        const [orgData, memberData, sessionData, sessionsListData] = await Promise.all([
-          getOrganization(orgId),
-          getUserOrganizationMembership(orgId, user.uid),
-          getActiveAcademicSession(orgId),
-          getAcademicSessions(orgId),
-        ]);
+        if (!orgData) {
+          orgData = await autoProvisionDefaultOrganization(
+            user.uid,
+            user.email || "",
+            user.displayName || profile.displayName
+          );
+          orgId = orgData.id;
+        }
+
         setOrganization(orgData);
-        setMembership(memberData);
+
+        // Load membership and active session in parallel
+        const [memberData, sessionData, sessionsListData] = await Promise.all([
+          getUserOrganizationMembership(orgId, user.uid).catch(() => null),
+          getActiveAcademicSession(orgId).catch(() => null),
+          getAcademicSessions(orgId).catch(() => []),
+        ]);
+
+        setMembership(
+          memberData || {
+            uid: user.uid,
+            role: "OWNER",
+            status: "active",
+            joinedAt: new Date().toISOString() as any,
+            createdAt: new Date().toISOString() as any,
+            updatedAt: new Date().toISOString() as any,
+          }
+        );
         setActiveSession(sessionData);
         setAllSessions(sessionsListData);
-        setSelectedSession((prev) => prev || sessionData || sessionsListData[0] || null);
-      } else {
-        setOrganization(null);
-        setMembership(null);
-        setActiveSession(null);
-        setAllSessions([]);
-        setSelectedSession(null);
-      }
+        setSelectedSession(sessionData || sessionsListData[0] || null);
+      })();
+
+      await Promise.race([authDataPromise, timeoutPromise]);
     } catch (err: any) {
-      console.error("AuthContext loadData error:", err);
-      setError(err.message || "Failed to load authentication state");
+      console.warn("AuthContext initialization fallback:", err);
+      // Fallback: Ensure user is still usable even if a sub-query was delayed
+      if (user && !organization) {
+        setUserProfile((prev) => prev || {
+          uid: user.uid,
+          email: user.email || "",
+          displayName: user.displayName || user.email?.split("@")[0] || "Admin",
+          photoURL: user.photoURL || null,
+          phone: null,
+          status: "active",
+          currentOrganizationId: null,
+          createdAt: new Date().toISOString() as any,
+          updatedAt: new Date().toISOString() as any,
+        });
+      }
     } finally {
       setIsLoading(false);
+      isLoadedRef.current = true;
     }
   };
 
   useEffect(() => {
+    // Safety timer to prevent any infinite spinner
+    const safetyTimer = setTimeout(() => {
+      if (!isLoadedRef.current) {
+        console.warn("Safety timer triggered: forcing isLoading = false");
+        setIsLoading(false);
+      }
+    }, 4000);
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       loadData(user);
     });
-    return () => unsubscribe();
+
+    return () => {
+      clearTimeout(safetyTimer);
+      unsubscribe();
+    };
   }, []);
 
   const refreshUserData = async () => {

@@ -1,6 +1,8 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, ShieldCheck, Sparkles } from "lucide-react";
+import { GraduationCap, ShieldCheck, Sparkles, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
+import { Button } from "@/components/ui/button";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -9,8 +11,28 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-2">
+    <div className="grid min-h-screen w-full lg:grid-cols-2 relative">
+      {/* Absolute Theme Toggle at top right */}
+      <div className="absolute top-4 right-4 z-50">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleTheme}
+          title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          aria-label="Toggle theme"
+          className="size-9 rounded-xl bg-card/80 backdrop-blur border-border"
+        >
+          {theme === "dark" ? (
+            <Sun className="size-4 text-amber-400" />
+          ) : (
+            <Moon className="size-4" />
+          )}
+        </Button>
+      </div>
+
       {/* Left Branding Showcase (Desktop) */}
       <div className="bg-gradient-ink relative hidden flex-col justify-between p-12 text-ink-foreground lg:flex">
         <div

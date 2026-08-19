@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, Sparkles, GraduationCap, ArrowRight } from "lucide-react";
+import { Menu, X, Sparkles, GraduationCap, ArrowRight, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/hooks/useTheme";
 
 const links = [
   { label: "Product", href: "#product" },
@@ -34,6 +35,7 @@ export function AnnouncementBar() {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -81,6 +83,22 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 lg:flex">
+          {/* Theme Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle theme"
+            className="size-9 rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          >
+            {theme === "dark" ? (
+              <Sun className="size-4 text-amber-400 transition-transform hover:rotate-45" />
+            ) : (
+              <Moon className="size-4 transition-transform hover:-rotate-12" />
+            )}
+          </Button>
+
           <Button variant="ghost" size="sm" asChild className="text-muted-foreground">
             <Link to="/login">Login</Link>
           </Button>
@@ -92,15 +110,33 @@ export function Navbar() {
           </Button>
         </div>
 
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="grid size-10 place-items-center rounded-xl border border-border lg:hidden"
-        >
-          {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          {/* Mobile Theme Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle theme"
+            className="size-9 rounded-xl text-muted-foreground"
+          >
+            {theme === "dark" ? (
+              <Sun className="size-4 text-amber-400" />
+            ) : (
+              <Moon className="size-4" />
+            )}
+          </Button>
+
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="grid size-10 place-items-center rounded-xl border border-border"
+          >
+            {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
+          </button>
+        </div>
       </nav>
 
       {open && (

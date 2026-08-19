@@ -1,4 +1,5 @@
-﻿import { createFileRoute, useSearch } from "@tanstack/react-router";
+import { createFileRoute, useSearch, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { LoginForm, RegisterForm } from "@/features/auth";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,15 +23,20 @@ function LoginPage() {
   const search = useSearch({ from: "/login" });
   const isRegister = search.mode === "register";
   const { firebaseUser, organization, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && firebaseUser) {
+      if (!organization || !organization.setupCompleted) {
+        navigate({ to: "/setup" });
+      } else {
+        navigate({ to: "/dashboard" });
+      }
+    }
+  }, [isLoading, firebaseUser, organization, navigate]);
 
   if (!isLoading && firebaseUser) {
-    if (!organization || !organization.setupCompleted) {
-      if (typeof window !== "undefined") window.location.href = "/setup";
-      return null;
-    } else {
-      if (typeof window !== "undefined") window.location.href = "/dashboard";
-      return null;
-    }
+    return null;
   }
 
   return (

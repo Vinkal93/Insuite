@@ -1,4 +1,4 @@
-﻿import { z } from "zod";
+import { z } from "zod";
 
 export const schoolInfoSchema = z.object({
   name: z.string().min(2, "School name is required (at least 2 characters)"),
@@ -20,26 +20,6 @@ export const schoolInfoSchema = z.object({
 });
 
 export type SchoolInfoInput = z.infer<typeof schoolInfoSchema>;
-
-export const academicSessionSchema = z
-  .object({
-    name: z.string().min(2, "Session name required e.g. 2026-27"),
-    startDate: z.string().min(1, "Start date required"),
-    endDate: z.string().min(1, "End date required"),
-    isActive: z.boolean().default(true),
-  })
-  .refine(
-    (data) => {
-      if (!data.startDate || !data.endDate) return true;
-      return new Date(data.endDate) > new Date(data.startDate);
-    },
-    {
-      message: "End date must be after start date",
-      path: ["endDate"],
-    },
-  );
-
-export type AcademicSessionInput = z.infer<typeof academicSessionSchema>;
 
 export const brandingSchema = z.object({
   displayName: z.string().optional().or(z.literal("")),
