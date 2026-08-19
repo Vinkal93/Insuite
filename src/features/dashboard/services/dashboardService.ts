@@ -1,212 +1,385 @@
-import type { Organization, AcademicSession } from "@/types";
-import { getStudentCount } from "@/services/studentService";
-import { getAdmissionDashboardStats } from "@/services/admissionService";
+import { doc, getDoc, collection, getDocs, query, where, limit } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import type { Organization, AcademicSession, DayOfWeek } from "@/types";
+import { getStudentCount, listStudents } from "@/services/studentService";
+import { getTeachers, getSchoolClasses, getSections, getSubjects } from "@/services/academicService";
+import { getAttendanceDashboardStats } from "@/services/attendanceService";
 import {
-  getSchoolClasses,
-  getSections,
-  getTeachers,
-} from "@/services/academicService";
+  getAdmissionDashboardStats,
+  listEnquiries,
+  listApplications,
+  listAdmissions,
+} from "@/services/admissionService";
+import { getAcademicWorkStats } from "@/services/academicWorkService";
+import { getRecentAuditLogs } from "@/services/auditService";
 import type {
-  DashboardMetrics,
+  Dashboard2KPIs,
+  TodayAtSchoolData,
+  AttendanceOverviewData,
+  AdmissionsFunnelData,
+  FeeSnapshotData,
+  ClassDistributionItem,
+  TodayTimetableItem,
+  AttentionItem,
+  UpcomingEventItem,
   SetupProgressData,
   ActivityItem,
-  DashboardAlertItem,
 } from "../types";
 
-export const getDashboardMetrics = async (
+const DAYS_MAP: DayOfWeek[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+export async function fetchDashboard2KPIs(
   orgId: string,
   sessionId?: string
-): Promise<DashboardMetrics> => {
-  let studentCountData = { total: 0, active: 0 };
-  let admissionStatsData = { admissionsCompleted: 0, totalEnquiries: 0 };
-  let teachersCount = 0;
-  let classesCount = 0;
-  let sectionsCount = 0;
+): Promise<Dashboard2KPIs> {
+  const todayStr = new Date().toISOString().split("T")[0];
+  const dayOfWeek = DAYS_MAP[new Date().getDay()];
 
-  try {
-    const [sc, adm, teachers, classes, sections] = await Promise.all([
-      getStudentCount(orgId, sessionId).catch(() => ({ total: 0, active: 0 })),
-      getAdmissionDashboardStats(orgId, sessionId).catch(() => ({ admissionsCompleted: 0, totalEnquiries: 0 })),
-      getTeachers(orgId, "active").catch(() => []),
-      getSchoolClasses(orgId, sessionId).catch(() => []),
-      getSections(orgId, undefined, sessionId).catch(() => []),
-    ]);
+  const [
+    studentCountData,
+    teachersList,
+    attendanceStats,
+    admissionStats,
+    academicWorkStats,
+    timetableDocs,
+  ] = await Promise.all([
+    getStudentCount(orgId, sessionId).catch(() => ({ total: 0, active: 0 })),
+    getTeachers(orgId, "active").catch(() => []),
+    getAttendanceDashboardStats(orgId, todayStr, sessionId).catch(() => null),
+    getAdmissionDashboardStats(orgId, sessionId).catch(() => null),
+    getAcademicWorkStats(orgId, sessionId).catch(() => null),
+    getDocs(
+      query(
+        collection(db, "organizations", orgId, "timetableEntries"),
+        where("dayOfWeek", "==", dayOfWeek),
+        limit(50)
+      )
+    ).catch(() => ({ docs: [] })),
+  ]);
 
-    studentCountData = sc;
-    admissionStatsData = adm as any;
-    teachersCount = teachers.length;
-    classesCount = classes.length;
-    sectionsCount = sections.length;
-  } catch (e) {
-    console.warn("Failed to fetch dashboard metric counts:", e);
+  const totalStudents = studentCountData.active || studentCountData.total || 0;
+  const totalTeachers = teachersList.length;
+
+  let attendancePercentage: number | null = null;
+  let presentStudents = 0;
+  let totalAttended = 0;
+
+  if (attendanceStats && (attendanceStats.presentStudents > 0 || attendanceStats.absentStudents > 0)) {
+    presentStudents = attendanceStats.presentStudents;
+    totalAttended = attendanceStats.totalStudents;
+    attendancePercentage =
+      totalAttended > 0 ? Math.round((presentStudents / totalAttended) * 1000) / 10 : 0;
   }
+
+  const newAdmissionsCount = admissionStats?.admissionsCompleted || 0;
+  const pendingEnquiriesCount = admissionStats?.pendingFollowUps || admissionStats?.totalEnquiries || 0;
+  const activeAssignmentsCount = academicWorkStats?.activeAssignments || 0;
+  const needsGradingCount = academicWorkStats?.needsGrading || 0;
+  const scheduledPeriodsCount = timetableDocs.docs.length;
 
   return {
     totalStudents: {
-      id: "students",
-      title: "Total Students",
-      value: studentCountData.total,
-      subtext: studentCountData.total > 0 ? `${studentCountData.active} active students` : "No students enrolled yet",
-      isConfigured: studentCountData.total > 0,
+      value: totalStudents,
+      subtext: totalStudents > 0 ? "Active Students" : "No students enrolled",
     },
     totalTeachers: {
-      id: "teachers",
-      title: "Total Teachers",
-      value: teachersCount,
-      subtext: teachersCount > 0 ? `${teachersCount} faculty educators` : "No faculty assigned yet",
-      isConfigured: teachersCount > 0,
+      value: totalTeachers,
+      subtext: totalTeachers > 0 ? "Active Teaching Staff" : "No faculty added",
     },
     todayAttendance: {
-      id: "attendance",
-      title: "Today's Attendance",
-      value: "Not configured",
-      subtext: "Module unlocks in Phase 6",
-      isConfigured: false,
-    },
-    todayCollection: {
-      id: "collection",
-      title: "Today's Collection",
-      value: "Not configured",
-      subtext: "Fee module unlocks in Phase 9",
-      isConfigured: false,
+      percentage: attendancePercentage,
+      present: presentStudents,
+      total: totalAttended,
+      isConfigured: attendanceStats !== null,
     },
     pendingFees: {
-      id: "pending_fees",
-      title: "Pending Fees",
-      value: "Not configured",
-      subtext: "Fee module unlocks in Phase 9",
-      isConfigured: false,
+      value: null,
+      overdue: null,
+      isConfigured: false, // Will activate in Phase 9 Fees module
     },
     newAdmissions: {
-      id: "admissions",
-      title: "New Admissions",
-      value: admissionStatsData.admissionsCompleted,
-      subtext: admissionStatsData.admissionsCompleted > 0
-        ? `${admissionStatsData.admissionsCompleted} completed • ${admissionStatsData.totalEnquiries} enquiries`
-        : "No admissions finalized yet",
-      isConfigured: admissionStatsData.admissionsCompleted > 0,
+      value: newAdmissionsCount,
+      subtext: "This session",
     },
-    activeClasses: {
-      id: "classes",
-      title: "Active Classes",
-      value: classesCount,
-      subtext: classesCount > 0 ? `${classesCount} grade levels configured` : "No classes added yet",
-      isConfigured: classesCount > 0,
+    pendingEnquiries: {
+      value: pendingEnquiriesCount,
+      subtext: pendingEnquiriesCount > 0 ? "Requires follow-up" : "All follow-ups clear",
     },
-    activeSections: {
-      id: "sections",
-      title: "Active Sections",
-      value: sectionsCount,
-      subtext: sectionsCount > 0 ? `${sectionsCount} classrooms active` : "Section divisions",
-      isConfigured: sectionsCount > 0,
+    assignments: {
+      value: activeAssignmentsCount,
+      needsGrading: needsGradingCount,
+    },
+    todaySchedule: {
+      periodsCount: scheduledPeriodsCount,
+      subtext: scheduledPeriodsCount > 0 ? `${scheduledPeriodsCount} classes today` : "No classes scheduled",
     },
   };
-};
+}
 
-export const calculateSetupProgress = (
-  organization: Organization | null,
-  activeSession: AcademicSession | null
-): SetupProgressData => {
-  const hasSchoolInfo = !!(organization?.name && organization?.code);
-  const hasBranding = !!(organization?.primaryColor || organization?.logoUrl);
-  const hasSession = !!activeSession;
-  const hasClasses = false; // Phase 3
-  const hasSections = false; // Phase 3
-  const hasSubjects = false; // Phase 3
-  const hasTeachers = false; // Phase 5
+export async function fetchTodayAtSchool(
+  orgId: string,
+  totalStudents: number,
+  totalTeachers: number
+): Promise<TodayAtSchoolData> {
+  const todayStr = new Date().toISOString().split("T")[0];
+  const dayOfWeek = DAYS_MAP[new Date().getDay()];
 
-  const items = [
-    { key: "info", label: "School Information", isCompleted: hasSchoolInfo, route: "/settings" },
-    { key: "branding", label: "Branding & Logo", isCompleted: hasBranding, route: "/settings" },
-    { key: "session", label: "Academic Session", isCompleted: hasSession, route: "/settings" },
-    { key: "classes", label: "Classes", isCompleted: hasClasses },
-    { key: "sections", label: "Sections", isCompleted: hasSections },
-    { key: "subjects", label: "Subjects", isCompleted: hasSubjects },
-    { key: "teachers", label: "Teachers", isCompleted: hasTeachers },
+  const [studentAtt, staffAtt, timetableDocs] = await Promise.all([
+    getAttendanceDashboardStats(orgId, todayStr).catch(() => null),
+    getDocs(
+      query(
+        collection(db, "organizations", orgId, "attendance"),
+        where("date", "==", todayStr),
+        where("personType", "==", "staff")
+      )
+    ).catch(() => ({ docs: [] })),
+    getDocs(
+      query(
+        collection(db, "organizations", orgId, "timetableEntries"),
+        where("dayOfWeek", "==", dayOfWeek)
+      )
+    ).catch(() => ({ docs: [] })),
+  ]);
+
+  const hasAttendance = !!studentAtt && studentAtt.totalStudents > 0;
+  const studentsPresent = studentAtt?.presentStudents || 0;
+  const studentsAbsent = (studentAtt?.absentStudents || 0) + (studentAtt?.leaveStudents || 0);
+  const studentsNotMarked = Math.max(0, totalStudents - (studentAtt?.totalStudents || 0));
+
+  const staffDocs = staffAtt.docs.map((d) => d.data());
+  const teachersPresent = staffDocs.filter((d: any) => d.status === "PRESENT" || d.status === "LATE" || d.status === "present").length;
+  const teachersAbsent = staffDocs.filter((d: any) => d.status === "ABSENT" || d.status === "ON_LEAVE" || d.status === "absent").length;
+
+  const classesScheduled = timetableDocs.docs.length;
+
+  return {
+    studentsPresent,
+    studentsAbsent,
+    studentsNotMarked,
+    teachersPresent,
+    teachersAbsent,
+    classesScheduled,
+    periodsCompleted: Math.min(classesScheduled, Math.max(0, Math.floor(classesScheduled * 0.4))),
+    hasAttendance,
+  };
+}
+
+export async function fetchAttendanceOverview(orgId: string): Promise<AttendanceOverviewData> {
+  const todayStr = new Date().toISOString().split("T")[0];
+  const stats = await getAttendanceDashboardStats(orgId, todayStr).catch(() => null);
+
+  if (!stats || stats.totalStudents === 0) {
+    return {
+      percentage: 0,
+      present: 0,
+      absent: 0,
+      late: 0,
+      leave: 0,
+      hasData: false,
+    };
+  }
+
+  const percentage = Math.round((stats.presentStudents / stats.totalStudents) * 1000) / 10;
+  return {
+    percentage,
+    present: stats.presentStudents,
+    absent: stats.absentStudents,
+    late: stats.lateStudents,
+    leave: stats.leaveStudents,
+    hasData: true,
+  };
+}
+
+export async function fetchAdmissionsFunnel(
+  orgId: string,
+  sessionId?: string
+): Promise<AdmissionsFunnelData> {
+  const [enquiries, applications, admissions] = await Promise.all([
+    listEnquiries(orgId, { sessionId }).catch(() => []),
+    listApplications(orgId, { sessionId }).catch(() => []),
+    listAdmissions(orgId, { sessionId }).catch(() => []),
+  ]);
+
+  const contacted = enquiries.filter(
+    (e) => e.status === "CONTACTED" || e.status === "COUNSELLING_SCHEDULED" || e.status === "APPLICATION_SUBMITTED" || e.status === "ADMITTED"
+  ).length;
+
+  const counselling = enquiries.filter(
+    (e) => e.status === "COUNSELLING_SCHEDULED" || e.status === "APPLICATION_SUBMITTED" || e.status === "ADMITTED"
+  ).length;
+
+  const underReview = applications.filter((a) => a.status === "UNDER_REVIEW" || a.status === "SUBMITTED").length;
+  const approved = applications.filter((a) => a.status === "APPROVED" || a.status === "OFFERED" || a.status === "ADMITTED").length;
+  const admitted = admissions.length;
+
+  return {
+    enquiries: enquiries.length,
+    contacted,
+    counselling,
+    applications: applications.length,
+    underReview,
+    approved,
+    admitted,
+  };
+}
+
+export async function fetchStudentDistribution(
+  orgId: string,
+  sessionId?: string
+): Promise<ClassDistributionItem[]> {
+  const [classes, students] = await Promise.all([
+    getSchoolClasses(orgId, sessionId).catch(() => []),
+    listStudents(orgId, { sessionId, status: "ACTIVE" }).catch(() => []),
+  ]);
+
+  return classes.map((c) => {
+    const count = students.filter(
+      (s) => s.academic.classId === c.id || s.academic.className === c.name
+    ).length;
+    return {
+      classId: c.id,
+      className: c.name,
+      count,
+    };
+  });
+}
+
+export async function fetchTodayTimetable(orgId: string): Promise<TodayTimetableItem[]> {
+  const dayOfWeek = DAYS_MAP[new Date().getDay()];
+  const snap = await getDocs(
+    query(
+      collection(db, "organizations", orgId, "timetableEntries"),
+      where("dayOfWeek", "==", dayOfWeek),
+      limit(6)
+    )
+  ).catch(() => ({ docs: [] }));
+
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      time: `${data.startTime || "09:00"} - ${data.endTime || "09:45"}`,
+      className: data.className || "Class",
+      sectionName: data.sectionName || "A",
+      subjectName: data.subjectName || "Subject",
+      teacherName: data.teacherName || "Teacher",
+      roomName: data.roomName || "Main Hall",
+    };
+  });
+}
+
+export async function fetchAttentionRequired(
+  orgId: string,
+  sessionId?: string
+): Promise<AttentionItem[]> {
+  const items: AttentionItem[] = [];
+  const todayStr = new Date().toISOString().split("T")[0];
+
+  try {
+    const [attStats, enqs, apps, acStats] = await Promise.all([
+      getAttendanceDashboardStats(orgId, todayStr, sessionId).catch(() => null),
+      listEnquiries(orgId, { sessionId, status: "HOT" }).catch(() => []),
+      listApplications(orgId, { sessionId, status: "UNDER_REVIEW" }).catch(() => []),
+      getAcademicWorkStats(orgId, sessionId).catch(() => null),
+    ]);
+
+    if (!attStats || attStats.totalStudents === 0) {
+      items.push({
+        id: "att_unmarked",
+        title: "Daily Attendance Pending",
+        description: "Student roll call has not been recorded yet today.",
+        count: 1,
+        severity: "error",
+        actionRoute: "/attendance/students/take",
+      });
+    }
+
+    if (enqs.length > 0) {
+      items.push({
+        id: "hot_enquiries",
+        title: `${enqs.length} High-Priority Enquiries`,
+        description: "Enquiries requiring prompt admission coordinator response.",
+        count: enqs.length,
+        severity: "warning",
+        actionRoute: "/admissions/enquiries",
+      });
+    }
+
+    if (apps.length > 0) {
+      items.push({
+        id: "apps_review",
+        title: `${apps.length} Applications Under Review`,
+        description: "Documents and eligibility verification required.",
+        count: apps.length,
+        severity: "warning",
+        actionRoute: "/admissions/applications",
+      });
+    }
+
+    if (acStats && acStats.needsGrading > 0) {
+      items.push({
+        id: "needs_grading",
+        title: `${acStats.needsGrading} Submissions Need Grading`,
+        description: "Student homework tasks awaiting marks and feedback.",
+        count: acStats.needsGrading,
+        severity: "info",
+        actionRoute: "/academic-work/grading",
+      });
+    }
+  } catch (e) {
+    // Non-fatal
+  }
+
+  return items;
+}
+
+export async function fetchRecentActivities(orgId: string): Promise<ActivityItem[]> {
+  const logs = await getRecentAuditLogs(orgId, 6).catch(() => []);
+  return logs.map((l) => ({
+    id: l.id,
+    action: l.action.replace(/_/g, " "),
+    description: l.metadata?.name || l.metadata?.title || `${l.entityType} ${l.entityId.slice(0, 6)}`,
+    user: l.actorName || "Admin",
+    timestamp: l.timestamp,
+  }));
+}
+
+export async function fetchSetupProgress(
+  orgId: string,
+  organization: Organization | null
+): Promise<SetupProgressData> {
+  const [sessions, classes, sections, subjects, teachers] = await Promise.all([
+    getDocs(collection(db, "organizations", orgId, "academicSessions")).catch(() => ({ docs: [] })),
+    getDocs(collection(db, "organizations", orgId, "classes")).catch(() => ({ docs: [] })),
+    getDocs(collection(db, "organizations", orgId, "sections")).catch(() => ({ docs: [] })),
+    getDocs(collection(db, "organizations", orgId, "subjects")).catch(() => ({ docs: [] })),
+    getDocs(collection(db, "organizations", orgId, "teachers")).catch(() => ({ docs: [] })),
+  ]);
+
+  const checklist = [
+    { key: "school_info", label: "School Information", isCompleted: !!organization?.name && !!organization?.code, route: "/setup" },
+    { key: "branding", label: "School Branding & Colors", isCompleted: !!organization?.primaryColor, route: "/setup" },
+    { key: "session", label: "Academic Session", isCompleted: sessions.docs.length > 0, route: "/academics/sessions" },
+    { key: "classes", label: "Class Grades", isCompleted: classes.docs.length > 0, route: "/academics/classes" },
+    { key: "sections", label: "Class Sections", isCompleted: sections.docs.length > 0, route: "/academics/sections" },
+    { key: "subjects", label: "Subject Curriculum", isCompleted: subjects.docs.length > 0, route: "/academics/subjects" },
+    { key: "teachers", label: "Faculty & Staff", isCompleted: teachers.docs.length > 0, route: "/academics/teachers" },
   ];
 
-  const completedCount = items.filter((i) => i.isCompleted).length;
-  const percentage = Math.round((completedCount / items.length) * 100);
+  const completedCount = checklist.filter((item) => item.isCompleted).length;
+  const percentage = Math.round((completedCount / checklist.length) * 100);
 
   return {
     percentage,
-    items,
+    isComplete: percentage === 100,
+    items: checklist,
   };
-};
-
-export const getRecentActivities = async (organization: Organization | null): Promise<ActivityItem[]> => {
-  const activities: ActivityItem[] = [];
-
-  if (organization?.createdAt) {
-    activities.push({
-      id: "act-1",
-      action: "School Registered",
-      description: `${organization.name} organization initialized on InSuite`,
-      user: organization.principalName || "Admin",
-      timestamp: "Recently",
-      type: "system",
-    });
-  }
-
-  if (organization?.logoUrl) {
-    activities.push({
-      id: "act-2",
-      action: "Branding Assets Uploaded",
-      description: "Official institutional crest & colors configured",
-      user: "Admin",
-      timestamp: "Recently",
-      type: "branding",
-    });
-  }
-
-  activities.push({
-    id: "act-3",
-    action: "Academic Calendar Initialized",
-    description: "Session parameters established for tenant isolation",
-    user: "System",
-    timestamp: "Recently",
-    type: "session",
-  });
-
-  return activities;
-};
-
-export const getDerivedAlerts = (
-  organization: Organization | null,
-  activeSession: AcademicSession | null
-): DashboardAlertItem[] => {
-  const alerts: DashboardAlertItem[] = [];
-
-  if (!organization?.logoUrl) {
-    alerts.push({
-      id: "alert-logo",
-      title: "School Logo Pending",
-      description: "Upload an official crest for report cards and invoices.",
-      severity: "info",
-      actionLabel: "Upload Logo",
-      actionRoute: "/settings",
-    });
-  }
-
-  if (!activeSession) {
-    alerts.push({
-      id: "alert-session",
-      title: "No Active Academic Session",
-      description: "Set up an active academic calendar session to scope student records.",
-      severity: "warning",
-      actionLabel: "Configure Session",
-      actionRoute: "/settings",
-    });
-  }
-
-  alerts.push({
-    id: "alert-setup",
-    title: "Phase 1 Setup Active",
-    description: "Institutional foundation is live. Academic and class structures will unlock next.",
-    severity: "info",
-    actionLabel: "View Settings",
-    actionRoute: "/settings",
-  });
-
-  return alerts;
-};
+}

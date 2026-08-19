@@ -9,3 +9,4 @@ export * from "./admission";
 export * from "./academic";
 export * from "./attendance";
 export * from "./timetable";
+export * from "./academicWork";

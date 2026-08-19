@@ -334,6 +334,75 @@ export const navigationConfig: NavSectionConfig[] = [
     ],
   },
   {
+    title: "Academic Work",
+    items: [
+      {
+        id: "academic-work-dashboard",
+        label: "Dashboard",
+        icon: LayoutDashboard,
+        route: "/academic-work",
+        section: "Academic Work",
+        permission: "academicWork.dashboard.view",
+      },
+      {
+        id: "academic-work-assignments",
+        label: "Assignments",
+        icon: FileText,
+        route: "/academic-work/assignments",
+        section: "Academic Work",
+        permission: "assignments.view",
+      },
+      {
+        id: "academic-work-homework",
+        label: "Homework",
+        icon: BookOpen,
+        route: "/academic-work/homework",
+        section: "Academic Work",
+        permission: "assignments.view",
+      },
+      {
+        id: "academic-work-classwork",
+        label: "Classwork",
+        icon: Layers,
+        route: "/academic-work/classwork",
+        section: "Academic Work",
+        permission: "assignments.view",
+      },
+      {
+        id: "academic-work-submissions",
+        label: "Submissions",
+        icon: ClipboardCheck,
+        route: "/academic-work/submissions",
+        section: "Academic Work",
+        permission: "submissions.view",
+      },
+      {
+        id: "academic-work-grading",
+        label: "Grading",
+        icon: CheckCircle2,
+        route: "/academic-work/grading",
+        section: "Academic Work",
+        permission: "submissions.grade",
+      },
+      {
+        id: "academic-work-resources",
+        label: "Resources",
+        icon: FileSpreadsheet,
+        route: "/academic-work/resources",
+        section: "Academic Work",
+        permission: "resources.view",
+      },
+      {
+        id: "academic-work-settings",
+        label: "Settings",
+        icon: Settings,
+        route: "/academic-work/settings",
+        section: "Academic Work",
+        permission: "academicWork.settings",
+      },
+    ],
+  },
+  {
     title: "Administration",
     items: [
       {
@@ -398,6 +467,7 @@ export function getFilteredNavigation(userRole?: string): NavSectionConfig[] {
             item.route === "/timetable" ||
             item.route === "/timetable/classes" ||
             item.route === "/timetable/teachers" ||
+            item.route.startsWith("/academic-work") ||
             item.route === "/profile"
           );
         }

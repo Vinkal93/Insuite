@@ -1,91 +1,151 @@
-﻿import React from "react";
-import { AlertCircle, RefreshCw } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { useDashboardData } from "../hooks/useDashboardData";
+import {
+  fetchDashboard2KPIs,
+  fetchTodayAtSchool,
+  fetchAttendanceOverview,
+  fetchAdmissionsFunnel,
+  fetchStudentDistribution,
+  fetchTodayTimetable,
+  fetchAttentionRequired,
+  fetchRecentActivities,
+  fetchSetupProgress,
+} from "../services/dashboardService";
+import type {
+  Dashboard2KPIs,
+  TodayAtSchoolData,
+  AttendanceOverviewData,
+  AdmissionsFunnelData,
+  FeeSnapshotData,
+  ClassDistributionItem,
+  TodayTimetableItem,
+  AttentionItem,
+  UpcomingEventItem,
+  SetupProgressData,
+  ActivityItem,
+} from "../types";
+
 import { DashboardHeader } from "./DashboardHeader";
+import { SchoolStatusStrip } from "./SchoolStatusStrip";
 import { KeyMetricsSection } from "./KeyMetricsSection";
 import { SetupStatusCard } from "./SetupStatusCard";
-import { AdmissionOverviewCard } from "./AdmissionOverviewCard";
-import { AttendanceOverviewCard } from "./AttendanceOverviewCard";
-import { FeeOverviewCard } from "./FeeOverviewCard";
-import { StudentDistributionCard } from "./StudentDistributionCard";
-import { QuickActionsGrid } from "./QuickActionsGrid";
-import { RecentActivityCard } from "./RecentActivityCard";
-import { UpcomingEventsCard } from "./UpcomingEventsCard";
-import { AlertsCard } from "./AlertsCard";
+import { TodayAtSchoolWidget } from "./TodayAtSchoolWidget";
+import { AttendanceOverviewWidget } from "./AttendanceOverviewWidget";
+import { AdmissionFunnelWidget } from "./AdmissionFunnelWidget";
+import { FeeSnapshotWidget } from "./FeeSnapshotWidget";
+import { StudentDistributionWidget } from "./StudentDistributionWidget";
+import { AcademicWorkWidget } from "./AcademicWorkWidget";
+import { TodayTimetableWidget } from "./TodayTimetableWidget";
+import { AttentionRequiredWidget } from "./AttentionRequiredWidget";
+import { RecentActivityWidget } from "./RecentActivityWidget";
+import { UpcomingEventsWidget } from "./UpcomingEventsWidget";
 import { SchoolProfileCard } from "./SchoolProfileCard";
-import { AccessRestricted } from "./AccessRestricted";
-import { Button } from "@/components/ui/button";
 
 export const AdminDashboard: React.FC = () => {
-  const { canAccessAdminDashboard } = useAuth();
-  const { metrics, setupProgress, activities, alerts, isLoading, isError, errorMessage, retry } =
-    useDashboardData();
+  const { organization, selectedSession } = useAuth();
 
-  if (!canAccessAdminDashboard) {
-    return <AccessRestricted />;
-  }
+  const [kpis, setKpis] = useState<Dashboard2KPIs | null>(null);
+  const [todayAtSchool, setTodayAtSchool] = useState<TodayAtSchoolData | null>(null);
+  const [attendanceOverview, setAttendanceOverview] = useState<AttendanceOverviewData | null>(null);
+  const [admissionsFunnel, setAdmissionsFunnel] = useState<AdmissionsFunnelData | null>(null);
+  const [studentDistribution, setStudentDistribution] = useState<ClassDistributionItem[]>([]);
+  const [todayTimetable, setTodayTimetable] = useState<TodayTimetableItem[]>([]);
+  const [attentionItems, setAttentionItems] = useState<AttentionItem[]>([]);
+  const [activities, setActivities] = useState<ActivityItem[]>([]);
+  const [setupProgress, setSetupProgress] = useState<SetupProgressData | null>(null);
 
-  if (isError) {
-    return (
-      <div className="flex min-h-[50vh] flex-col items-center justify-center p-6 text-center">
-        <div className="grid size-12 place-items-center rounded-2xl bg-destructive/10 text-destructive">
-          <AlertCircle className="size-6" />
-        </div>
-        <h3 className="mt-3 text-base font-bold text-foreground">Unable to load dashboard information</h3>
-        <p className="mt-1 max-w-sm text-xs text-muted-foreground">{errorMessage}</p>
-        <Button onClick={retry} variant="hero" size="sm" className="mt-5 rounded-xl text-xs">
-          <RefreshCw className="size-3.5 mr-1.5" /> Retry
-        </Button>
-      </div>
-    );
-  }
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Progressive asynchronous loading
+  useEffect(() => {
+    if (!organization) return;
+    setIsLoading(true);
+
+    // 1. Critical KPIs
+    fetchDashboard2KPIs(organization.id, selectedSession?.id).then((kpiData) => {
+      setKpis(kpiData);
+      setIsLoading(false);
+
+      // 2. Operational Today at School data
+      fetchTodayAtSchool(
+        organization.id,
+        kpiData.totalStudents.value,
+        kpiData.totalTeachers.value
+      ).then(setTodayAtSchool);
+    });
+
+    // 3. Attendance Overview & Admissions Funnel
+    fetchAttendanceOverview(organization.id).then(setAttendanceOverview);
+    fetchAdmissionsFunnel(organization.id, selectedSession?.id).then(setAdmissionsFunnel);
+
+    // 4. Class Distribution & Timetable
+    fetchStudentDistribution(organization.id, selectedSession?.id).then(setStudentDistribution);
+    fetchTodayTimetable(organization.id).then(setTodayTimetable);
+
+    // 5. Attention Required, Activities & Setup Progress
+    fetchAttentionRequired(organization.id, selectedSession?.id).then(setAttentionItems);
+    fetchRecentActivities(organization.id).then(setActivities);
+    fetchSetupProgress(organization.id, organization).then(setSetupProgress);
+  }, [organization, selectedSession]);
+
+  const feeSnapshotData: FeeSnapshotData = {
+    isConfigured: false,
+    totalExpected: "₹0",
+    collected: "₹0",
+    pending: "₹0",
+    overdue: "₹0",
+    percentageCollected: 0,
+  };
 
   return (
-    <div className="space-y-6 pb-12">
-      {/* Top Welcome & Dynamic Header */}
+    <div className="space-y-6 pb-16">
+      {/* 1. Header with greeting, session picker & top actions */}
       <DashboardHeader />
 
-      {/* SECTION 1: 8 Key Operational Metrics */}
-      <KeyMetricsSection metrics={metrics} isLoading={isLoading} />
+      {/* 2. School Status Strip */}
+      <SchoolStatusStrip setupProgress={setupProgress} />
 
-      {/* SECTION 2: School Setup Progress */}
+      {/* 3. 8-KPI Key Metrics Grid */}
+      <KeyMetricsSection kpis={kpis} isLoading={isLoading} />
+
+      {/* 4. Complete Setup Checklist (hidden once 100% complete) */}
       <SetupStatusCard setupProgress={setupProgress} isLoading={isLoading} />
 
-      {/* SECTION 7: Quick Actions Grid */}
-      <QuickActionsGrid />
-
-      {/* Main Grid: Analytical Overviews & Sidebar Widgets */}
-      <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
-        {/* Left Column: Overviews & Activity */}
-        <div className="space-y-6">
-          {/* SECTIONS 3 & 4: Admission & Attendance Overviews */}
-          <div className="grid gap-6 sm:grid-cols-2">
-            <AdmissionOverviewCard />
-            <AttendanceOverviewCard />
-          </div>
-
-          {/* SECTIONS 5 & 6: Fee & Student Distribution Overviews */}
-          <div className="grid gap-6 sm:grid-cols-2">
-            <FeeOverviewCard />
-            <StudentDistributionCard />
-          </div>
-
-          {/* SECTION 8: Recent Audit Activity */}
-          <RecentActivityCard activities={activities} />
+      {/* 5. Row 1: Today at School & Attendance Overview & Admissions Funnel */}
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-4 flex flex-col">
+          <TodayAtSchoolWidget data={todayAtSchool} isLoading={isLoading} />
         </div>
-
-        {/* Right Column: Metadata & Schedule Widgets */}
-        <div className="space-y-6">
-          {/* SECTION 11: Compact School Information Card */}
-          <SchoolProfileCard />
-
-          {/* SECTION 10: Derived Attention Required Items */}
-          <AlertsCard alerts={alerts} />
-
-          {/* SECTION 9: Upcoming Events & Calendar */}
-          <UpcomingEventsCard />
+        <div className="lg:col-span-4 flex flex-col">
+          <AttendanceOverviewWidget data={attendanceOverview} isLoading={isLoading} />
         </div>
+        <div className="lg:col-span-4 flex flex-col">
+          <AdmissionFunnelWidget data={admissionsFunnel} isLoading={isLoading} />
+        </div>
+      </div>
+
+      {/* 6. Row 2: Fee Snapshot, Students by Class, Academic Work */}
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-4 flex flex-col">
+          <FeeSnapshotWidget data={feeSnapshotData} isLoading={isLoading} />
+        </div>
+        <div className="lg:col-span-4 flex flex-col">
+          <StudentDistributionWidget distribution={studentDistribution} isLoading={isLoading} />
+        </div>
+        <div className="lg:col-span-4 flex flex-col">
+          <AcademicWorkWidget kpis={kpis} isLoading={isLoading} />
+        </div>
+      </div>
+
+      {/* 7. Row 3: Today's Timetable Schedule */}
+      <TodayTimetableWidget timetable={todayTimetable} isLoading={isLoading} />
+
+      {/* 8. Row 4: Attention Required, Recent Activity, Upcoming, School Profile */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <AttentionRequiredWidget items={attentionItems} isLoading={isLoading} />
+        <RecentActivityWidget activities={activities} isLoading={isLoading} />
+        <UpcomingEventsWidget events={[]} isLoading={isLoading} />
+        <SchoolProfileCard />
       </div>
     </div>
   );

@@ -158,6 +158,23 @@ service cloud.firestore {
         allow read, write: if isOrgMember(orgId);
       }
 
+      // Academic Work (Homework, Classwork, Submissions, Resources)
+      match /assignments/{assignmentId} {
+        allow read, write: if isOrgMember(orgId);
+
+        match /submissions/{submissionId} {
+          allow read, write: if isOrgMember(orgId);
+        }
+      }
+
+      match /academicResources/{resourceId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /academicWorkSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
       // Counters (Sequence generation)
       match /counters/{counterId} {
         allow read, write: if isOrgMember(orgId);

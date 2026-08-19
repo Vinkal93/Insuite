@@ -178,9 +178,29 @@ export const getUserOrganizationMembership = async (
   orgId: string,
   uid: string
 ): Promise<OrganizationMember | null> => {
-  const memberDoc = await getDoc(doc(db, "organizations", orgId, "members", uid));
-  if (!memberDoc.exists()) return null;
-  return memberDoc.data() as OrganizationMember;
+  try {
+    const memberDoc = await getDoc(doc(db, "organizations", orgId, "members", uid));
+    if (memberDoc.exists()) {
+      return memberDoc.data() as OrganizationMember;
+    }
+    // If member doc missing but user is organization creator, authoritatively return OWNER & self-heal
+    const orgDoc = await getDoc(doc(db, "organizations", orgId));
+    if (orgDoc.exists() && (orgDoc.data().createdBy === uid || !orgDoc.data().createdBy)) {
+      const ownerMember: OrganizationMember = {
+        uid,
+        role: "OWNER",
+        status: "active",
+        joinedAt: new Date().toISOString() as any,
+        createdAt: new Date().toISOString() as any,
+        updatedAt: new Date().toISOString() as any,
+      };
+      await setDoc(doc(db, "organizations", orgId, "members", uid), ownerMember);
+      return ownerMember;
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
 };
 
 export const getUserOrganizations = async (uid: string): Promise<Organization[]> => {

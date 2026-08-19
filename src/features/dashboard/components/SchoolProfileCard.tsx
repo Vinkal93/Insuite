@@ -1,6 +1,6 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "@tanstack/react-router";
-import { Building2, Mail, Phone, MapPin, Edit3 } from "lucide-react";
+import { Building2, Mail, Phone, MapPin, User, Settings, ArrowRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 
@@ -9,55 +9,75 @@ export const SchoolProfileCard: React.FC = () => {
 
   return (
     <div className="rounded-3xl border border-border bg-card p-6 shadow-soft space-y-4">
-      <div className="flex items-center justify-between border-b border-border pb-3">
-        <h3 className="text-sm font-extrabold text-foreground">Institution Information</h3>
-        <Button variant="ghost" size="sm" asChild className="h-7 rounded-lg text-xs text-primary">
-          <Link to="/settings">
-            <Edit3 className="size-3 mr-1" /> Edit School
-          </Link>
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-3.5">
-        <div className="flex size-14 items-center justify-center rounded-2xl bg-surface border border-border p-1.5 shadow-sm shrink-0">
+      <div className="flex items-center gap-3">
+        {organization?.logoUrl ? (
           <img
-            src={organization?.logoUrl || "/logo.png"}
-            alt="School Crest"
-            className="size-full object-contain"
+            src={organization.logoUrl}
+            alt={organization.name}
+            className="size-12 rounded-2xl object-cover border border-border"
           />
-        </div>
+        ) : (
+          <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20">
+            <Building2 className="size-6" />
+          </div>
+        )}
         <div className="truncate">
-          <h4 className="font-display text-base font-extrabold text-foreground truncate">
+          <h2 className="text-sm font-extrabold text-foreground truncate">
             {organization?.name || "InSuite Academy"}
-          </h4>
-          <p className="font-mono text-xs font-bold text-primary">
-            Code: {organization?.code || "SCH-001"}
-          </p>
+          </h2>
+          <span className="inline-block rounded-md bg-secondary px-2 py-0.5 text-[10px] font-mono font-bold text-muted-foreground">
+            Code: {organization?.code || "INS001"}
+          </span>
         </div>
       </div>
 
-      <div className="grid gap-2 border-t border-border pt-3 text-xs text-muted-foreground">
+      <div className="space-y-2 text-xs pt-1 border-t border-border">
         {organization?.principalName && (
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-foreground">Principal:</span> {organization.principalName}
+          <div className="flex items-center justify-between text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <User className="size-3.5" /> Principal:
+            </span>
+            <span className="font-semibold text-foreground">{organization.principalName}</span>
           </div>
         )}
-        {organization?.phone && (
-          <div className="flex items-center gap-2">
-            <Phone className="size-3.5 text-primary shrink-0" /> {organization.phone}
-          </div>
-        )}
+
         {organization?.email && (
-          <div className="flex items-center gap-2 truncate">
-            <Mail className="size-3.5 text-primary shrink-0" /> {organization.email}
+          <div className="flex items-center justify-between text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Mail className="size-3.5" /> Email:
+            </span>
+            <span className="font-semibold text-foreground truncate max-w-[160px]">
+              {organization.email}
+            </span>
           </div>
         )}
-        {(organization?.city || organization?.state) && (
-          <div className="flex items-center gap-2">
-            <MapPin className="size-3.5 text-primary shrink-0" /> {organization.city}, {organization.state}
+
+        {organization?.phone && (
+          <div className="flex items-center justify-between text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Phone className="size-3.5" /> Phone:
+            </span>
+            <span className="font-semibold text-foreground">{organization.phone}</span>
+          </div>
+        )}
+
+        {organization?.city && (
+          <div className="flex items-center justify-between text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <MapPin className="size-3.5" /> Location:
+            </span>
+            <span className="font-semibold text-foreground">
+              {organization.city}, {organization.state || organization.country || "India"}
+            </span>
           </div>
         )}
       </div>
+
+      <Button variant="outline" size="sm" asChild className="w-full rounded-xl text-xs font-semibold">
+        <Link to="/setup">
+          <Settings className="size-3.5 mr-1" /> Manage School Profile
+        </Link>
+      </Button>
     </div>
   );
 };

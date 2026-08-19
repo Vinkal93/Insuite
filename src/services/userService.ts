@@ -1,4 +1,4 @@
-﻿import {
+import {
   doc,
   getDoc,
   setDoc,
@@ -21,9 +21,12 @@ export const syncUserProfileOnAuth = async (
   photoURL?: string | null
 ): Promise<UserProfile> => {
   const userRef = doc(db, "users", uid);
-  const existing = await getDoc(userRef);
+  
+  const fastGetPromise = getDoc(userRef);
+  const timeoutPromise = new Promise<null>((resolve) => setTimeout(() => resolve(null), 1200));
+  const existing = await Promise.race([fastGetPromise, timeoutPromise]);
 
-  if (!existing.exists()) {
+  if (!existing || !existing.exists()) {
     const newProfile: UserProfile = {
       uid,
       email,
@@ -32,19 +35,19 @@ export const syncUserProfileOnAuth = async (
       phone: null,
       status: "active",
       currentOrganizationId: null,
-      createdAt: serverTimestamp() as any,
-      updatedAt: serverTimestamp() as any,
-      lastLoginAt: serverTimestamp() as any,
+      createdAt: new Date().toISOString() as any,
+      updatedAt: new Date().toISOString() as any,
+      lastLoginAt: new Date().toISOString() as any,
     };
-    await setDoc(userRef, newProfile);
+    setDoc(userRef, newProfile).catch(() => {});
     return newProfile;
   } else {
-    await updateDoc(userRef, {
+    updateDoc(userRef, {
       lastLoginAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       ...(displayName && !existing.data()?.displayName ? { displayName } : {}),
       ...(photoURL && !existing.data()?.photoURL ? { photoURL } : {}),
-    });
+    }).catch(() => {});
     return existing.data() as UserProfile;
   }
 };

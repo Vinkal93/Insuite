@@ -17,6 +17,12 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SetupRouteImport } from './routes/setup'
+import { Route as AcademicWorkIndexRouteImport } from './routes/academic-work/index'
+import { Route as AcademicWorkClassworkRouteImport } from './routes/academic-work/classwork'
+import { Route as AcademicWorkGradingRouteImport } from './routes/academic-work/grading'
+import { Route as AcademicWorkHomeworkRouteImport } from './routes/academic-work/homework'
+import { Route as AcademicWorkResourcesRouteImport } from './routes/academic-work/resources'
+import { Route as AcademicWorkSettingsRouteImport } from './routes/academic-work/settings'
 import { Route as AcademicsIndexRouteImport } from './routes/academics/index'
 import { Route as AcademicsAssignmentsRouteImport } from './routes/academics/assignments'
 import { Route as AcademicsSettingsRouteImport } from './routes/academics/settings'
@@ -40,6 +46,10 @@ import { Route as TimetableCreateRouteImport } from './routes/timetable/create'
 import { Route as TimetablePeriodsRouteImport } from './routes/timetable/periods'
 import { Route as TimetableSettingsRouteImport } from './routes/timetable/settings'
 import { Route as TimetableSubstitutionsRouteImport } from './routes/timetable/substitutions'
+import { Route as AcademicWorkAssignmentsIndexRouteImport } from './routes/academic-work/assignments/index'
+import { Route as AcademicWorkAssignmentsNewRouteImport } from './routes/academic-work/assignments/new'
+import { Route as AcademicWorkSubmissionsIndexRouteImport } from './routes/academic-work/submissions/index'
+import { Route as AcademicWorkSubmissionsSubmissionIdRouteImport } from './routes/academic-work/submissions/$submissionId'
 import { Route as AcademicsClassesIndexRouteImport } from './routes/academics/classes/index'
 import { Route as AcademicsClassesClassIdRouteImport } from './routes/academics/classes/$classId'
 import { Route as AcademicsClassesNewRouteImport } from './routes/academics/classes/new'
@@ -74,6 +84,8 @@ import { Route as TimetableClassesClassIdRouteImport } from './routes/timetable/
 import { Route as TimetableRoomsIndexRouteImport } from './routes/timetable/rooms/index'
 import { Route as TimetableTeachersIndexRouteImport } from './routes/timetable/teachers/index'
 import { Route as TimetableTeachersTeacherIdRouteImport } from './routes/timetable/teachers/$teacherId'
+import { Route as AcademicWorkAssignmentsAssignmentIdIndexRouteImport } from './routes/academic-work/assignments/$assignmentId/index'
+import { Route as AcademicWorkAssignmentsAssignmentIdEditRouteImport } from './routes/academic-work/assignments/$assignmentId/edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -113,6 +125,36 @@ const SettingsRoute = SettingsRouteImport.update({
 const SetupRoute = SetupRouteImport.update({
   id: '/setup',
   path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicWorkIndexRoute = AcademicWorkIndexRouteImport.update({
+  id: '/academic-work/',
+  path: '/academic-work/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicWorkClassworkRoute = AcademicWorkClassworkRouteImport.update({
+  id: '/academic-work/classwork',
+  path: '/academic-work/classwork',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicWorkGradingRoute = AcademicWorkGradingRouteImport.update({
+  id: '/academic-work/grading',
+  path: '/academic-work/grading',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicWorkHomeworkRoute = AcademicWorkHomeworkRouteImport.update({
+  id: '/academic-work/homework',
+  path: '/academic-work/homework',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicWorkResourcesRoute = AcademicWorkResourcesRouteImport.update({
+  id: '/academic-work/resources',
+  path: '/academic-work/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicWorkSettingsRoute = AcademicWorkSettingsRouteImport.update({
+  id: '/academic-work/settings',
+  path: '/academic-work/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AcademicsIndexRoute = AcademicsIndexRouteImport.update({
@@ -230,6 +272,30 @@ const TimetableSubstitutionsRoute = TimetableSubstitutionsRouteImport.update({
   path: '/timetable/substitutions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademicWorkAssignmentsIndexRoute =
+  AcademicWorkAssignmentsIndexRouteImport.update({
+    id: '/academic-work/assignments/',
+    path: '/academic-work/assignments/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicWorkAssignmentsNewRoute =
+  AcademicWorkAssignmentsNewRouteImport.update({
+    id: '/academic-work/assignments/new',
+    path: '/academic-work/assignments/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicWorkSubmissionsIndexRoute =
+  AcademicWorkSubmissionsIndexRouteImport.update({
+    id: '/academic-work/submissions/',
+    path: '/academic-work/submissions/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicWorkSubmissionsSubmissionIdRoute =
+  AcademicWorkSubmissionsSubmissionIdRouteImport.update({
+    id: '/academic-work/submissions/$submissionId',
+    path: '/academic-work/submissions/$submissionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AcademicsClassesIndexRoute = AcademicsClassesIndexRouteImport.update({
   id: '/academics/classes/',
   path: '/academics/classes/',
@@ -411,6 +477,18 @@ const TimetableTeachersTeacherIdRoute =
     path: '/timetable/teachers/$teacherId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AcademicWorkAssignmentsAssignmentIdIndexRoute =
+  AcademicWorkAssignmentsAssignmentIdIndexRouteImport.update({
+    id: '/academic-work/assignments/$assignmentId/',
+    path: '/academic-work/assignments/$assignmentId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademicWorkAssignmentsAssignmentIdEditRoute =
+  AcademicWorkAssignmentsAssignmentIdEditRouteImport.update({
+    id: '/academic-work/assignments/$assignmentId/edit',
+    path: '/academic-work/assignments/$assignmentId/edit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -421,6 +499,11 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/academic-work/classwork': typeof AcademicWorkClassworkRoute
+  '/academic-work/grading': typeof AcademicWorkGradingRoute
+  '/academic-work/homework': typeof AcademicWorkHomeworkRoute
+  '/academic-work/resources': typeof AcademicWorkResourcesRoute
+  '/academic-work/settings': typeof AcademicWorkSettingsRoute
   '/academics/assignments': typeof AcademicsAssignmentsRoute
   '/academics/settings': typeof AcademicsSettingsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
@@ -438,12 +521,15 @@ export interface FileRoutesByFullPath {
   '/timetable/periods': typeof TimetablePeriodsRoute
   '/timetable/settings': typeof TimetableSettingsRoute
   '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/academic-work/': typeof AcademicWorkIndexRoute
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
   '/timetable/': typeof TimetableIndexRoute
+  '/academic-work/assignments/new': typeof AcademicWorkAssignmentsNewRoute
+  '/academic-work/submissions/$submissionId': typeof AcademicWorkSubmissionsSubmissionIdRoute
   '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
   '/academics/classes/new': typeof AcademicsClassesNewRoute
   '/academics/sections/$sectionId': typeof AcademicsSectionsSectionIdRoute
@@ -465,6 +551,8 @@ export interface FileRoutesByFullPath {
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/academic-work/assignments/': typeof AcademicWorkAssignmentsIndexRoute
+  '/academic-work/submissions/': typeof AcademicWorkSubmissionsIndexRoute
   '/academics/classes/': typeof AcademicsClassesIndexRoute
   '/academics/sections/': typeof AcademicsSectionsIndexRoute
   '/academics/sessions/': typeof AcademicsSessionsIndexRoute
@@ -478,6 +566,8 @@ export interface FileRoutesByFullPath {
   '/timetable/classes/': typeof TimetableClassesIndexRoute
   '/timetable/rooms/': typeof TimetableRoomsIndexRoute
   '/timetable/teachers/': typeof TimetableTeachersIndexRoute
+  '/academic-work/assignments/$assignmentId/edit': typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  '/academic-work/assignments/$assignmentId/': typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -488,6 +578,11 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/academic-work/classwork': typeof AcademicWorkClassworkRoute
+  '/academic-work/grading': typeof AcademicWorkGradingRoute
+  '/academic-work/homework': typeof AcademicWorkHomeworkRoute
+  '/academic-work/resources': typeof AcademicWorkResourcesRoute
+  '/academic-work/settings': typeof AcademicWorkSettingsRoute
   '/academics/assignments': typeof AcademicsAssignmentsRoute
   '/academics/settings': typeof AcademicsSettingsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
@@ -505,12 +600,15 @@ export interface FileRoutesByTo {
   '/timetable/periods': typeof TimetablePeriodsRoute
   '/timetable/settings': typeof TimetableSettingsRoute
   '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/academic-work': typeof AcademicWorkIndexRoute
   '/academics': typeof AcademicsIndexRoute
   '/admissions': typeof AdmissionsIndexRoute
   '/attendance': typeof AttendanceIndexRoute
   '/parents': typeof ParentsIndexRoute
   '/students': typeof StudentsIndexRoute
   '/timetable': typeof TimetableIndexRoute
+  '/academic-work/assignments/new': typeof AcademicWorkAssignmentsNewRoute
+  '/academic-work/submissions/$submissionId': typeof AcademicWorkSubmissionsSubmissionIdRoute
   '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
   '/academics/classes/new': typeof AcademicsClassesNewRoute
   '/academics/sections/$sectionId': typeof AcademicsSectionsSectionIdRoute
@@ -532,6 +630,8 @@ export interface FileRoutesByTo {
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/academic-work/assignments': typeof AcademicWorkAssignmentsIndexRoute
+  '/academic-work/submissions': typeof AcademicWorkSubmissionsIndexRoute
   '/academics/classes': typeof AcademicsClassesIndexRoute
   '/academics/sections': typeof AcademicsSectionsIndexRoute
   '/academics/sessions': typeof AcademicsSessionsIndexRoute
@@ -545,6 +645,8 @@ export interface FileRoutesByTo {
   '/timetable/classes': typeof TimetableClassesIndexRoute
   '/timetable/rooms': typeof TimetableRoomsIndexRoute
   '/timetable/teachers': typeof TimetableTeachersIndexRoute
+  '/academic-work/assignments/$assignmentId/edit': typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  '/academic-work/assignments/$assignmentId': typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -556,6 +658,11 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
+  '/academic-work/classwork': typeof AcademicWorkClassworkRoute
+  '/academic-work/grading': typeof AcademicWorkGradingRoute
+  '/academic-work/homework': typeof AcademicWorkHomeworkRoute
+  '/academic-work/resources': typeof AcademicWorkResourcesRoute
+  '/academic-work/settings': typeof AcademicWorkSettingsRoute
   '/academics/assignments': typeof AcademicsAssignmentsRoute
   '/academics/settings': typeof AcademicsSettingsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
@@ -573,12 +680,15 @@ export interface FileRoutesById {
   '/timetable/periods': typeof TimetablePeriodsRoute
   '/timetable/settings': typeof TimetableSettingsRoute
   '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/academic-work/': typeof AcademicWorkIndexRoute
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
   '/parents/': typeof ParentsIndexRoute
   '/students/': typeof StudentsIndexRoute
   '/timetable/': typeof TimetableIndexRoute
+  '/academic-work/assignments/new': typeof AcademicWorkAssignmentsNewRoute
+  '/academic-work/submissions/$submissionId': typeof AcademicWorkSubmissionsSubmissionIdRoute
   '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
   '/academics/classes/new': typeof AcademicsClassesNewRoute
   '/academics/sections/$sectionId': typeof AcademicsSectionsSectionIdRoute
@@ -600,6 +710,8 @@ export interface FileRoutesById {
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/academic-work/assignments/': typeof AcademicWorkAssignmentsIndexRoute
+  '/academic-work/submissions/': typeof AcademicWorkSubmissionsIndexRoute
   '/academics/classes/': typeof AcademicsClassesIndexRoute
   '/academics/sections/': typeof AcademicsSectionsIndexRoute
   '/academics/sessions/': typeof AcademicsSessionsIndexRoute
@@ -613,6 +725,8 @@ export interface FileRoutesById {
   '/timetable/classes/': typeof TimetableClassesIndexRoute
   '/timetable/rooms/': typeof TimetableRoomsIndexRoute
   '/timetable/teachers/': typeof TimetableTeachersIndexRoute
+  '/academic-work/assignments/$assignmentId/edit': typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  '/academic-work/assignments/$assignmentId/': typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -625,6 +739,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/settings'
     | '/setup'
+    | '/academic-work/classwork'
+    | '/academic-work/grading'
+    | '/academic-work/homework'
+    | '/academic-work/resources'
+    | '/academic-work/settings'
     | '/academics/assignments'
     | '/academics/settings'
     | '/admissions/counselling'
@@ -642,12 +761,15 @@ export interface FileRouteTypes {
     | '/timetable/periods'
     | '/timetable/settings'
     | '/timetable/substitutions'
+    | '/academic-work/'
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
     | '/parents/'
     | '/students/'
     | '/timetable/'
+    | '/academic-work/assignments/new'
+    | '/academic-work/submissions/$submissionId'
     | '/academics/classes/$classId'
     | '/academics/classes/new'
     | '/academics/sections/$sectionId'
@@ -669,6 +791,8 @@ export interface FileRouteTypes {
     | '/students/$studentId/edit'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
+    | '/academic-work/assignments/'
+    | '/academic-work/submissions/'
     | '/academics/classes/'
     | '/academics/sections/'
     | '/academics/sessions/'
@@ -682,6 +806,8 @@ export interface FileRouteTypes {
     | '/timetable/classes/'
     | '/timetable/rooms/'
     | '/timetable/teachers/'
+    | '/academic-work/assignments/$assignmentId/edit'
+    | '/academic-work/assignments/$assignmentId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -692,6 +818,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/settings'
     | '/setup'
+    | '/academic-work/classwork'
+    | '/academic-work/grading'
+    | '/academic-work/homework'
+    | '/academic-work/resources'
+    | '/academic-work/settings'
     | '/academics/assignments'
     | '/academics/settings'
     | '/admissions/counselling'
@@ -709,12 +840,15 @@ export interface FileRouteTypes {
     | '/timetable/periods'
     | '/timetable/settings'
     | '/timetable/substitutions'
+    | '/academic-work'
     | '/academics'
     | '/admissions'
     | '/attendance'
     | '/parents'
     | '/students'
     | '/timetable'
+    | '/academic-work/assignments/new'
+    | '/academic-work/submissions/$submissionId'
     | '/academics/classes/$classId'
     | '/academics/classes/new'
     | '/academics/sections/$sectionId'
@@ -736,6 +870,8 @@ export interface FileRouteTypes {
     | '/students/$studentId/edit'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
+    | '/academic-work/assignments'
+    | '/academic-work/submissions'
     | '/academics/classes'
     | '/academics/sections'
     | '/academics/sessions'
@@ -749,6 +885,8 @@ export interface FileRouteTypes {
     | '/timetable/classes'
     | '/timetable/rooms'
     | '/timetable/teachers'
+    | '/academic-work/assignments/$assignmentId/edit'
+    | '/academic-work/assignments/$assignmentId'
   id:
     | '__root__'
     | '/'
@@ -759,6 +897,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/settings'
     | '/setup'
+    | '/academic-work/classwork'
+    | '/academic-work/grading'
+    | '/academic-work/homework'
+    | '/academic-work/resources'
+    | '/academic-work/settings'
     | '/academics/assignments'
     | '/academics/settings'
     | '/admissions/counselling'
@@ -776,12 +919,15 @@ export interface FileRouteTypes {
     | '/timetable/periods'
     | '/timetable/settings'
     | '/timetable/substitutions'
+    | '/academic-work/'
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
     | '/parents/'
     | '/students/'
     | '/timetable/'
+    | '/academic-work/assignments/new'
+    | '/academic-work/submissions/$submissionId'
     | '/academics/classes/$classId'
     | '/academics/classes/new'
     | '/academics/sections/$sectionId'
@@ -803,6 +949,8 @@ export interface FileRouteTypes {
     | '/students/$studentId/edit'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
+    | '/academic-work/assignments/'
+    | '/academic-work/submissions/'
     | '/academics/classes/'
     | '/academics/sections/'
     | '/academics/sessions/'
@@ -816,6 +964,8 @@ export interface FileRouteTypes {
     | '/timetable/classes/'
     | '/timetable/rooms/'
     | '/timetable/teachers/'
+    | '/academic-work/assignments/$assignmentId/edit'
+    | '/academic-work/assignments/$assignmentId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -827,6 +977,11 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
   SetupRoute: typeof SetupRoute
+  AcademicWorkClassworkRoute: typeof AcademicWorkClassworkRoute
+  AcademicWorkGradingRoute: typeof AcademicWorkGradingRoute
+  AcademicWorkHomeworkRoute: typeof AcademicWorkHomeworkRoute
+  AcademicWorkResourcesRoute: typeof AcademicWorkResourcesRoute
+  AcademicWorkSettingsRoute: typeof AcademicWorkSettingsRoute
   AcademicsAssignmentsRoute: typeof AcademicsAssignmentsRoute
   AcademicsSettingsRoute: typeof AcademicsSettingsRoute
   AdmissionsCounsellingRoute: typeof AdmissionsCounsellingRoute
@@ -844,12 +999,15 @@ export interface RootRouteChildren {
   TimetablePeriodsRoute: typeof TimetablePeriodsRoute
   TimetableSettingsRoute: typeof TimetableSettingsRoute
   TimetableSubstitutionsRoute: typeof TimetableSubstitutionsRoute
+  AcademicWorkIndexRoute: typeof AcademicWorkIndexRoute
   AcademicsIndexRoute: typeof AcademicsIndexRoute
   AdmissionsIndexRoute: typeof AdmissionsIndexRoute
   AttendanceIndexRoute: typeof AttendanceIndexRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
   TimetableIndexRoute: typeof TimetableIndexRoute
+  AcademicWorkAssignmentsNewRoute: typeof AcademicWorkAssignmentsNewRoute
+  AcademicWorkSubmissionsSubmissionIdRoute: typeof AcademicWorkSubmissionsSubmissionIdRoute
   AcademicsClassesClassIdRoute: typeof AcademicsClassesClassIdRoute
   AcademicsClassesNewRoute: typeof AcademicsClassesNewRoute
   AcademicsSectionsSectionIdRoute: typeof AcademicsSectionsSectionIdRoute
@@ -870,6 +1028,8 @@ export interface RootRouteChildren {
   AttendanceStudentsTakeRoute: typeof AttendanceStudentsTakeRoute
   TimetableClassesClassIdRoute: typeof TimetableClassesClassIdRoute
   TimetableTeachersTeacherIdRoute: typeof TimetableTeachersTeacherIdRoute
+  AcademicWorkAssignmentsIndexRoute: typeof AcademicWorkAssignmentsIndexRoute
+  AcademicWorkSubmissionsIndexRoute: typeof AcademicWorkSubmissionsIndexRoute
   AcademicsClassesIndexRoute: typeof AcademicsClassesIndexRoute
   AcademicsSectionsIndexRoute: typeof AcademicsSectionsIndexRoute
   AcademicsSessionsIndexRoute: typeof AcademicsSessionsIndexRoute
@@ -883,6 +1043,8 @@ export interface RootRouteChildren {
   TimetableClassesIndexRoute: typeof TimetableClassesIndexRoute
   TimetableRoomsIndexRoute: typeof TimetableRoomsIndexRoute
   TimetableTeachersIndexRoute: typeof TimetableTeachersIndexRoute
+  AcademicWorkAssignmentsAssignmentIdEditRoute: typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  AcademicWorkAssignmentsAssignmentIdIndexRoute: typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -941,6 +1103,48 @@ declare module '@tanstack/react-router' {
       path: '/setup'
       fullPath: '/setup'
       preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/': {
+      id: '/academic-work/'
+      path: '/academic-work'
+      fullPath: '/academic-work/'
+      preLoaderRoute: typeof AcademicWorkIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/classwork': {
+      id: '/academic-work/classwork'
+      path: '/academic-work/classwork'
+      fullPath: '/academic-work/classwork'
+      preLoaderRoute: typeof AcademicWorkClassworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/grading': {
+      id: '/academic-work/grading'
+      path: '/academic-work/grading'
+      fullPath: '/academic-work/grading'
+      preLoaderRoute: typeof AcademicWorkGradingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/homework': {
+      id: '/academic-work/homework'
+      path: '/academic-work/homework'
+      fullPath: '/academic-work/homework'
+      preLoaderRoute: typeof AcademicWorkHomeworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/resources': {
+      id: '/academic-work/resources'
+      path: '/academic-work/resources'
+      fullPath: '/academic-work/resources'
+      preLoaderRoute: typeof AcademicWorkResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/settings': {
+      id: '/academic-work/settings'
+      path: '/academic-work/settings'
+      fullPath: '/academic-work/settings'
+      preLoaderRoute: typeof AcademicWorkSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/academics/': {
@@ -1102,6 +1306,34 @@ declare module '@tanstack/react-router' {
       path: '/timetable/substitutions'
       fullPath: '/timetable/substitutions'
       preLoaderRoute: typeof TimetableSubstitutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/assignments/': {
+      id: '/academic-work/assignments/'
+      path: '/academic-work/assignments'
+      fullPath: '/academic-work/assignments/'
+      preLoaderRoute: typeof AcademicWorkAssignmentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/assignments/new': {
+      id: '/academic-work/assignments/new'
+      path: '/academic-work/assignments/new'
+      fullPath: '/academic-work/assignments/new'
+      preLoaderRoute: typeof AcademicWorkAssignmentsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/submissions/': {
+      id: '/academic-work/submissions/'
+      path: '/academic-work/submissions'
+      fullPath: '/academic-work/submissions/'
+      preLoaderRoute: typeof AcademicWorkSubmissionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/submissions/$submissionId': {
+      id: '/academic-work/submissions/$submissionId'
+      path: '/academic-work/submissions/$submissionId'
+      fullPath: '/academic-work/submissions/$submissionId'
+      preLoaderRoute: typeof AcademicWorkSubmissionsSubmissionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/academics/classes/': {
@@ -1342,6 +1574,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TimetableTeachersTeacherIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academic-work/assignments/$assignmentId/': {
+      id: '/academic-work/assignments/$assignmentId/'
+      path: '/academic-work/assignments/$assignmentId'
+      fullPath: '/academic-work/assignments/$assignmentId/'
+      preLoaderRoute: typeof AcademicWorkAssignmentsAssignmentIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academic-work/assignments/$assignmentId/edit': {
+      id: '/academic-work/assignments/$assignmentId/edit'
+      path: '/academic-work/assignments/$assignmentId/edit'
+      fullPath: '/academic-work/assignments/$assignmentId/edit'
+      preLoaderRoute: typeof AcademicWorkAssignmentsAssignmentIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1365,6 +1611,11 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,
   SetupRoute: SetupRoute,
+  AcademicWorkClassworkRoute: AcademicWorkClassworkRoute,
+  AcademicWorkGradingRoute: AcademicWorkGradingRoute,
+  AcademicWorkHomeworkRoute: AcademicWorkHomeworkRoute,
+  AcademicWorkResourcesRoute: AcademicWorkResourcesRoute,
+  AcademicWorkSettingsRoute: AcademicWorkSettingsRoute,
   AcademicsAssignmentsRoute: AcademicsAssignmentsRoute,
   AcademicsSettingsRoute: AcademicsSettingsRoute,
   AdmissionsCounsellingRoute: AdmissionsCounsellingRoute,
@@ -1382,12 +1633,16 @@ const rootRouteChildren: RootRouteChildren = {
   TimetablePeriodsRoute: TimetablePeriodsRoute,
   TimetableSettingsRoute: TimetableSettingsRoute,
   TimetableSubstitutionsRoute: TimetableSubstitutionsRoute,
+  AcademicWorkIndexRoute: AcademicWorkIndexRoute,
   AcademicsIndexRoute: AcademicsIndexRoute,
   AdmissionsIndexRoute: AdmissionsIndexRoute,
   AttendanceIndexRoute: AttendanceIndexRoute,
   ParentsIndexRoute: ParentsIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
   TimetableIndexRoute: TimetableIndexRoute,
+  AcademicWorkAssignmentsNewRoute: AcademicWorkAssignmentsNewRoute,
+  AcademicWorkSubmissionsSubmissionIdRoute:
+    AcademicWorkSubmissionsSubmissionIdRoute,
   AcademicsClassesClassIdRoute: AcademicsClassesClassIdRoute,
   AcademicsClassesNewRoute: AcademicsClassesNewRoute,
   AcademicsSectionsSectionIdRoute: AcademicsSectionsSectionIdRoute,
@@ -1409,6 +1664,8 @@ const rootRouteChildren: RootRouteChildren = {
   AttendanceStudentsTakeRoute: AttendanceStudentsTakeRoute,
   TimetableClassesClassIdRoute: TimetableClassesClassIdRoute,
   TimetableTeachersTeacherIdRoute: TimetableTeachersTeacherIdRoute,
+  AcademicWorkAssignmentsIndexRoute: AcademicWorkAssignmentsIndexRoute,
+  AcademicWorkSubmissionsIndexRoute: AcademicWorkSubmissionsIndexRoute,
   AcademicsClassesIndexRoute: AcademicsClassesIndexRoute,
   AcademicsSectionsIndexRoute: AcademicsSectionsIndexRoute,
   AcademicsSessionsIndexRoute: AcademicsSessionsIndexRoute,
@@ -1422,6 +1679,10 @@ const rootRouteChildren: RootRouteChildren = {
   TimetableClassesIndexRoute: TimetableClassesIndexRoute,
   TimetableRoomsIndexRoute: TimetableRoomsIndexRoute,
   TimetableTeachersIndexRoute: TimetableTeachersIndexRoute,
+  AcademicWorkAssignmentsAssignmentIdEditRoute:
+    AcademicWorkAssignmentsAssignmentIdEditRoute,
+  AcademicWorkAssignmentsAssignmentIdIndexRoute:
+    AcademicWorkAssignmentsAssignmentIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

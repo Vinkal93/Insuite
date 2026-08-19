@@ -1,118 +1,139 @@
-﻿import React from "react";
+import React from "react";
+import { Link } from "@tanstack/react-router";
 import {
   Users,
   GraduationCap,
-  CalendarCheck,
+  UserCheck,
   Wallet,
-  CreditCard,
   UserPlus,
-  Layers,
-  Grid,
-  TrendingUp,
+  PhoneCall,
+  FileText,
+  Clock,
+  ArrowUpRight,
+  Loader2,
 } from "lucide-react";
-import type { DashboardMetrics } from "../types";
-import { Skeleton } from "@/components/ui/skeleton";
+import type { Dashboard2KPIs } from "../types";
 
-interface KeyMetricsSectionProps {
-  metrics: DashboardMetrics | null;
+export const KeyMetricsSection: React.FC<{
+  kpis: Dashboard2KPIs | null;
   isLoading: boolean;
-}
-
-export const KeyMetricsSection: React.FC<KeyMetricsSectionProps> = ({ metrics, isLoading }) => {
-  if (isLoading || !metrics) {
-    return (
-      <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="rounded-2xl border border-border bg-card p-4 space-y-3 shadow-soft">
-            <div className="flex items-center justify-between">
-              <Skeleton className="size-8 rounded-xl" />
-              <Skeleton className="h-4 w-12 rounded" />
-            </div>
-            <Skeleton className="h-7 w-24 rounded-md" />
-            <Skeleton className="h-3 w-32 rounded" />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
+}> = ({ kpis, isLoading }) => {
   const cards = [
     {
-      data: metrics.totalStudents,
+      id: "students",
+      title: "TOTAL STUDENTS",
+      value: kpis?.totalStudents.value ? kpis.totalStudents.value.toLocaleString() : "0",
+      subtext: kpis?.totalStudents.subtext || "Active Students",
       icon: Users,
-      color: "text-blue-600 dark:text-blue-400",
-      bg: "bg-blue-50 dark:bg-blue-950/40",
+      iconBg: "bg-blue-500/10 text-blue-500",
+      route: "/students",
     },
     {
-      data: metrics.totalTeachers,
+      id: "teachers",
+      title: "TOTAL TEACHERS",
+      value: kpis?.totalTeachers.value ? kpis.totalTeachers.value.toLocaleString() : "0",
+      subtext: kpis?.totalTeachers.subtext || "Active Teaching Staff",
       icon: GraduationCap,
-      color: "text-indigo-600 dark:text-indigo-400",
-      bg: "bg-indigo-50 dark:bg-indigo-950/40",
+      iconBg: "bg-purple-500/10 text-purple-500",
+      route: "/academics/teachers",
     },
     {
-      data: metrics.todayAttendance,
-      icon: CalendarCheck,
-      color: "text-emerald-600 dark:text-emerald-400",
-      bg: "bg-emerald-50 dark:bg-emerald-950/40",
+      id: "attendance",
+      title: "TODAY'S ATTENDANCE",
+      value:
+        kpis?.todayAttendance.percentage !== null && kpis?.todayAttendance.percentage !== undefined
+          ? `${kpis.todayAttendance.percentage}%`
+          : "Not Marked",
+      subtext:
+        kpis?.todayAttendance.total && kpis.todayAttendance.total > 0
+          ? `Present: ${kpis.todayAttendance.present} / ${kpis.todayAttendance.total}`
+          : "Roll call pending",
+      icon: UserCheck,
+      iconBg: "bg-emerald-500/10 text-emerald-600",
+      route: "/attendance",
     },
     {
-      data: metrics.todayCollection,
+      id: "fees",
+      title: "PENDING FEES",
+      value: kpis?.pendingFees.isConfigured ? (kpis.pendingFees.value || "₹0") : "Not configured",
+      subtext: kpis?.pendingFees.isConfigured ? (kpis.pendingFees.overdue || "No overdue") : "Module unlocks in Phase 9",
       icon: Wallet,
-      color: "text-amber-600 dark:text-amber-400",
-      bg: "bg-amber-50 dark:bg-amber-950/40",
+      iconBg: "bg-amber-500/10 text-amber-500",
+      route: "/settings",
     },
     {
-      data: metrics.pendingFees,
-      icon: CreditCard,
-      color: "text-rose-600 dark:text-rose-400",
-      bg: "bg-rose-50 dark:bg-rose-950/40",
-    },
-    {
-      data: metrics.newAdmissions,
+      id: "admissions",
+      title: "NEW ADMISSIONS",
+      value: kpis?.newAdmissions.value ? kpis.newAdmissions.value.toLocaleString() : "0",
+      subtext: kpis?.newAdmissions.subtext || "This session",
       icon: UserPlus,
-      color: "text-violet-600 dark:text-violet-400",
-      bg: "bg-violet-50 dark:bg-violet-950/40",
+      iconBg: "bg-rose-500/10 text-rose-500",
+      route: "/admissions/list",
     },
     {
-      data: metrics.activeClasses,
-      icon: Layers,
-      color: "text-cyan-600 dark:text-cyan-400",
-      bg: "bg-cyan-50 dark:bg-cyan-950/40",
+      id: "enquiries",
+      title: "PENDING ENQUIRIES",
+      value: kpis?.pendingEnquiries.value ? kpis.pendingEnquiries.value.toLocaleString() : "0",
+      subtext: kpis?.pendingEnquiries.subtext || "Requires follow-up",
+      icon: PhoneCall,
+      iconBg: "bg-cyan-500/10 text-cyan-600",
+      route: "/admissions/enquiries",
     },
     {
-      data: metrics.activeSections,
-      icon: Grid,
-      color: "text-teal-600 dark:text-teal-400",
-      bg: "bg-teal-50 dark:bg-teal-950/40",
+      id: "assignments",
+      title: "ASSIGNMENTS",
+      value: kpis?.assignments.value ? kpis.assignments.value.toLocaleString() : "0",
+      subtext: kpis?.assignments.needsGrading ? `${kpis.assignments.needsGrading} needs grading` : "Active tasks",
+      icon: FileText,
+      iconBg: "bg-indigo-500/10 text-indigo-500",
+      route: "/academic-work",
+    },
+    {
+      id: "schedule",
+      title: "TODAY'S SCHEDULE",
+      value: kpis?.todaySchedule.periodsCount ? `${kpis.todaySchedule.periodsCount}` : "0",
+      subtext: kpis?.todaySchedule.subtext || "Classes today",
+      icon: Clock,
+      iconBg: "bg-teal-500/10 text-teal-600",
+      route: "/timetable/classes",
     },
   ];
 
   return (
-    <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-      {cards.map(({ data, icon: Icon, color, bg }) => (
-        <div
-          key={data.id}
-          className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-4 shadow-soft transition-all hover:border-primary/30 hover:shadow-lift"
-        >
-          <div className="flex items-center justify-between">
-            <span className={`grid size-9 place-items-center rounded-xl ${bg} ${color}`}>
-              <Icon className="size-4.5" />
-            </span>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-              {data.title}
-            </span>
-          </div>
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {cards.map((card) => {
+        const Icon = card.icon;
+        return (
+          <Link
+            key={card.id}
+            to={card.route}
+            className="group rounded-3xl border border-border bg-card p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/50"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">
+                {card.title}
+              </span>
+              <div className={`rounded-2xl p-2.5 transition-transform group-hover:scale-110 ${card.iconBg}`}>
+                <Icon className="size-4" />
+              </div>
+            </div>
 
-          <div className="mt-3">
-            <p className="font-display text-2xl font-extrabold tracking-tight text-foreground">
-              {data.value}
-            </p>
-            <p className="mt-1 text-[11px] font-medium text-muted-foreground truncate">
-              {data.subtext}
-            </p>
-          </div>
-        </div>
-      ))}
+            <div className="mt-3">
+              {isLoading ? (
+                <div className="h-7 w-20 animate-pulse rounded-lg bg-secondary" />
+              ) : (
+                <p className="text-2xl font-black tracking-tight text-foreground">
+                  {card.value}
+                </p>
+              )}
+              <p className="mt-1 text-[11px] font-medium text-muted-foreground flex items-center justify-between">
+                <span>{card.subtext}</span>
+                <ArrowUpRight className="size-3 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
+              </p>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 };

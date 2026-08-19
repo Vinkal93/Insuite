@@ -10,3 +10,4 @@ export * from "./admissionService";
 export * from "./academicService";
 export * from "./attendanceService";
 export * from "./timetableService";
+export * from "./academicWorkService";

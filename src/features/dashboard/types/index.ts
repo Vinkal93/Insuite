@@ -1,22 +1,111 @@
-﻿export interface MetricCardData {
-  id: string;
-  title: string;
-  value: string | number;
-  subtext: string;
-  isConfigured: boolean;
-  delta?: string;
-  status?: "positive" | "negative" | "neutral";
+export interface Dashboard2KPIs {
+  totalStudents: {
+    value: number;
+    subtext: string;
+  };
+  totalTeachers: {
+    value: number;
+    subtext: string;
+  };
+  todayAttendance: {
+    percentage: number | null;
+    present: number;
+    total: number;
+    isConfigured: boolean;
+  };
+  pendingFees: {
+    value: string | null;
+    overdue: string | null;
+    isConfigured: boolean;
+  };
+  newAdmissions: {
+    value: number;
+    subtext: string;
+  };
+  pendingEnquiries: {
+    value: number;
+    subtext: string;
+  };
+  assignments: {
+    value: number;
+    needsGrading: number;
+  };
+  todaySchedule: {
+    periodsCount: number;
+    subtext: string;
+  };
 }
 
-export interface DashboardMetrics {
-  totalStudents: MetricCardData;
-  totalTeachers: MetricCardData;
-  todayAttendance: MetricCardData;
-  todayCollection: MetricCardData;
-  pendingFees: MetricCardData;
-  newAdmissions: MetricCardData;
-  activeClasses: MetricCardData;
-  activeSections: MetricCardData;
+export interface TodayAtSchoolData {
+  studentsPresent: number;
+  studentsAbsent: number;
+  studentsNotMarked: number;
+  teachersPresent: number;
+  teachersAbsent: number;
+  classesScheduled: number;
+  periodsCompleted: number;
+  hasAttendance: boolean;
+}
+
+export interface AttendanceOverviewData {
+  percentage: number;
+  present: number;
+  absent: number;
+  late: number;
+  leave: number;
+  hasData: boolean;
+}
+
+export interface AdmissionsFunnelData {
+  enquiries: number;
+  contacted: number;
+  counselling: number;
+  applications: number;
+  underReview: number;
+  approved: number;
+  admitted: number;
+}
+
+export interface FeeSnapshotData {
+  isConfigured: boolean;
+  totalExpected: string;
+  collected: string;
+  pending: string;
+  overdue: string;
+  percentageCollected: number;
+}
+
+export interface ClassDistributionItem {
+  classId: string;
+  className: string;
+  count: number;
+}
+
+export interface TodayTimetableItem {
+  id: string;
+  time: string;
+  className: string;
+  sectionName: string;
+  subjectName: string;
+  teacherName: string;
+  roomName: string;
+}
+
+export interface AttentionItem {
+  id: string;
+  title: string;
+  description: string;
+  count: number;
+  severity: "error" | "warning" | "info";
+  actionRoute: string;
+}
+
+export interface UpcomingEventItem {
+  id: string;
+  day: string;
+  month: string;
+  title: string;
+  time: string;
 }
 
 export interface SetupChecklistItem {
@@ -28,6 +117,7 @@ export interface SetupChecklistItem {
 
 export interface SetupProgressData {
   percentage: number;
+  isComplete: boolean;
   items: SetupChecklistItem[];
 }
 
@@ -37,14 +127,4 @@ export interface ActivityItem {
   description: string;
   user: string;
   timestamp: string;
-  type: "profile" | "session" | "branding" | "security" | "system";
-}
-
-export interface DashboardAlertItem {
-  id: string;
-  title: string;
-  description: string;
-  severity: "critical" | "warning" | "info";
-  actionLabel: string;
-  actionRoute: string;
 }

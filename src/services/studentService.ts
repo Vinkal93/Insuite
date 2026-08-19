@@ -1,4 +1,4 @@
-﻿import {
+import {
   collection,
   doc,
   getDoc,
@@ -200,4 +200,12 @@ export const getStudentCount = async (orgId: string, sessionId?: string): Promis
     total: students.length,
     active,
   };
+};
+
+export const getStudentsBySection = async (
+  orgId: string,
+  classId: string,
+  sectionId: string
+): Promise<Student[]> => {
+  return listStudents(orgId, { classId, sectionId, status: "ACTIVE" });
 };
