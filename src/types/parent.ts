@@ -1,4 +1,4 @@
-﻿export type ParentRelation = "FATHER" | "MOTHER" | "GUARDIAN" | "OTHER";
+export type ParentRelation = "FATHER" | "MOTHER" | "GUARDIAN" | "OTHER";
 export type ParentStatus = "ACTIVE" | "INACTIVE";
 
 export interface Parent {
@@ -13,9 +13,33 @@ export interface Parent {
   email?: string;
   occupation?: string;
   address?: string;
-  authUserId?: string; // Reserved for future parent portal authentication
+  authUserId?: string; // Firebase Auth UID for parent portal authentication
   childrenIds: string[];
   status: ParentStatus;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ParentStudentRelation {
+  id: string;
+  organizationId: string;
+  parentId: string;
+  studentId: string;
+  studentName: string;
+  relationship: ParentRelation;
+  isPrimary: boolean;
+  status: "Active" | "Inactive";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ParentNotificationPreference {
+  emailAlerts: boolean;
+  smsAlerts: boolean;
+  whatsappAlerts: boolean;
+  feeReminders: boolean;
+  attendanceAlerts: boolean;
+  examResults: boolean;
+  homeworkAlerts: boolean;
+  generalNotices: boolean;
 }

@@ -1,4 +1,4 @@
-﻿import {
+import {
   collection,
   doc,
   getDoc,
@@ -622,4 +622,237 @@ export const getAdmissionSettings = async (orgId: string): Promise<AdmissionSett
 export const updateAdmissionSettings = async (orgId: string, settings: Partial<AdmissionSettings>): Promise<void> => {
   const ref = doc(db, "organizations", orgId, "admissionSettings", "config");
   await setDoc(ref, { ...settings, updatedAt: new Date().toISOString() }, { merge: true });
+};
+
+// ----------------------------------------------------
+// CAMPAIGNS CRUD
+// ----------------------------------------------------
+
+export const listCampaigns = async (orgId: string): Promise<any[]> => {
+  const col = collection(db, "organizations", orgId, "admissionCampaigns");
+  const q = query(col, orderBy("createdAt", "desc"));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => d.data());
+};
+
+export const createCampaign = async (
+  orgId: string,
+  data: { name: string; source: any; startDate: string; endDate?: string | null; budget?: number | null; status?: "Active" | "Completed" | "Paused" },
+  actor: { uid: string; name: string }
+): Promise<any> => {
+  const col = collection(db, "organizations", orgId, "admissionCampaigns");
+  const newDoc = doc(col);
+  const now = new Date().toISOString();
+
+  const campaign = {
+    id: newDoc.id,
+    organizationId: orgId,
+    name: data.name.trim(),
+    source: data.source,
+    startDate: data.startDate,
+    endDate: data.endDate || null,
+    budget: data.budget !== undefined && data.budget !== null ? Number(data.budget) : null,
+    status: data.status || "Active",
+    createdAt: now,
+    createdBy: actor.uid,
+    updatedAt: now,
+  };
+
+  await setDoc(newDoc, campaign);
+
+  await createAuditLog(orgId, {
+    actorId: actor.uid,
+    actorName: actor.name,
+    action: "CAMPAIGN_CREATED",
+    entityType: "ADMISSION_CAMPAIGN",
+    entityId: newDoc.id,
+    metadata: { name: campaign.name },
+  });
+
+  return campaign;
+};
+
+export const updateCampaign = async (
+  orgId: string,
+  campaignId: string,
+  data: Partial<any>,
+  actor: { uid: string; name: string }
+): Promise<void> => {
+  const ref = doc(db, "organizations", orgId, "admissionCampaigns", campaignId);
+  await updateDoc(ref, {
+    ...data,
+    updatedAt: new Date().toISOString(),
+  });
+
+  await createAuditLog(orgId, {
+    actorId: actor.uid,
+    actorName: actor.name,
+    action: "CAMPAIGN_UPDATED",
+    entityType: "ADMISSION_CAMPAIGN",
+    entityId: campaignId,
+  });
+};
+
+// ----------------------------------------------------
+// WAITLIST CRUD
+// ----------------------------------------------------
+
+export const listWaitlist = async (orgId: string, sessionId?: string): Promise<any[]> => {
+  const col = collection(db, "organizations", orgId, "admissionWaitlist");
+  let q = query(col, orderBy("waitlistPosition", "asc"));
+  const snap = await getDocs(q);
+  let list = snap.docs.map((d) => d.data());
+
+  if (sessionId) {
+    list = list.filter((w) => w.academicSessionId === sessionId);
+  }
+  return list;
+};
+
+export const addToWaitlist = async (
+  orgId: string,
+  data: { applicationId: string; priority?: "Low" | "Normal" | "High" | "Urgent"; notes?: string | null },
+  actor: { uid: string; name: string }
+): Promise<any> => {
+  const app = await getApplication(orgId, data.applicationId);
+  if (!app) throw new Error("Application not found.");
+
+  const currentWaitlist = await listWaitlist(orgId, app.academicSessionId);
+  const nextPos = currentWaitlist.length + 1;
+
+  const col = collection(db, "organizations", orgId, "admissionWaitlist");
+  const newDoc = doc(col);
+  const now = new Date().toISOString();
+
+  const record = {
+    id: newDoc.id,
+    organizationId: orgId,
+    applicationId: app.id,
+    applicationNumber: app.applicationNumber,
+    studentName: app.student.fullName,
+    guardianName: app.parent.fatherName || app.parent.guardianName || app.parent.motherName || "Guardian",
+    mobile: app.contact.mobile,
+    applyingClass: app.applyingClass,
+    academicSessionId: app.academicSessionId,
+    waitlistPosition: nextPos,
+    priority: data.priority || "Normal",
+    status: "Waiting",
+    notes: data.notes?.trim() || null,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  await setDoc(newDoc, record);
+  await updateApplication(orgId, app.id, { status: "Waitlisted" as any }, actor);
+
+  await createAuditLog(orgId, {
+    actorId: actor.uid,
+    actorName: actor.name,
+    action: "APPLICATION_WAITLISTED",
+    entityType: "ADMISSION_WAITLIST",
+    entityId: newDoc.id,
+    metadata: { applicationNumber: app.applicationNumber, position: nextPos },
+  });
+
+  return record;
+};
+
+export const updateWaitlistStatus = async (
+  orgId: string,
+  waitlistId: string,
+  status: "Waiting" | "Offered" | "Accepted" | "Declined" | "Expired" | "Removed",
+  actor: { uid: string; name: string }
+): Promise<void> => {
+  const ref = doc(db, "organizations", orgId, "admissionWaitlist", waitlistId);
+  await updateDoc(ref, {
+    status,
+    updatedAt: new Date().toISOString(),
+  });
+};
+
+// ----------------------------------------------------
+// DOCUMENT VERIFICATION
+// ----------------------------------------------------
+
+export const verifyApplicationDocument = async (
+  orgId: string,
+  applicationId: string,
+  documentId: string,
+  actor: { uid: string; name: string }
+): Promise<void> => {
+  const app = await getApplication(orgId, applicationId);
+  if (!app) throw new Error("Application not found.");
+
+  const now = new Date().toISOString();
+  const updatedDocs = (app.documents || []).map((doc) => {
+    if (doc.id === documentId) {
+      return {
+        ...doc,
+        status: "Verified" as const,
+        verifiedBy: actor.name,
+        verifiedAt: now,
+        rejectionReason: undefined,
+      };
+    }
+    return doc;
+  });
+
+  const allVerified = updatedDocs.every((d) => d.status === "Verified");
+
+  await updateDoc(doc(db, "organizations", orgId, "applications", applicationId), {
+    documents: updatedDocs,
+    status: allVerified ? "Verified" : app.status,
+    updatedAt: now,
+    updatedBy: actor.uid,
+  });
+
+  await createAuditLog(orgId, {
+    actorId: actor.uid,
+    actorName: actor.name,
+    action: "DOCUMENT_VERIFIED",
+    entityType: "ADMISSION_DOCUMENT",
+    entityId: documentId,
+    metadata: { applicationId },
+  });
+};
+
+export const rejectApplicationDocument = async (
+  orgId: string,
+  applicationId: string,
+  documentId: string,
+  reason: string,
+  actor: { uid: string; name: string }
+): Promise<void> => {
+  const app = await getApplication(orgId, applicationId);
+  if (!app) throw new Error("Application not found.");
+
+  const now = new Date().toISOString();
+  const updatedDocs = (app.documents || []).map((doc) => {
+    if (doc.id === documentId) {
+      return {
+        ...doc,
+        status: "Rejected" as const,
+        rejectionReason: reason.trim(),
+        verifiedBy: actor.name,
+        verifiedAt: now,
+      };
+    }
+    return doc;
+  });
+
+  await updateDoc(doc(db, "organizations", orgId, "applications", applicationId), {
+    documents: updatedDocs,
+    status: "Documents Pending",
+    updatedAt: now,
+    updatedBy: actor.uid,
+  });
+
+  await createAuditLog(orgId, {
+    actorId: actor.uid,
+    actorName: actor.name,
+    action: "DOCUMENT_REJECTED",
+    entityType: "ADMISSION_DOCUMENT",
+    entityId: documentId,
+    metadata: { applicationId, reason },
+  });
 };

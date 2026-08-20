@@ -1,4 +1,4 @@
-﻿export * from "./AdmissionsDashboardView";
+export * from "./AdmissionsDashboardView";
 export * from "./EnquiriesListView";
 export * from "./NewEnquiryForm";
 export * from "./EnquiryProfileView";
@@ -11,3 +11,6 @@ export * from "./DocumentsVerificationView";
 export * from "./AdmittedStudentsView";
 export * from "./AdmissionDetailView";
 export * from "./AdmissionSettingsView";
+export * from "./AdmissionWaitlistView";
+export * from "./AdmissionCampaignsView";
+export * from "./AdmissionReportsView";

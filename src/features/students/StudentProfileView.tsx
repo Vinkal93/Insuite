@@ -26,6 +26,8 @@ import {
   CreditCard,
   Receipt,
   Award,
+  Bus,
+  Route as RouteIcon,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { getStudent, deactivateStudent } from "@/services/studentService";
@@ -39,6 +41,7 @@ import { getAuditLogsForEntity } from "@/services/auditService";
 import { getStudentAttendanceSummary } from "@/services/attendanceService";
 import { getStudentFeeSummary } from "@/services/feeService";
 import { getStudentResultHistory } from "@/services/examService";
+import { getStudentAssignment } from "@/services/transportService";
 import type {
   Student,
   Parent,
@@ -48,6 +51,7 @@ import type {
   StudentAttendanceSummary,
   StudentFeeSummary,
   ExamResult,
+  StudentTransportAssignment,
 } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -77,10 +81,11 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
   const [attendanceSummary, setAttendanceSummary] = useState<StudentAttendanceSummary | null>(null);
   const [feeSummary, setFeeSummary] = useState<StudentFeeSummary | null>(null);
   const [examResults, setExamResults] = useState<ExamResult[]>([]);
+  const [transportAssignment, setTransportAssignment] = useState<StudentTransportAssignment | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "exams" | "fees" | "parents" | "documents" | "activity">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "academic" | "attendance" | "exams" | "fees" | "transport" | "parents" | "documents" | "activity">("overview");
 
   // Deactivate modal
   const [isDeactivateOpen, setIsDeactivateOpen] = useState(false);
@@ -112,13 +117,14 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
           parentPromises.push(getParent(organization.id, studentData.parentIds.motherId).then(setMother));
         }
 
-        // Fetch Documents, Audit Activity, Attendance, Fee Summary & Exam Results
-        const [docs, logs, attSummary, fSummary, exResults] = await Promise.all([
+        // Fetch Documents, Audit Activity, Attendance, Fee Summary, Exam Results & Transport
+        const [docs, logs, attSummary, fSummary, exResults, tAssign] = await Promise.all([
           getStudentDocuments(organization.id, studentData.id),
           getAuditLogsForEntity(organization.id, studentData.id),
           getStudentAttendanceSummary(organization.id, studentData.id, selectedSession?.id).catch(() => null),
           getStudentFeeSummary(organization.id, studentData.id).catch(() => null),
           getStudentResultHistory(organization.id, studentData.id).catch(() => []),
+          getStudentAssignment(organization.id, studentData.id).catch(() => null),
           ...parentPromises,
         ]);
         setDocuments(docs);
@@ -126,6 +132,7 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
         setAttendanceSummary(attSummary);
         setFeeSummary(fSummary);
         setExamResults(exResults);
+        setTransportAssignment(tAssign);
       }
     } catch (err) {
       console.error("Error loading student profile:", err);
@@ -224,6 +231,7 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
     { id: "attendance", label: "Attendance", icon: Calendar },
     { id: "exams", label: `Examinations (${examResults.length})`, icon: Award },
     { id: "fees", label: "Fees & Ledger", icon: CreditCard },
+    { id: "transport", label: "Transport", icon: Bus },
     { id: "parents", label: "Parents & Guardians", icon: Users },
     { id: "documents", label: `Documents (${documents.length})`, icon: FileText },
     { id: "activity", label: "Audit Activity", icon: Activity },
@@ -774,6 +782,83 @@ export const StudentProfileView: React.FC<StudentProfileViewProps> = ({ studentI
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* TAB: Transport */}
+      {activeTab === "transport" && (
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-soft space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-3">
+            <div>
+              <h3 className="text-sm font-extrabold text-foreground">Transport & Commute Allocation</h3>
+              <p className="text-xs text-muted-foreground">Assigned school transit route, designated stop, and timings</p>
+            </div>
+            <Button variant="outline" size="sm" asChild className="rounded-xl text-xs font-semibold">
+              <Link to="/transport/assignments">
+                <RouteIcon className="size-3.5 mr-1" /> Manage Transport
+              </Link>
+            </Button>
+          </div>
+
+          {!transportAssignment ? (
+            <div className="py-12 text-center space-y-3">
+              <div className="size-12 rounded-2xl bg-secondary mx-auto flex items-center justify-center text-muted-foreground">
+                <Bus className="size-6" />
+              </div>
+              <h4 className="text-sm font-bold text-foreground">Not Assigned to School Transport</h4>
+              <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                This student is not registered for institutional bus or van services.
+              </p>
+              <Button variant="hero" size="sm" asChild className="rounded-xl text-xs font-bold mt-2">
+                <Link to="/transport/assignments">
+                  <Plus className="size-3.5 mr-1" /> Assign to Route
+                </Link>
+              </Button>
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-2xl border border-border bg-surface/50 p-4 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-muted-foreground">Assigned Route</span>
+                <p className="text-sm font-bold text-foreground">{transportAssignment.routeName}</p>
+                <span className="font-mono text-[10px] text-primary font-semibold block">
+                  Code: {transportAssignment.routeCode}
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-surface/50 p-4 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-muted-foreground">Designated Stop</span>
+                <p className="text-sm font-bold text-foreground">{transportAssignment.stopName}</p>
+                <p className="text-[11px] text-muted-foreground">
+                  Pickup: <strong className="text-foreground">{transportAssignment.pickupTime}</strong> • Drop: <strong className="text-foreground">{transportAssignment.dropTime}</strong>
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-surface/50 p-4 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-muted-foreground">Transit Mode & Status</span>
+                <p className="text-sm font-bold text-foreground">{transportAssignment.pickupDrop}</p>
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                  {transportAssignment.status}
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-surface/50 p-4 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-muted-foreground">Vehicle Allocated</span>
+                <p className="text-xs font-bold text-foreground">
+                  {transportAssignment.vehicleNumber || "Fleet Pool (Dynamic)"}
+                </p>
+                <p className="text-[10px] text-muted-foreground">
+                  Driver: {transportAssignment.driverName || "Assigned Driver"}
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-surface/50 p-4 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-muted-foreground">Effective Date</span>
+                <p className="text-xs font-bold text-foreground font-mono">
+                  {transportAssignment.effectiveFrom}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

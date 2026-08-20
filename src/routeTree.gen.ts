@@ -27,10 +27,14 @@ import { Route as AcademicsIndexRouteImport } from './routes/academics/index'
 import { Route as AcademicsAssignmentsRouteImport } from './routes/academics/assignments'
 import { Route as AcademicsSettingsRouteImport } from './routes/academics/settings'
 import { Route as AdmissionsIndexRouteImport } from './routes/admissions/index'
+import { Route as AdmissionsCampaignsRouteImport } from './routes/admissions/campaigns'
 import { Route as AdmissionsCounsellingRouteImport } from './routes/admissions/counselling'
 import { Route as AdmissionsDocumentsRouteImport } from './routes/admissions/documents'
 import { Route as AdmissionsFollowUpsRouteImport } from './routes/admissions/follow-ups'
+import { Route as AdmissionsReportsRouteImport } from './routes/admissions/reports'
 import { Route as AdmissionsSettingsRouteImport } from './routes/admissions/settings'
+import { Route as AdmissionsVerificationRouteImport } from './routes/admissions/verification'
+import { Route as AdmissionsWaitlistRouteImport } from './routes/admissions/waitlist'
 import { Route as AttendanceIndexRouteImport } from './routes/attendance/index'
 import { Route as AttendanceLeaveRouteImport } from './routes/attendance/leave'
 import { Route as AttendanceReportsRouteImport } from './routes/attendance/reports'
@@ -40,6 +44,12 @@ import { Route as CommunicationHistoryRouteImport } from './routes/communication
 import { Route as CommunicationNotificationsRouteImport } from './routes/communication/notifications'
 import { Route as CommunicationSettingsRouteImport } from './routes/communication/settings'
 import { Route as CommunicationTemplatesRouteImport } from './routes/communication/templates'
+import { Route as DocumentsIndexRouteImport } from './routes/documents/index'
+import { Route as DocumentsBulkRouteImport } from './routes/documents/bulk'
+import { Route as DocumentsGenerateRouteImport } from './routes/documents/generate'
+import { Route as DocumentsIssuedRouteImport } from './routes/documents/issued'
+import { Route as DocumentsReportsRouteImport } from './routes/documents/reports'
+import { Route as DocumentsSettingsRouteImport } from './routes/documents/settings'
 import { Route as ExamsIndexRouteImport } from './routes/exams/index'
 import { Route as ExamsExamIdRouteImport } from './routes/exams/$examId'
 import { Route as ExamsListRouteImport } from './routes/exams/list'
@@ -56,17 +66,106 @@ import { Route as FeesPaymentsRouteImport } from './routes/fees/payments'
 import { Route as FeesReceiptsRouteImport } from './routes/fees/receipts'
 import { Route as FeesReportsRouteImport } from './routes/fees/reports'
 import { Route as FeesSettingsRouteImport } from './routes/fees/settings'
+import { Route as FrontOfficeIndexRouteImport } from './routes/front-office/index'
+import { Route as FrontOfficeReportsRouteImport } from './routes/front-office/reports'
+import { Route as FrontOfficeSettingsRouteImport } from './routes/front-office/settings'
+import { Route as FrontOfficeTasksRouteImport } from './routes/front-office/tasks'
+import { Route as HostelIndexRouteImport } from './routes/hostel/index'
+import { Route as HostelAttendanceRouteImport } from './routes/hostel/attendance'
+import { Route as HostelBedsRouteImport } from './routes/hostel/beds'
+import { Route as HostelBuildingsRouteImport } from './routes/hostel/buildings'
+import { Route as HostelComplaintsRouteImport } from './routes/hostel/complaints'
+import { Route as HostelFeesRouteImport } from './routes/hostel/fees'
+import { Route as HostelFloorsRouteImport } from './routes/hostel/floors'
+import { Route as HostelMaintenanceRouteImport } from './routes/hostel/maintenance'
+import { Route as HostelReportsRouteImport } from './routes/hostel/reports'
+import { Route as HostelRoomsRouteImport } from './routes/hostel/rooms'
+import { Route as HostelSettingsRouteImport } from './routes/hostel/settings'
+import { Route as HostelStudentsRouteImport } from './routes/hostel/students'
+import { Route as HostelVisitorsRouteImport } from './routes/hostel/visitors'
+import { Route as HrIndexRouteImport } from './routes/hr/index'
+import { Route as HrDepartmentsRouteImport } from './routes/hr/departments'
+import { Route as HrDesignationsRouteImport } from './routes/hr/designations'
+import { Route as HrDocumentsRouteImport } from './routes/hr/documents'
+import { Route as HrReportsRouteImport } from './routes/hr/reports'
+import { Route as HrSettingsRouteImport } from './routes/hr/settings'
+import { Route as InventoryIndexRouteImport } from './routes/inventory/index'
+import { Route as InventoryAssignmentsRouteImport } from './routes/inventory/assignments'
+import { Route as InventoryCategoriesRouteImport } from './routes/inventory/categories'
+import { Route as InventoryMaintenanceRouteImport } from './routes/inventory/maintenance'
+import { Route as InventoryReportsRouteImport } from './routes/inventory/reports'
+import { Route as InventorySettingsRouteImport } from './routes/inventory/settings'
+import { Route as InventoryStockInRouteImport } from './routes/inventory/stock-in'
+import { Route as InventoryStockOutRouteImport } from './routes/inventory/stock-out'
+import { Route as InventoryTransfersRouteImport } from './routes/inventory/transfers'
+import { Route as LibraryIndexRouteImport } from './routes/library/index'
+import { Route as LibraryAuthorsRouteImport } from './routes/library/authors'
+import { Route as LibraryCategoriesRouteImport } from './routes/library/categories'
+import { Route as LibraryFinesRouteImport } from './routes/library/fines'
+import { Route as LibraryMembersRouteImport } from './routes/library/members'
+import { Route as LibraryPublishersRouteImport } from './routes/library/publishers'
+import { Route as LibraryReportsRouteImport } from './routes/library/reports'
+import { Route as LibraryReservationsRouteImport } from './routes/library/reservations'
+import { Route as LibrarySettingsRouteImport } from './routes/library/settings'
+import { Route as ParentIndexRouteImport } from './routes/parent/index'
+import { Route as ParentAttendanceRouteImport } from './routes/parent/attendance'
+import { Route as ParentDocumentsRouteImport } from './routes/parent/documents'
+import { Route as ParentExamsRouteImport } from './routes/parent/exams'
+import { Route as ParentFeesRouteImport } from './routes/parent/fees'
+import { Route as ParentHomeworkRouteImport } from './routes/parent/homework'
+import { Route as ParentHostelRouteImport } from './routes/parent/hostel'
+import { Route as ParentMessagesRouteImport } from './routes/parent/messages'
+import { Route as ParentNoticesRouteImport } from './routes/parent/notices'
+import { Route as ParentNotificationsRouteImport } from './routes/parent/notifications'
+import { Route as ParentProfileRouteImport } from './routes/parent/profile'
+import { Route as ParentSettingsRouteImport } from './routes/parent/settings'
+import { Route as ParentTimetableRouteImport } from './routes/parent/timetable'
+import { Route as ParentTransportRouteImport } from './routes/parent/transport'
 import { Route as ParentsIndexRouteImport } from './routes/parents/index'
 import { Route as ParentsParentIdRouteImport } from './routes/parents/$parentId'
+import { Route as PtmIndexRouteImport } from './routes/ptm/index'
+import { Route as PtmAvailabilityRouteImport } from './routes/ptm/availability'
+import { Route as PtmReportsRouteImport } from './routes/ptm/reports'
+import { Route as PtmSettingsRouteImport } from './routes/ptm/settings'
+import { Route as PtmSlotsRouteImport } from './routes/ptm/slots'
+import { Route as StudentIndexRouteImport } from './routes/student/index'
+import { Route as StudentDocumentsRouteImport } from './routes/student/documents'
+import { Route as StudentHostelRouteImport } from './routes/student/hostel'
+import { Route as StudentLibraryRouteImport } from './routes/student/library'
+import { Route as StudentMessagesRouteImport } from './routes/student/messages'
+import { Route as StudentNoticesRouteImport } from './routes/student/notices'
+import { Route as StudentNotificationsRouteImport } from './routes/student/notifications'
+import { Route as StudentProfileRouteImport } from './routes/student/profile'
+import { Route as StudentSettingsRouteImport } from './routes/student/settings'
+import { Route as StudentTimetableRouteImport } from './routes/student/timetable'
+import { Route as StudentTransportRouteImport } from './routes/student/transport'
 import { Route as StudentsIndexRouteImport } from './routes/students/index'
 import { Route as StudentsStudentIdRouteImport } from './routes/students/$studentId'
 import { Route as StudentsNewRouteImport } from './routes/students/new'
 import { Route as StudentsPromotionsRouteImport } from './routes/students/promotions'
+import { Route as TeacherIndexRouteImport } from './routes/teacher/index'
+import { Route as TeacherAttendanceRouteImport } from './routes/teacher/attendance'
+import { Route as TeacherMessagesRouteImport } from './routes/teacher/messages'
+import { Route as TeacherNoticesRouteImport } from './routes/teacher/notices'
+import { Route as TeacherNotificationsRouteImport } from './routes/teacher/notifications'
+import { Route as TeacherProfileRouteImport } from './routes/teacher/profile'
+import { Route as TeacherSettingsRouteImport } from './routes/teacher/settings'
+import { Route as TeacherTimetableRouteImport } from './routes/teacher/timetable'
 import { Route as TimetableIndexRouteImport } from './routes/timetable/index'
 import { Route as TimetableCreateRouteImport } from './routes/timetable/create'
 import { Route as TimetablePeriodsRouteImport } from './routes/timetable/periods'
 import { Route as TimetableSettingsRouteImport } from './routes/timetable/settings'
 import { Route as TimetableSubstitutionsRouteImport } from './routes/timetable/substitutions'
+import { Route as TransportIndexRouteImport } from './routes/transport/index'
+import { Route as TransportAssignmentsRouteImport } from './routes/transport/assignments'
+import { Route as TransportFeesRouteImport } from './routes/transport/fees'
+import { Route as TransportMaintenanceRouteImport } from './routes/transport/maintenance'
+import { Route as TransportReportsRouteImport } from './routes/transport/reports'
+import { Route as TransportSettingsRouteImport } from './routes/transport/settings'
+import { Route as TransportStopsRouteImport } from './routes/transport/stops'
+import { Route as TransportStudentsRouteImport } from './routes/transport/students'
+import { Route as TransportTripsRouteImport } from './routes/transport/trips'
+import { Route as VerifyNumberRouteImport } from './routes/verify/$number'
 import { Route as AcademicWorkAssignmentsIndexRouteImport } from './routes/academic-work/assignments/index'
 import { Route as AcademicWorkAssignmentsNewRouteImport } from './routes/academic-work/assignments/new'
 import { Route as AcademicWorkSubmissionsIndexRouteImport } from './routes/academic-work/submissions/index'
@@ -107,6 +206,14 @@ import { Route as CommunicationMessagesNewRouteImport } from './routes/communica
 import { Route as CommunicationNoticesIndexRouteImport } from './routes/communication/notices/index'
 import { Route as CommunicationNoticesIdRouteImport } from './routes/communication/notices/$id'
 import { Route as CommunicationNoticesNewRouteImport } from './routes/communication/notices/new'
+import { Route as DocumentsCertificatesIndexRouteImport } from './routes/documents/certificates/index'
+import { Route as DocumentsCertificatesIdRouteImport } from './routes/documents/certificates/$id'
+import { Route as DocumentsIdCardsIndexRouteImport } from './routes/documents/id-cards/index'
+import { Route as DocumentsIdCardsNewRouteImport } from './routes/documents/id-cards/new'
+import { Route as DocumentsTemplatesIndexRouteImport } from './routes/documents/templates/index'
+import { Route as DocumentsTemplatesNewRouteImport } from './routes/documents/templates/new'
+import { Route as DocumentsVerificationIndexRouteImport } from './routes/documents/verification/index'
+import { Route as DocumentsVerificationNumberRouteImport } from './routes/documents/verification/$number'
 import { Route as ExamsMarksIndexRouteImport } from './routes/exams/marks/index'
 import { Route as ExamsMarksExamIdRouteImport } from './routes/exams/marks/$examId'
 import { Route as ExamsResultsIndexRouteImport } from './routes/exams/results/index'
@@ -116,14 +223,102 @@ import { Route as FeesStructureStructureIdRouteImport } from './routes/fees/stru
 import { Route as FeesStructureNewRouteImport } from './routes/fees/structure/new'
 import { Route as FeesStudentsIndexRouteImport } from './routes/fees/students/index'
 import { Route as FeesStudentsStudentIdRouteImport } from './routes/fees/students/$studentId'
+import { Route as FrontOfficeAppointmentsIndexRouteImport } from './routes/front-office/appointments/index'
+import { Route as FrontOfficeAppointmentsNewRouteImport } from './routes/front-office/appointments/new'
+import { Route as FrontOfficeCallsIndexRouteImport } from './routes/front-office/calls/index'
+import { Route as FrontOfficeCallsNewRouteImport } from './routes/front-office/calls/new'
+import { Route as FrontOfficeCorrespondenceIndexRouteImport } from './routes/front-office/correspondence/index'
+import { Route as FrontOfficeCorrespondenceNewRouteImport } from './routes/front-office/correspondence/new'
+import { Route as FrontOfficeEnquiriesIndexRouteImport } from './routes/front-office/enquiries/index'
+import { Route as FrontOfficeGatePassPassNumberRouteImport } from './routes/front-office/gate-pass/$passNumber'
+import { Route as FrontOfficeGatePassesIndexRouteImport } from './routes/front-office/gate-passes/index'
+import { Route as FrontOfficeGatePassesIdRouteImport } from './routes/front-office/gate-passes/$id'
+import { Route as FrontOfficeVisitorsIndexRouteImport } from './routes/front-office/visitors/index'
+import { Route as FrontOfficeVisitorsNewRouteImport } from './routes/front-office/visitors/new'
+import { Route as HostelAllocationsIndexRouteImport } from './routes/hostel/allocations/index'
+import { Route as HostelAllocationsNewRouteImport } from './routes/hostel/allocations/new'
+import { Route as HostelHostelsIndexRouteImport } from './routes/hostel/hostels/index'
+import { Route as HostelHostelsNewRouteImport } from './routes/hostel/hostels/new'
+import { Route as HostelLeaveIndexRouteImport } from './routes/hostel/leave/index'
+import { Route as HrAttendanceIndexRouteImport } from './routes/hr/attendance/index'
+import { Route as HrAttendanceTakeRouteImport } from './routes/hr/attendance/take'
+import { Route as HrLeaveIndexRouteImport } from './routes/hr/leave/index'
+import { Route as HrLeaveNewRouteImport } from './routes/hr/leave/new'
+import { Route as HrPayrollIndexRouteImport } from './routes/hr/payroll/index'
+import { Route as HrPayrollStaffIdRouteImport } from './routes/hr/payroll/$staffId'
+import { Route as HrStaffIndexRouteImport } from './routes/hr/staff/index'
+import { Route as HrStaffNewRouteImport } from './routes/hr/staff/new'
+import { Route as InventoryAssetsIndexRouteImport } from './routes/inventory/assets/index'
+import { Route as InventoryAssetsAssetIdRouteImport } from './routes/inventory/assets/$assetId'
+import { Route as InventoryAssetsNewRouteImport } from './routes/inventory/assets/new'
+import { Route as InventoryItemsIndexRouteImport } from './routes/inventory/items/index'
+import { Route as InventoryItemsItemIdRouteImport } from './routes/inventory/items/$itemId'
+import { Route as InventoryItemsNewRouteImport } from './routes/inventory/items/new'
+import { Route as InventoryPurchaseOrdersIndexRouteImport } from './routes/inventory/purchase-orders/index'
+import { Route as InventoryPurchaseOrdersOrderIdRouteImport } from './routes/inventory/purchase-orders/$orderId'
+import { Route as InventoryPurchaseOrdersNewRouteImport } from './routes/inventory/purchase-orders/new'
+import { Route as InventoryVendorsIndexRouteImport } from './routes/inventory/vendors/index'
+import { Route as InventoryVendorsVendorIdRouteImport } from './routes/inventory/vendors/$vendorId'
+import { Route as InventoryVendorsNewRouteImport } from './routes/inventory/vendors/new'
+import { Route as LibraryBooksIndexRouteImport } from './routes/library/books/index'
+import { Route as LibraryBooksNewRouteImport } from './routes/library/books/new'
+import { Route as LibraryTransactionsIndexRouteImport } from './routes/library/transactions/index'
+import { Route as LibraryTransactionsIssueRouteImport } from './routes/library/transactions/issue'
+import { Route as ParentChildrenIndexRouteImport } from './routes/parent/children/index'
+import { Route as ParentChildrenStudentIdRouteImport } from './routes/parent/children/$studentId'
+import { Route as ParentPtmIndexRouteImport } from './routes/parent/ptm/index'
+import { Route as ParentPtmEventIdRouteImport } from './routes/parent/ptm/$eventId'
+import { Route as ParentPtmAppointmentsRouteImport } from './routes/parent/ptm/appointments'
+import { Route as PtmAppointmentsIndexRouteImport } from './routes/ptm/appointments/index'
+import { Route as PtmAppointmentsAppointmentIdRouteImport } from './routes/ptm/appointments/$appointmentId'
+import { Route as PtmEventsIndexRouteImport } from './routes/ptm/events/index'
+import { Route as PtmEventsEventIdRouteImport } from './routes/ptm/events/$eventId'
+import { Route as PtmEventsNewRouteImport } from './routes/ptm/events/new'
+import { Route as StudentAttendanceIndexRouteImport } from './routes/student/attendance/index'
+import { Route as StudentAttendanceMonthRouteImport } from './routes/student/attendance/$month'
+import { Route as StudentExamsIndexRouteImport } from './routes/student/exams/index'
+import { Route as StudentExamsExamIdRouteImport } from './routes/student/exams/$examId'
+import { Route as StudentFeesIndexRouteImport } from './routes/student/fees/index'
+import { Route as StudentFeesReceiptsRouteImport } from './routes/student/fees/receipts'
+import { Route as StudentHomeworkIndexRouteImport } from './routes/student/homework/index'
+import { Route as StudentHomeworkAssignmentIdRouteImport } from './routes/student/homework/$assignmentId'
 import { Route as StudentsStudentIdEditRouteImport } from './routes/students/$studentId.edit'
+import { Route as TeacherAssignmentsIndexRouteImport } from './routes/teacher/assignments/index'
+import { Route as TeacherAssignmentsNewRouteImport } from './routes/teacher/assignments/new'
+import { Route as TeacherClassesIndexRouteImport } from './routes/teacher/classes/index'
+import { Route as TeacherClassesClassIdRouteImport } from './routes/teacher/classes/$classId'
+import { Route as TeacherExamsIndexRouteImport } from './routes/teacher/exams/index'
+import { Route as TeacherMarksExamIdRouteImport } from './routes/teacher/marks/$examId'
+import { Route as TeacherPtmIndexRouteImport } from './routes/teacher/ptm/index'
+import { Route as TeacherPtmEventIdRouteImport } from './routes/teacher/ptm/$eventId'
+import { Route as TeacherPtmAppointmentsRouteImport } from './routes/teacher/ptm/appointments'
+import { Route as TeacherPtmAvailabilityRouteImport } from './routes/teacher/ptm/availability'
+import { Route as TeacherStudentsIndexRouteImport } from './routes/teacher/students/index'
+import { Route as TeacherStudentsStudentIdRouteImport } from './routes/teacher/students/$studentId'
+import { Route as TeacherSubmissionsIndexRouteImport } from './routes/teacher/submissions/index'
+import { Route as TeacherSubmissionsAssignmentIdRouteImport } from './routes/teacher/submissions/$assignmentId'
 import { Route as TimetableClassesIndexRouteImport } from './routes/timetable/classes/index'
 import { Route as TimetableClassesClassIdRouteImport } from './routes/timetable/classes/$classId'
 import { Route as TimetableRoomsIndexRouteImport } from './routes/timetable/rooms/index'
 import { Route as TimetableTeachersIndexRouteImport } from './routes/timetable/teachers/index'
 import { Route as TimetableTeachersTeacherIdRouteImport } from './routes/timetable/teachers/$teacherId'
+import { Route as TransportDriversIndexRouteImport } from './routes/transport/drivers/index'
+import { Route as TransportDriversNewRouteImport } from './routes/transport/drivers/new'
+import { Route as TransportRoutesIndexRouteImport } from './routes/transport/routes/index'
+import { Route as TransportRoutesNewRouteImport } from './routes/transport/routes/new'
+import { Route as TransportVehiclesIndexRouteImport } from './routes/transport/vehicles/index'
+import { Route as TransportVehiclesNewRouteImport } from './routes/transport/vehicles/new'
 import { Route as AcademicWorkAssignmentsAssignmentIdIndexRouteImport } from './routes/academic-work/assignments/$assignmentId/index'
 import { Route as AcademicWorkAssignmentsAssignmentIdEditRouteImport } from './routes/academic-work/assignments/$assignmentId/edit'
+import { Route as DocumentsTemplatesIdEditRouteImport } from './routes/documents/templates/$id/edit'
+import { Route as HrStaffStaffIdIndexRouteImport } from './routes/hr/staff/$staffId/index'
+import { Route as HrStaffStaffIdEditRouteImport } from './routes/hr/staff/$staffId/edit'
+import { Route as LibraryBooksBookIdIndexRouteImport } from './routes/library/books/$bookId/index'
+import { Route as LibraryBooksBookIdEditRouteImport } from './routes/library/books/$bookId/edit'
+import { Route as TransportDriversDriverIdIndexRouteImport } from './routes/transport/drivers/$driverId/index'
+import { Route as TransportRoutesRouteIdIndexRouteImport } from './routes/transport/routes/$routeId/index'
+import { Route as TransportVehiclesVehicleIdIndexRouteImport } from './routes/transport/vehicles/$vehicleId/index'
+import { Route as TransportVehiclesVehicleIdEditRouteImport } from './routes/transport/vehicles/$vehicleId/edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -215,6 +410,11 @@ const AdmissionsIndexRoute = AdmissionsIndexRouteImport.update({
   path: '/admissions/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdmissionsCampaignsRoute = AdmissionsCampaignsRouteImport.update({
+  id: '/admissions/campaigns',
+  path: '/admissions/campaigns',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdmissionsCounsellingRoute = AdmissionsCounsellingRouteImport.update({
   id: '/admissions/counselling',
   path: '/admissions/counselling',
@@ -230,9 +430,24 @@ const AdmissionsFollowUpsRoute = AdmissionsFollowUpsRouteImport.update({
   path: '/admissions/follow-ups',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdmissionsReportsRoute = AdmissionsReportsRouteImport.update({
+  id: '/admissions/reports',
+  path: '/admissions/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdmissionsSettingsRoute = AdmissionsSettingsRouteImport.update({
   id: '/admissions/settings',
   path: '/admissions/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsVerificationRoute = AdmissionsVerificationRouteImport.update({
+  id: '/admissions/verification',
+  path: '/admissions/verification',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsWaitlistRoute = AdmissionsWaitlistRouteImport.update({
+  id: '/admissions/waitlist',
+  path: '/admissions/waitlist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AttendanceIndexRoute = AttendanceIndexRouteImport.update({
@@ -279,6 +494,36 @@ const CommunicationSettingsRoute = CommunicationSettingsRouteImport.update({
 const CommunicationTemplatesRoute = CommunicationTemplatesRouteImport.update({
   id: '/communication/templates',
   path: '/communication/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsIndexRoute = DocumentsIndexRouteImport.update({
+  id: '/documents/',
+  path: '/documents/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsBulkRoute = DocumentsBulkRouteImport.update({
+  id: '/documents/bulk',
+  path: '/documents/bulk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsGenerateRoute = DocumentsGenerateRouteImport.update({
+  id: '/documents/generate',
+  path: '/documents/generate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsIssuedRoute = DocumentsIssuedRouteImport.update({
+  id: '/documents/issued',
+  path: '/documents/issued',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsReportsRoute = DocumentsReportsRouteImport.update({
+  id: '/documents/reports',
+  path: '/documents/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsSettingsRoute = DocumentsSettingsRouteImport.update({
+  id: '/documents/settings',
+  path: '/documents/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExamsIndexRoute = ExamsIndexRouteImport.update({
@@ -361,6 +606,281 @@ const FeesSettingsRoute = FeesSettingsRouteImport.update({
   path: '/fees/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FrontOfficeIndexRoute = FrontOfficeIndexRouteImport.update({
+  id: '/front-office/',
+  path: '/front-office/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrontOfficeReportsRoute = FrontOfficeReportsRouteImport.update({
+  id: '/front-office/reports',
+  path: '/front-office/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrontOfficeSettingsRoute = FrontOfficeSettingsRouteImport.update({
+  id: '/front-office/settings',
+  path: '/front-office/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrontOfficeTasksRoute = FrontOfficeTasksRouteImport.update({
+  id: '/front-office/tasks',
+  path: '/front-office/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelIndexRoute = HostelIndexRouteImport.update({
+  id: '/hostel/',
+  path: '/hostel/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelAttendanceRoute = HostelAttendanceRouteImport.update({
+  id: '/hostel/attendance',
+  path: '/hostel/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelBedsRoute = HostelBedsRouteImport.update({
+  id: '/hostel/beds',
+  path: '/hostel/beds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelBuildingsRoute = HostelBuildingsRouteImport.update({
+  id: '/hostel/buildings',
+  path: '/hostel/buildings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelComplaintsRoute = HostelComplaintsRouteImport.update({
+  id: '/hostel/complaints',
+  path: '/hostel/complaints',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelFeesRoute = HostelFeesRouteImport.update({
+  id: '/hostel/fees',
+  path: '/hostel/fees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelFloorsRoute = HostelFloorsRouteImport.update({
+  id: '/hostel/floors',
+  path: '/hostel/floors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelMaintenanceRoute = HostelMaintenanceRouteImport.update({
+  id: '/hostel/maintenance',
+  path: '/hostel/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelReportsRoute = HostelReportsRouteImport.update({
+  id: '/hostel/reports',
+  path: '/hostel/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelRoomsRoute = HostelRoomsRouteImport.update({
+  id: '/hostel/rooms',
+  path: '/hostel/rooms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelSettingsRoute = HostelSettingsRouteImport.update({
+  id: '/hostel/settings',
+  path: '/hostel/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelStudentsRoute = HostelStudentsRouteImport.update({
+  id: '/hostel/students',
+  path: '/hostel/students',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelVisitorsRoute = HostelVisitorsRouteImport.update({
+  id: '/hostel/visitors',
+  path: '/hostel/visitors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrIndexRoute = HrIndexRouteImport.update({
+  id: '/hr/',
+  path: '/hr/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrDepartmentsRoute = HrDepartmentsRouteImport.update({
+  id: '/hr/departments',
+  path: '/hr/departments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrDesignationsRoute = HrDesignationsRouteImport.update({
+  id: '/hr/designations',
+  path: '/hr/designations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrDocumentsRoute = HrDocumentsRouteImport.update({
+  id: '/hr/documents',
+  path: '/hr/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrReportsRoute = HrReportsRouteImport.update({
+  id: '/hr/reports',
+  path: '/hr/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrSettingsRoute = HrSettingsRouteImport.update({
+  id: '/hr/settings',
+  path: '/hr/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryIndexRoute = InventoryIndexRouteImport.update({
+  id: '/inventory/',
+  path: '/inventory/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryAssignmentsRoute = InventoryAssignmentsRouteImport.update({
+  id: '/inventory/assignments',
+  path: '/inventory/assignments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryCategoriesRoute = InventoryCategoriesRouteImport.update({
+  id: '/inventory/categories',
+  path: '/inventory/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryMaintenanceRoute = InventoryMaintenanceRouteImport.update({
+  id: '/inventory/maintenance',
+  path: '/inventory/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryReportsRoute = InventoryReportsRouteImport.update({
+  id: '/inventory/reports',
+  path: '/inventory/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventorySettingsRoute = InventorySettingsRouteImport.update({
+  id: '/inventory/settings',
+  path: '/inventory/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryStockInRoute = InventoryStockInRouteImport.update({
+  id: '/inventory/stock-in',
+  path: '/inventory/stock-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryStockOutRoute = InventoryStockOutRouteImport.update({
+  id: '/inventory/stock-out',
+  path: '/inventory/stock-out',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryTransfersRoute = InventoryTransfersRouteImport.update({
+  id: '/inventory/transfers',
+  path: '/inventory/transfers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryIndexRoute = LibraryIndexRouteImport.update({
+  id: '/library/',
+  path: '/library/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryAuthorsRoute = LibraryAuthorsRouteImport.update({
+  id: '/library/authors',
+  path: '/library/authors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryCategoriesRoute = LibraryCategoriesRouteImport.update({
+  id: '/library/categories',
+  path: '/library/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryFinesRoute = LibraryFinesRouteImport.update({
+  id: '/library/fines',
+  path: '/library/fines',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryMembersRoute = LibraryMembersRouteImport.update({
+  id: '/library/members',
+  path: '/library/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryPublishersRoute = LibraryPublishersRouteImport.update({
+  id: '/library/publishers',
+  path: '/library/publishers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryReportsRoute = LibraryReportsRouteImport.update({
+  id: '/library/reports',
+  path: '/library/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryReservationsRoute = LibraryReservationsRouteImport.update({
+  id: '/library/reservations',
+  path: '/library/reservations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibrarySettingsRoute = LibrarySettingsRouteImport.update({
+  id: '/library/settings',
+  path: '/library/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentIndexRoute = ParentIndexRouteImport.update({
+  id: '/parent/',
+  path: '/parent/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentAttendanceRoute = ParentAttendanceRouteImport.update({
+  id: '/parent/attendance',
+  path: '/parent/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentDocumentsRoute = ParentDocumentsRouteImport.update({
+  id: '/parent/documents',
+  path: '/parent/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentExamsRoute = ParentExamsRouteImport.update({
+  id: '/parent/exams',
+  path: '/parent/exams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentFeesRoute = ParentFeesRouteImport.update({
+  id: '/parent/fees',
+  path: '/parent/fees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentHomeworkRoute = ParentHomeworkRouteImport.update({
+  id: '/parent/homework',
+  path: '/parent/homework',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentHostelRoute = ParentHostelRouteImport.update({
+  id: '/parent/hostel',
+  path: '/parent/hostel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentMessagesRoute = ParentMessagesRouteImport.update({
+  id: '/parent/messages',
+  path: '/parent/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentNoticesRoute = ParentNoticesRouteImport.update({
+  id: '/parent/notices',
+  path: '/parent/notices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentNotificationsRoute = ParentNotificationsRouteImport.update({
+  id: '/parent/notifications',
+  path: '/parent/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentProfileRoute = ParentProfileRouteImport.update({
+  id: '/parent/profile',
+  path: '/parent/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentSettingsRoute = ParentSettingsRouteImport.update({
+  id: '/parent/settings',
+  path: '/parent/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentTimetableRoute = ParentTimetableRouteImport.update({
+  id: '/parent/timetable',
+  path: '/parent/timetable',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentTransportRoute = ParentTransportRouteImport.update({
+  id: '/parent/transport',
+  path: '/parent/transport',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ParentsIndexRoute = ParentsIndexRouteImport.update({
   id: '/parents/',
   path: '/parents/',
@@ -369,6 +889,86 @@ const ParentsIndexRoute = ParentsIndexRouteImport.update({
 const ParentsParentIdRoute = ParentsParentIdRouteImport.update({
   id: '/parents/$parentId',
   path: '/parents/$parentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmIndexRoute = PtmIndexRouteImport.update({
+  id: '/ptm/',
+  path: '/ptm/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmAvailabilityRoute = PtmAvailabilityRouteImport.update({
+  id: '/ptm/availability',
+  path: '/ptm/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmReportsRoute = PtmReportsRouteImport.update({
+  id: '/ptm/reports',
+  path: '/ptm/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmSettingsRoute = PtmSettingsRouteImport.update({
+  id: '/ptm/settings',
+  path: '/ptm/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmSlotsRoute = PtmSlotsRouteImport.update({
+  id: '/ptm/slots',
+  path: '/ptm/slots',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/student/',
+  path: '/student/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentDocumentsRoute = StudentDocumentsRouteImport.update({
+  id: '/student/documents',
+  path: '/student/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentHostelRoute = StudentHostelRouteImport.update({
+  id: '/student/hostel',
+  path: '/student/hostel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentLibraryRoute = StudentLibraryRouteImport.update({
+  id: '/student/library',
+  path: '/student/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentMessagesRoute = StudentMessagesRouteImport.update({
+  id: '/student/messages',
+  path: '/student/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentNoticesRoute = StudentNoticesRouteImport.update({
+  id: '/student/notices',
+  path: '/student/notices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentNotificationsRoute = StudentNotificationsRouteImport.update({
+  id: '/student/notifications',
+  path: '/student/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/student/profile',
+  path: '/student/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentSettingsRoute = StudentSettingsRouteImport.update({
+  id: '/student/settings',
+  path: '/student/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentTimetableRoute = StudentTimetableRouteImport.update({
+  id: '/student/timetable',
+  path: '/student/timetable',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentTransportRoute = StudentTransportRouteImport.update({
+  id: '/student/transport',
+  path: '/student/transport',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentsIndexRoute = StudentsIndexRouteImport.update({
@@ -389,6 +989,46 @@ const StudentsNewRoute = StudentsNewRouteImport.update({
 const StudentsPromotionsRoute = StudentsPromotionsRouteImport.update({
   id: '/students/promotions',
   path: '/students/promotions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherIndexRoute = TeacherIndexRouteImport.update({
+  id: '/teacher/',
+  path: '/teacher/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherAttendanceRoute = TeacherAttendanceRouteImport.update({
+  id: '/teacher/attendance',
+  path: '/teacher/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherMessagesRoute = TeacherMessagesRouteImport.update({
+  id: '/teacher/messages',
+  path: '/teacher/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherNoticesRoute = TeacherNoticesRouteImport.update({
+  id: '/teacher/notices',
+  path: '/teacher/notices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherNotificationsRoute = TeacherNotificationsRouteImport.update({
+  id: '/teacher/notifications',
+  path: '/teacher/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherProfileRoute = TeacherProfileRouteImport.update({
+  id: '/teacher/profile',
+  path: '/teacher/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherSettingsRoute = TeacherSettingsRouteImport.update({
+  id: '/teacher/settings',
+  path: '/teacher/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherTimetableRoute = TeacherTimetableRouteImport.update({
+  id: '/teacher/timetable',
+  path: '/teacher/timetable',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TimetableIndexRoute = TimetableIndexRouteImport.update({
@@ -414,6 +1054,56 @@ const TimetableSettingsRoute = TimetableSettingsRouteImport.update({
 const TimetableSubstitutionsRoute = TimetableSubstitutionsRouteImport.update({
   id: '/timetable/substitutions',
   path: '/timetable/substitutions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportIndexRoute = TransportIndexRouteImport.update({
+  id: '/transport/',
+  path: '/transport/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportAssignmentsRoute = TransportAssignmentsRouteImport.update({
+  id: '/transport/assignments',
+  path: '/transport/assignments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportFeesRoute = TransportFeesRouteImport.update({
+  id: '/transport/fees',
+  path: '/transport/fees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportMaintenanceRoute = TransportMaintenanceRouteImport.update({
+  id: '/transport/maintenance',
+  path: '/transport/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportReportsRoute = TransportReportsRouteImport.update({
+  id: '/transport/reports',
+  path: '/transport/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportSettingsRoute = TransportSettingsRouteImport.update({
+  id: '/transport/settings',
+  path: '/transport/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportStopsRoute = TransportStopsRouteImport.update({
+  id: '/transport/stops',
+  path: '/transport/stops',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportStudentsRoute = TransportStudentsRouteImport.update({
+  id: '/transport/students',
+  path: '/transport/students',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportTripsRoute = TransportTripsRouteImport.update({
+  id: '/transport/trips',
+  path: '/transport/trips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyNumberRoute = VerifyNumberRouteImport.update({
+  id: '/verify/$number',
+  path: '/verify/$number',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AcademicWorkAssignmentsIndexRoute =
@@ -636,6 +1326,49 @@ const CommunicationNoticesNewRoute = CommunicationNoticesNewRouteImport.update({
   path: '/communication/notices/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocumentsCertificatesIndexRoute =
+  DocumentsCertificatesIndexRouteImport.update({
+    id: '/documents/certificates/',
+    path: '/documents/certificates/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DocumentsCertificatesIdRoute = DocumentsCertificatesIdRouteImport.update({
+  id: '/documents/certificates/$id',
+  path: '/documents/certificates/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsIdCardsIndexRoute = DocumentsIdCardsIndexRouteImport.update({
+  id: '/documents/id-cards/',
+  path: '/documents/id-cards/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsIdCardsNewRoute = DocumentsIdCardsNewRouteImport.update({
+  id: '/documents/id-cards/new',
+  path: '/documents/id-cards/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsTemplatesIndexRoute = DocumentsTemplatesIndexRouteImport.update({
+  id: '/documents/templates/',
+  path: '/documents/templates/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsTemplatesNewRoute = DocumentsTemplatesNewRouteImport.update({
+  id: '/documents/templates/new',
+  path: '/documents/templates/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsVerificationIndexRoute =
+  DocumentsVerificationIndexRouteImport.update({
+    id: '/documents/verification/',
+    path: '/documents/verification/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DocumentsVerificationNumberRoute =
+  DocumentsVerificationNumberRouteImport.update({
+    id: '/documents/verification/$number',
+    path: '/documents/verification/$number',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ExamsMarksIndexRoute = ExamsMarksIndexRouteImport.update({
   id: '/exams/marks/',
   path: '/exams/marks/',
@@ -682,11 +1415,394 @@ const FeesStudentsStudentIdRoute = FeesStudentsStudentIdRouteImport.update({
   path: '/fees/students/$studentId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FrontOfficeAppointmentsIndexRoute =
+  FrontOfficeAppointmentsIndexRouteImport.update({
+    id: '/front-office/appointments/',
+    path: '/front-office/appointments/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeAppointmentsNewRoute =
+  FrontOfficeAppointmentsNewRouteImport.update({
+    id: '/front-office/appointments/new',
+    path: '/front-office/appointments/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeCallsIndexRoute = FrontOfficeCallsIndexRouteImport.update({
+  id: '/front-office/calls/',
+  path: '/front-office/calls/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrontOfficeCallsNewRoute = FrontOfficeCallsNewRouteImport.update({
+  id: '/front-office/calls/new',
+  path: '/front-office/calls/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrontOfficeCorrespondenceIndexRoute =
+  FrontOfficeCorrespondenceIndexRouteImport.update({
+    id: '/front-office/correspondence/',
+    path: '/front-office/correspondence/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeCorrespondenceNewRoute =
+  FrontOfficeCorrespondenceNewRouteImport.update({
+    id: '/front-office/correspondence/new',
+    path: '/front-office/correspondence/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeEnquiriesIndexRoute =
+  FrontOfficeEnquiriesIndexRouteImport.update({
+    id: '/front-office/enquiries/',
+    path: '/front-office/enquiries/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeGatePassPassNumberRoute =
+  FrontOfficeGatePassPassNumberRouteImport.update({
+    id: '/front-office/gate-pass/$passNumber',
+    path: '/front-office/gate-pass/$passNumber',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeGatePassesIndexRoute =
+  FrontOfficeGatePassesIndexRouteImport.update({
+    id: '/front-office/gate-passes/',
+    path: '/front-office/gate-passes/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeGatePassesIdRoute = FrontOfficeGatePassesIdRouteImport.update({
+  id: '/front-office/gate-passes/$id',
+  path: '/front-office/gate-passes/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrontOfficeVisitorsIndexRoute =
+  FrontOfficeVisitorsIndexRouteImport.update({
+    id: '/front-office/visitors/',
+    path: '/front-office/visitors/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrontOfficeVisitorsNewRoute = FrontOfficeVisitorsNewRouteImport.update({
+  id: '/front-office/visitors/new',
+  path: '/front-office/visitors/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelAllocationsIndexRoute = HostelAllocationsIndexRouteImport.update({
+  id: '/hostel/allocations/',
+  path: '/hostel/allocations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelAllocationsNewRoute = HostelAllocationsNewRouteImport.update({
+  id: '/hostel/allocations/new',
+  path: '/hostel/allocations/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelHostelsIndexRoute = HostelHostelsIndexRouteImport.update({
+  id: '/hostel/hostels/',
+  path: '/hostel/hostels/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelHostelsNewRoute = HostelHostelsNewRouteImport.update({
+  id: '/hostel/hostels/new',
+  path: '/hostel/hostels/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostelLeaveIndexRoute = HostelLeaveIndexRouteImport.update({
+  id: '/hostel/leave/',
+  path: '/hostel/leave/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrAttendanceIndexRoute = HrAttendanceIndexRouteImport.update({
+  id: '/hr/attendance/',
+  path: '/hr/attendance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrAttendanceTakeRoute = HrAttendanceTakeRouteImport.update({
+  id: '/hr/attendance/take',
+  path: '/hr/attendance/take',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrLeaveIndexRoute = HrLeaveIndexRouteImport.update({
+  id: '/hr/leave/',
+  path: '/hr/leave/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrLeaveNewRoute = HrLeaveNewRouteImport.update({
+  id: '/hr/leave/new',
+  path: '/hr/leave/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrPayrollIndexRoute = HrPayrollIndexRouteImport.update({
+  id: '/hr/payroll/',
+  path: '/hr/payroll/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrPayrollStaffIdRoute = HrPayrollStaffIdRouteImport.update({
+  id: '/hr/payroll/$staffId',
+  path: '/hr/payroll/$staffId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrStaffIndexRoute = HrStaffIndexRouteImport.update({
+  id: '/hr/staff/',
+  path: '/hr/staff/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrStaffNewRoute = HrStaffNewRouteImport.update({
+  id: '/hr/staff/new',
+  path: '/hr/staff/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryAssetsIndexRoute = InventoryAssetsIndexRouteImport.update({
+  id: '/inventory/assets/',
+  path: '/inventory/assets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryAssetsAssetIdRoute = InventoryAssetsAssetIdRouteImport.update({
+  id: '/inventory/assets/$assetId',
+  path: '/inventory/assets/$assetId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryAssetsNewRoute = InventoryAssetsNewRouteImport.update({
+  id: '/inventory/assets/new',
+  path: '/inventory/assets/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryItemsIndexRoute = InventoryItemsIndexRouteImport.update({
+  id: '/inventory/items/',
+  path: '/inventory/items/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryItemsItemIdRoute = InventoryItemsItemIdRouteImport.update({
+  id: '/inventory/items/$itemId',
+  path: '/inventory/items/$itemId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryItemsNewRoute = InventoryItemsNewRouteImport.update({
+  id: '/inventory/items/new',
+  path: '/inventory/items/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryPurchaseOrdersIndexRoute =
+  InventoryPurchaseOrdersIndexRouteImport.update({
+    id: '/inventory/purchase-orders/',
+    path: '/inventory/purchase-orders/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const InventoryPurchaseOrdersOrderIdRoute =
+  InventoryPurchaseOrdersOrderIdRouteImport.update({
+    id: '/inventory/purchase-orders/$orderId',
+    path: '/inventory/purchase-orders/$orderId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const InventoryPurchaseOrdersNewRoute =
+  InventoryPurchaseOrdersNewRouteImport.update({
+    id: '/inventory/purchase-orders/new',
+    path: '/inventory/purchase-orders/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const InventoryVendorsIndexRoute = InventoryVendorsIndexRouteImport.update({
+  id: '/inventory/vendors/',
+  path: '/inventory/vendors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryVendorsVendorIdRoute =
+  InventoryVendorsVendorIdRouteImport.update({
+    id: '/inventory/vendors/$vendorId',
+    path: '/inventory/vendors/$vendorId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const InventoryVendorsNewRoute = InventoryVendorsNewRouteImport.update({
+  id: '/inventory/vendors/new',
+  path: '/inventory/vendors/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryBooksIndexRoute = LibraryBooksIndexRouteImport.update({
+  id: '/library/books/',
+  path: '/library/books/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryBooksNewRoute = LibraryBooksNewRouteImport.update({
+  id: '/library/books/new',
+  path: '/library/books/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryTransactionsIndexRoute =
+  LibraryTransactionsIndexRouteImport.update({
+    id: '/library/transactions/',
+    path: '/library/transactions/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LibraryTransactionsIssueRoute =
+  LibraryTransactionsIssueRouteImport.update({
+    id: '/library/transactions/issue',
+    path: '/library/transactions/issue',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ParentChildrenIndexRoute = ParentChildrenIndexRouteImport.update({
+  id: '/parent/children/',
+  path: '/parent/children/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentChildrenStudentIdRoute = ParentChildrenStudentIdRouteImport.update({
+  id: '/parent/children/$studentId',
+  path: '/parent/children/$studentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentPtmIndexRoute = ParentPtmIndexRouteImport.update({
+  id: '/parent/ptm/',
+  path: '/parent/ptm/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentPtmEventIdRoute = ParentPtmEventIdRouteImport.update({
+  id: '/parent/ptm/$eventId',
+  path: '/parent/ptm/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentPtmAppointmentsRoute = ParentPtmAppointmentsRouteImport.update({
+  id: '/parent/ptm/appointments',
+  path: '/parent/ptm/appointments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmAppointmentsIndexRoute = PtmAppointmentsIndexRouteImport.update({
+  id: '/ptm/appointments/',
+  path: '/ptm/appointments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmAppointmentsAppointmentIdRoute =
+  PtmAppointmentsAppointmentIdRouteImport.update({
+    id: '/ptm/appointments/$appointmentId',
+    path: '/ptm/appointments/$appointmentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PtmEventsIndexRoute = PtmEventsIndexRouteImport.update({
+  id: '/ptm/events/',
+  path: '/ptm/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmEventsEventIdRoute = PtmEventsEventIdRouteImport.update({
+  id: '/ptm/events/$eventId',
+  path: '/ptm/events/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PtmEventsNewRoute = PtmEventsNewRouteImport.update({
+  id: '/ptm/events/new',
+  path: '/ptm/events/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentAttendanceIndexRoute = StudentAttendanceIndexRouteImport.update({
+  id: '/student/attendance/',
+  path: '/student/attendance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentAttendanceMonthRoute = StudentAttendanceMonthRouteImport.update({
+  id: '/student/attendance/$month',
+  path: '/student/attendance/$month',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentExamsIndexRoute = StudentExamsIndexRouteImport.update({
+  id: '/student/exams/',
+  path: '/student/exams/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentExamsExamIdRoute = StudentExamsExamIdRouteImport.update({
+  id: '/student/exams/$examId',
+  path: '/student/exams/$examId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentFeesIndexRoute = StudentFeesIndexRouteImport.update({
+  id: '/student/fees/',
+  path: '/student/fees/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentFeesReceiptsRoute = StudentFeesReceiptsRouteImport.update({
+  id: '/student/fees/receipts',
+  path: '/student/fees/receipts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentHomeworkIndexRoute = StudentHomeworkIndexRouteImport.update({
+  id: '/student/homework/',
+  path: '/student/homework/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentHomeworkAssignmentIdRoute =
+  StudentHomeworkAssignmentIdRouteImport.update({
+    id: '/student/homework/$assignmentId',
+    path: '/student/homework/$assignmentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const StudentsStudentIdEditRoute = StudentsStudentIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
   getParentRoute: () => StudentsStudentIdRoute,
 } as any)
+const TeacherAssignmentsIndexRoute = TeacherAssignmentsIndexRouteImport.update({
+  id: '/teacher/assignments/',
+  path: '/teacher/assignments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherAssignmentsNewRoute = TeacherAssignmentsNewRouteImport.update({
+  id: '/teacher/assignments/new',
+  path: '/teacher/assignments/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherClassesIndexRoute = TeacherClassesIndexRouteImport.update({
+  id: '/teacher/classes/',
+  path: '/teacher/classes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherClassesClassIdRoute = TeacherClassesClassIdRouteImport.update({
+  id: '/teacher/classes/$classId',
+  path: '/teacher/classes/$classId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherExamsIndexRoute = TeacherExamsIndexRouteImport.update({
+  id: '/teacher/exams/',
+  path: '/teacher/exams/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherMarksExamIdRoute = TeacherMarksExamIdRouteImport.update({
+  id: '/teacher/marks/$examId',
+  path: '/teacher/marks/$examId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherPtmIndexRoute = TeacherPtmIndexRouteImport.update({
+  id: '/teacher/ptm/',
+  path: '/teacher/ptm/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherPtmEventIdRoute = TeacherPtmEventIdRouteImport.update({
+  id: '/teacher/ptm/$eventId',
+  path: '/teacher/ptm/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherPtmAppointmentsRoute = TeacherPtmAppointmentsRouteImport.update({
+  id: '/teacher/ptm/appointments',
+  path: '/teacher/ptm/appointments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherPtmAvailabilityRoute = TeacherPtmAvailabilityRouteImport.update({
+  id: '/teacher/ptm/availability',
+  path: '/teacher/ptm/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherStudentsIndexRoute = TeacherStudentsIndexRouteImport.update({
+  id: '/teacher/students/',
+  path: '/teacher/students/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherStudentsStudentIdRoute =
+  TeacherStudentsStudentIdRouteImport.update({
+    id: '/teacher/students/$studentId',
+    path: '/teacher/students/$studentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TeacherSubmissionsIndexRoute = TeacherSubmissionsIndexRouteImport.update({
+  id: '/teacher/submissions/',
+  path: '/teacher/submissions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherSubmissionsAssignmentIdRoute =
+  TeacherSubmissionsAssignmentIdRouteImport.update({
+    id: '/teacher/submissions/$assignmentId',
+    path: '/teacher/submissions/$assignmentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TimetableClassesIndexRoute = TimetableClassesIndexRouteImport.update({
   id: '/timetable/classes/',
   path: '/timetable/classes/',
@@ -713,6 +1829,36 @@ const TimetableTeachersTeacherIdRoute =
     path: '/timetable/teachers/$teacherId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const TransportDriversIndexRoute = TransportDriversIndexRouteImport.update({
+  id: '/transport/drivers/',
+  path: '/transport/drivers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportDriversNewRoute = TransportDriversNewRouteImport.update({
+  id: '/transport/drivers/new',
+  path: '/transport/drivers/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportRoutesIndexRoute = TransportRoutesIndexRouteImport.update({
+  id: '/transport/routes/',
+  path: '/transport/routes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportRoutesNewRoute = TransportRoutesNewRouteImport.update({
+  id: '/transport/routes/new',
+  path: '/transport/routes/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportVehiclesIndexRoute = TransportVehiclesIndexRouteImport.update({
+  id: '/transport/vehicles/',
+  path: '/transport/vehicles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportVehiclesNewRoute = TransportVehiclesNewRouteImport.update({
+  id: '/transport/vehicles/new',
+  path: '/transport/vehicles/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademicWorkAssignmentsAssignmentIdIndexRoute =
   AcademicWorkAssignmentsAssignmentIdIndexRouteImport.update({
     id: '/academic-work/assignments/$assignmentId/',
@@ -723,6 +1869,56 @@ const AcademicWorkAssignmentsAssignmentIdEditRoute =
   AcademicWorkAssignmentsAssignmentIdEditRouteImport.update({
     id: '/academic-work/assignments/$assignmentId/edit',
     path: '/academic-work/assignments/$assignmentId/edit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DocumentsTemplatesIdEditRoute =
+  DocumentsTemplatesIdEditRouteImport.update({
+    id: '/documents/templates/$id/edit',
+    path: '/documents/templates/$id/edit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const HrStaffStaffIdIndexRoute = HrStaffStaffIdIndexRouteImport.update({
+  id: '/hr/staff/$staffId/',
+  path: '/hr/staff/$staffId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrStaffStaffIdEditRoute = HrStaffStaffIdEditRouteImport.update({
+  id: '/hr/staff/$staffId/edit',
+  path: '/hr/staff/$staffId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryBooksBookIdIndexRoute = LibraryBooksBookIdIndexRouteImport.update({
+  id: '/library/books/$bookId/',
+  path: '/library/books/$bookId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryBooksBookIdEditRoute = LibraryBooksBookIdEditRouteImport.update({
+  id: '/library/books/$bookId/edit',
+  path: '/library/books/$bookId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportDriversDriverIdIndexRoute =
+  TransportDriversDriverIdIndexRouteImport.update({
+    id: '/transport/drivers/$driverId/',
+    path: '/transport/drivers/$driverId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TransportRoutesRouteIdIndexRoute =
+  TransportRoutesRouteIdIndexRouteImport.update({
+    id: '/transport/routes/$routeId/',
+    path: '/transport/routes/$routeId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TransportVehiclesVehicleIdIndexRoute =
+  TransportVehiclesVehicleIdIndexRouteImport.update({
+    id: '/transport/vehicles/$vehicleId/',
+    path: '/transport/vehicles/$vehicleId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TransportVehiclesVehicleIdEditRoute =
+  TransportVehiclesVehicleIdEditRouteImport.update({
+    id: '/transport/vehicles/$vehicleId/edit',
+    path: '/transport/vehicles/$vehicleId/edit',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -742,10 +1938,14 @@ export interface FileRoutesByFullPath {
   '/academic-work/settings': typeof AcademicWorkSettingsRoute
   '/academics/assignments': typeof AcademicsAssignmentsRoute
   '/academics/settings': typeof AcademicsSettingsRoute
+  '/admissions/campaigns': typeof AdmissionsCampaignsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
   '/admissions/documents': typeof AdmissionsDocumentsRoute
   '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
+  '/admissions/reports': typeof AdmissionsReportsRoute
   '/admissions/settings': typeof AdmissionsSettingsRoute
+  '/admissions/verification': typeof AdmissionsVerificationRoute
+  '/admissions/waitlist': typeof AdmissionsWaitlistRoute
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
@@ -753,6 +1953,11 @@ export interface FileRoutesByFullPath {
   '/communication/notifications': typeof CommunicationNotificationsRoute
   '/communication/settings': typeof CommunicationSettingsRoute
   '/communication/templates': typeof CommunicationTemplatesRoute
+  '/documents/bulk': typeof DocumentsBulkRoute
+  '/documents/generate': typeof DocumentsGenerateRoute
+  '/documents/issued': typeof DocumentsIssuedRoute
+  '/documents/reports': typeof DocumentsReportsRoute
+  '/documents/settings': typeof DocumentsSettingsRoute
   '/exams/$examId': typeof ExamsExamIdRoute
   '/exams/list': typeof ExamsListRoute
   '/exams/new': typeof ExamsNewRoute
@@ -767,24 +1972,114 @@ export interface FileRoutesByFullPath {
   '/fees/receipts': typeof FeesReceiptsRoute
   '/fees/reports': typeof FeesReportsRoute
   '/fees/settings': typeof FeesSettingsRoute
+  '/front-office/reports': typeof FrontOfficeReportsRoute
+  '/front-office/settings': typeof FrontOfficeSettingsRoute
+  '/front-office/tasks': typeof FrontOfficeTasksRoute
+  '/hostel/attendance': typeof HostelAttendanceRoute
+  '/hostel/beds': typeof HostelBedsRoute
+  '/hostel/buildings': typeof HostelBuildingsRoute
+  '/hostel/complaints': typeof HostelComplaintsRoute
+  '/hostel/fees': typeof HostelFeesRoute
+  '/hostel/floors': typeof HostelFloorsRoute
+  '/hostel/maintenance': typeof HostelMaintenanceRoute
+  '/hostel/reports': typeof HostelReportsRoute
+  '/hostel/rooms': typeof HostelRoomsRoute
+  '/hostel/settings': typeof HostelSettingsRoute
+  '/hostel/students': typeof HostelStudentsRoute
+  '/hostel/visitors': typeof HostelVisitorsRoute
+  '/hr/departments': typeof HrDepartmentsRoute
+  '/hr/designations': typeof HrDesignationsRoute
+  '/hr/documents': typeof HrDocumentsRoute
+  '/hr/reports': typeof HrReportsRoute
+  '/hr/settings': typeof HrSettingsRoute
+  '/inventory/assignments': typeof InventoryAssignmentsRoute
+  '/inventory/categories': typeof InventoryCategoriesRoute
+  '/inventory/maintenance': typeof InventoryMaintenanceRoute
+  '/inventory/reports': typeof InventoryReportsRoute
+  '/inventory/settings': typeof InventorySettingsRoute
+  '/inventory/stock-in': typeof InventoryStockInRoute
+  '/inventory/stock-out': typeof InventoryStockOutRoute
+  '/inventory/transfers': typeof InventoryTransfersRoute
+  '/library/authors': typeof LibraryAuthorsRoute
+  '/library/categories': typeof LibraryCategoriesRoute
+  '/library/fines': typeof LibraryFinesRoute
+  '/library/members': typeof LibraryMembersRoute
+  '/library/publishers': typeof LibraryPublishersRoute
+  '/library/reports': typeof LibraryReportsRoute
+  '/library/reservations': typeof LibraryReservationsRoute
+  '/library/settings': typeof LibrarySettingsRoute
+  '/parent/attendance': typeof ParentAttendanceRoute
+  '/parent/documents': typeof ParentDocumentsRoute
+  '/parent/exams': typeof ParentExamsRoute
+  '/parent/fees': typeof ParentFeesRoute
+  '/parent/homework': typeof ParentHomeworkRoute
+  '/parent/hostel': typeof ParentHostelRoute
+  '/parent/messages': typeof ParentMessagesRoute
+  '/parent/notices': typeof ParentNoticesRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/profile': typeof ParentProfileRoute
+  '/parent/settings': typeof ParentSettingsRoute
+  '/parent/timetable': typeof ParentTimetableRoute
+  '/parent/transport': typeof ParentTransportRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
+  '/ptm/availability': typeof PtmAvailabilityRoute
+  '/ptm/reports': typeof PtmReportsRoute
+  '/ptm/settings': typeof PtmSettingsRoute
+  '/ptm/slots': typeof PtmSlotsRoute
+  '/student/documents': typeof StudentDocumentsRoute
+  '/student/hostel': typeof StudentHostelRoute
+  '/student/library': typeof StudentLibraryRoute
+  '/student/messages': typeof StudentMessagesRoute
+  '/student/notices': typeof StudentNoticesRoute
+  '/student/notifications': typeof StudentNotificationsRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/student/settings': typeof StudentSettingsRoute
+  '/student/timetable': typeof StudentTimetableRoute
+  '/student/transport': typeof StudentTransportRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/teacher/attendance': typeof TeacherAttendanceRoute
+  '/teacher/messages': typeof TeacherMessagesRoute
+  '/teacher/notices': typeof TeacherNoticesRoute
+  '/teacher/notifications': typeof TeacherNotificationsRoute
+  '/teacher/profile': typeof TeacherProfileRoute
+  '/teacher/settings': typeof TeacherSettingsRoute
+  '/teacher/timetable': typeof TeacherTimetableRoute
   '/timetable/create': typeof TimetableCreateRoute
   '/timetable/periods': typeof TimetablePeriodsRoute
   '/timetable/settings': typeof TimetableSettingsRoute
   '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/transport/assignments': typeof TransportAssignmentsRoute
+  '/transport/fees': typeof TransportFeesRoute
+  '/transport/maintenance': typeof TransportMaintenanceRoute
+  '/transport/reports': typeof TransportReportsRoute
+  '/transport/settings': typeof TransportSettingsRoute
+  '/transport/stops': typeof TransportStopsRoute
+  '/transport/students': typeof TransportStudentsRoute
+  '/transport/trips': typeof TransportTripsRoute
+  '/verify/$number': typeof VerifyNumberRoute
   '/academic-work/': typeof AcademicWorkIndexRoute
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
   '/communication/': typeof CommunicationIndexRoute
+  '/documents/': typeof DocumentsIndexRoute
   '/exams/': typeof ExamsIndexRoute
   '/fees/': typeof FeesIndexRoute
+  '/front-office/': typeof FrontOfficeIndexRoute
+  '/hostel/': typeof HostelIndexRoute
+  '/hr/': typeof HrIndexRoute
+  '/inventory/': typeof InventoryIndexRoute
+  '/library/': typeof LibraryIndexRoute
+  '/parent/': typeof ParentIndexRoute
   '/parents/': typeof ParentsIndexRoute
+  '/ptm/': typeof PtmIndexRoute
+  '/student/': typeof StudentIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
   '/timetable/': typeof TimetableIndexRoute
+  '/transport/': typeof TransportIndexRoute
   '/academic-work/assignments/new': typeof AcademicWorkAssignmentsNewRoute
   '/academic-work/submissions/$submissionId': typeof AcademicWorkSubmissionsSubmissionIdRoute
   '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
@@ -810,14 +2105,61 @@ export interface FileRoutesByFullPath {
   '/communication/messages/new': typeof CommunicationMessagesNewRoute
   '/communication/notices/$id': typeof CommunicationNoticesIdRoute
   '/communication/notices/new': typeof CommunicationNoticesNewRoute
+  '/documents/certificates/$id': typeof DocumentsCertificatesIdRoute
+  '/documents/id-cards/new': typeof DocumentsIdCardsNewRoute
+  '/documents/templates/new': typeof DocumentsTemplatesNewRoute
+  '/documents/verification/$number': typeof DocumentsVerificationNumberRoute
   '/exams/marks/$examId': typeof ExamsMarksExamIdRoute
   '/exams/results/$resultId': typeof ExamsResultsResultIdRoute
   '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
   '/fees/structure/new': typeof FeesStructureNewRoute
   '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
+  '/front-office/appointments/new': typeof FrontOfficeAppointmentsNewRoute
+  '/front-office/calls/new': typeof FrontOfficeCallsNewRoute
+  '/front-office/correspondence/new': typeof FrontOfficeCorrespondenceNewRoute
+  '/front-office/gate-pass/$passNumber': typeof FrontOfficeGatePassPassNumberRoute
+  '/front-office/gate-passes/$id': typeof FrontOfficeGatePassesIdRoute
+  '/front-office/visitors/new': typeof FrontOfficeVisitorsNewRoute
+  '/hostel/allocations/new': typeof HostelAllocationsNewRoute
+  '/hostel/hostels/new': typeof HostelHostelsNewRoute
+  '/hr/attendance/take': typeof HrAttendanceTakeRoute
+  '/hr/leave/new': typeof HrLeaveNewRoute
+  '/hr/payroll/$staffId': typeof HrPayrollStaffIdRoute
+  '/hr/staff/new': typeof HrStaffNewRoute
+  '/inventory/assets/$assetId': typeof InventoryAssetsAssetIdRoute
+  '/inventory/assets/new': typeof InventoryAssetsNewRoute
+  '/inventory/items/$itemId': typeof InventoryItemsItemIdRoute
+  '/inventory/items/new': typeof InventoryItemsNewRoute
+  '/inventory/purchase-orders/$orderId': typeof InventoryPurchaseOrdersOrderIdRoute
+  '/inventory/purchase-orders/new': typeof InventoryPurchaseOrdersNewRoute
+  '/inventory/vendors/$vendorId': typeof InventoryVendorsVendorIdRoute
+  '/inventory/vendors/new': typeof InventoryVendorsNewRoute
+  '/library/books/new': typeof LibraryBooksNewRoute
+  '/library/transactions/issue': typeof LibraryTransactionsIssueRoute
+  '/parent/children/$studentId': typeof ParentChildrenStudentIdRoute
+  '/parent/ptm/$eventId': typeof ParentPtmEventIdRoute
+  '/parent/ptm/appointments': typeof ParentPtmAppointmentsRoute
+  '/ptm/appointments/$appointmentId': typeof PtmAppointmentsAppointmentIdRoute
+  '/ptm/events/$eventId': typeof PtmEventsEventIdRoute
+  '/ptm/events/new': typeof PtmEventsNewRoute
+  '/student/attendance/$month': typeof StudentAttendanceMonthRoute
+  '/student/exams/$examId': typeof StudentExamsExamIdRoute
+  '/student/fees/receipts': typeof StudentFeesReceiptsRoute
+  '/student/homework/$assignmentId': typeof StudentHomeworkAssignmentIdRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/teacher/assignments/new': typeof TeacherAssignmentsNewRoute
+  '/teacher/classes/$classId': typeof TeacherClassesClassIdRoute
+  '/teacher/marks/$examId': typeof TeacherMarksExamIdRoute
+  '/teacher/ptm/$eventId': typeof TeacherPtmEventIdRoute
+  '/teacher/ptm/appointments': typeof TeacherPtmAppointmentsRoute
+  '/teacher/ptm/availability': typeof TeacherPtmAvailabilityRoute
+  '/teacher/students/$studentId': typeof TeacherStudentsStudentIdRoute
+  '/teacher/submissions/$assignmentId': typeof TeacherSubmissionsAssignmentIdRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/transport/drivers/new': typeof TransportDriversNewRoute
+  '/transport/routes/new': typeof TransportRoutesNewRoute
+  '/transport/vehicles/new': typeof TransportVehiclesNewRoute
   '/academic-work/assignments/': typeof AcademicWorkAssignmentsIndexRoute
   '/academic-work/submissions/': typeof AcademicWorkSubmissionsIndexRoute
   '/academics/classes/': typeof AcademicsClassesIndexRoute
@@ -833,15 +2175,64 @@ export interface FileRoutesByFullPath {
   '/communication/announcements/': typeof CommunicationAnnouncementsIndexRoute
   '/communication/messages/': typeof CommunicationMessagesIndexRoute
   '/communication/notices/': typeof CommunicationNoticesIndexRoute
+  '/documents/certificates/': typeof DocumentsCertificatesIndexRoute
+  '/documents/id-cards/': typeof DocumentsIdCardsIndexRoute
+  '/documents/templates/': typeof DocumentsTemplatesIndexRoute
+  '/documents/verification/': typeof DocumentsVerificationIndexRoute
   '/exams/marks/': typeof ExamsMarksIndexRoute
   '/exams/results/': typeof ExamsResultsIndexRoute
   '/fees/structure/': typeof FeesStructureIndexRoute
   '/fees/students/': typeof FeesStudentsIndexRoute
+  '/front-office/appointments/': typeof FrontOfficeAppointmentsIndexRoute
+  '/front-office/calls/': typeof FrontOfficeCallsIndexRoute
+  '/front-office/correspondence/': typeof FrontOfficeCorrespondenceIndexRoute
+  '/front-office/enquiries/': typeof FrontOfficeEnquiriesIndexRoute
+  '/front-office/gate-passes/': typeof FrontOfficeGatePassesIndexRoute
+  '/front-office/visitors/': typeof FrontOfficeVisitorsIndexRoute
+  '/hostel/allocations/': typeof HostelAllocationsIndexRoute
+  '/hostel/hostels/': typeof HostelHostelsIndexRoute
+  '/hostel/leave/': typeof HostelLeaveIndexRoute
+  '/hr/attendance/': typeof HrAttendanceIndexRoute
+  '/hr/leave/': typeof HrLeaveIndexRoute
+  '/hr/payroll/': typeof HrPayrollIndexRoute
+  '/hr/staff/': typeof HrStaffIndexRoute
+  '/inventory/assets/': typeof InventoryAssetsIndexRoute
+  '/inventory/items/': typeof InventoryItemsIndexRoute
+  '/inventory/purchase-orders/': typeof InventoryPurchaseOrdersIndexRoute
+  '/inventory/vendors/': typeof InventoryVendorsIndexRoute
+  '/library/books/': typeof LibraryBooksIndexRoute
+  '/library/transactions/': typeof LibraryTransactionsIndexRoute
+  '/parent/children/': typeof ParentChildrenIndexRoute
+  '/parent/ptm/': typeof ParentPtmIndexRoute
+  '/ptm/appointments/': typeof PtmAppointmentsIndexRoute
+  '/ptm/events/': typeof PtmEventsIndexRoute
+  '/student/attendance/': typeof StudentAttendanceIndexRoute
+  '/student/exams/': typeof StudentExamsIndexRoute
+  '/student/fees/': typeof StudentFeesIndexRoute
+  '/student/homework/': typeof StudentHomeworkIndexRoute
+  '/teacher/assignments/': typeof TeacherAssignmentsIndexRoute
+  '/teacher/classes/': typeof TeacherClassesIndexRoute
+  '/teacher/exams/': typeof TeacherExamsIndexRoute
+  '/teacher/ptm/': typeof TeacherPtmIndexRoute
+  '/teacher/students/': typeof TeacherStudentsIndexRoute
+  '/teacher/submissions/': typeof TeacherSubmissionsIndexRoute
   '/timetable/classes/': typeof TimetableClassesIndexRoute
   '/timetable/rooms/': typeof TimetableRoomsIndexRoute
   '/timetable/teachers/': typeof TimetableTeachersIndexRoute
+  '/transport/drivers/': typeof TransportDriversIndexRoute
+  '/transport/routes/': typeof TransportRoutesIndexRoute
+  '/transport/vehicles/': typeof TransportVehiclesIndexRoute
   '/academic-work/assignments/$assignmentId/edit': typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
+  '/hr/staff/$staffId/edit': typeof HrStaffStaffIdEditRoute
+  '/library/books/$bookId/edit': typeof LibraryBooksBookIdEditRoute
+  '/transport/vehicles/$vehicleId/edit': typeof TransportVehiclesVehicleIdEditRoute
   '/academic-work/assignments/$assignmentId/': typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
+  '/hr/staff/$staffId/': typeof HrStaffStaffIdIndexRoute
+  '/library/books/$bookId/': typeof LibraryBooksBookIdIndexRoute
+  '/transport/drivers/$driverId/': typeof TransportDriversDriverIdIndexRoute
+  '/transport/routes/$routeId/': typeof TransportRoutesRouteIdIndexRoute
+  '/transport/vehicles/$vehicleId/': typeof TransportVehiclesVehicleIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -859,10 +2250,14 @@ export interface FileRoutesByTo {
   '/academic-work/settings': typeof AcademicWorkSettingsRoute
   '/academics/assignments': typeof AcademicsAssignmentsRoute
   '/academics/settings': typeof AcademicsSettingsRoute
+  '/admissions/campaigns': typeof AdmissionsCampaignsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
   '/admissions/documents': typeof AdmissionsDocumentsRoute
   '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
+  '/admissions/reports': typeof AdmissionsReportsRoute
   '/admissions/settings': typeof AdmissionsSettingsRoute
+  '/admissions/verification': typeof AdmissionsVerificationRoute
+  '/admissions/waitlist': typeof AdmissionsWaitlistRoute
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
@@ -870,6 +2265,11 @@ export interface FileRoutesByTo {
   '/communication/notifications': typeof CommunicationNotificationsRoute
   '/communication/settings': typeof CommunicationSettingsRoute
   '/communication/templates': typeof CommunicationTemplatesRoute
+  '/documents/bulk': typeof DocumentsBulkRoute
+  '/documents/generate': typeof DocumentsGenerateRoute
+  '/documents/issued': typeof DocumentsIssuedRoute
+  '/documents/reports': typeof DocumentsReportsRoute
+  '/documents/settings': typeof DocumentsSettingsRoute
   '/exams/$examId': typeof ExamsExamIdRoute
   '/exams/list': typeof ExamsListRoute
   '/exams/new': typeof ExamsNewRoute
@@ -884,24 +2284,114 @@ export interface FileRoutesByTo {
   '/fees/receipts': typeof FeesReceiptsRoute
   '/fees/reports': typeof FeesReportsRoute
   '/fees/settings': typeof FeesSettingsRoute
+  '/front-office/reports': typeof FrontOfficeReportsRoute
+  '/front-office/settings': typeof FrontOfficeSettingsRoute
+  '/front-office/tasks': typeof FrontOfficeTasksRoute
+  '/hostel/attendance': typeof HostelAttendanceRoute
+  '/hostel/beds': typeof HostelBedsRoute
+  '/hostel/buildings': typeof HostelBuildingsRoute
+  '/hostel/complaints': typeof HostelComplaintsRoute
+  '/hostel/fees': typeof HostelFeesRoute
+  '/hostel/floors': typeof HostelFloorsRoute
+  '/hostel/maintenance': typeof HostelMaintenanceRoute
+  '/hostel/reports': typeof HostelReportsRoute
+  '/hostel/rooms': typeof HostelRoomsRoute
+  '/hostel/settings': typeof HostelSettingsRoute
+  '/hostel/students': typeof HostelStudentsRoute
+  '/hostel/visitors': typeof HostelVisitorsRoute
+  '/hr/departments': typeof HrDepartmentsRoute
+  '/hr/designations': typeof HrDesignationsRoute
+  '/hr/documents': typeof HrDocumentsRoute
+  '/hr/reports': typeof HrReportsRoute
+  '/hr/settings': typeof HrSettingsRoute
+  '/inventory/assignments': typeof InventoryAssignmentsRoute
+  '/inventory/categories': typeof InventoryCategoriesRoute
+  '/inventory/maintenance': typeof InventoryMaintenanceRoute
+  '/inventory/reports': typeof InventoryReportsRoute
+  '/inventory/settings': typeof InventorySettingsRoute
+  '/inventory/stock-in': typeof InventoryStockInRoute
+  '/inventory/stock-out': typeof InventoryStockOutRoute
+  '/inventory/transfers': typeof InventoryTransfersRoute
+  '/library/authors': typeof LibraryAuthorsRoute
+  '/library/categories': typeof LibraryCategoriesRoute
+  '/library/fines': typeof LibraryFinesRoute
+  '/library/members': typeof LibraryMembersRoute
+  '/library/publishers': typeof LibraryPublishersRoute
+  '/library/reports': typeof LibraryReportsRoute
+  '/library/reservations': typeof LibraryReservationsRoute
+  '/library/settings': typeof LibrarySettingsRoute
+  '/parent/attendance': typeof ParentAttendanceRoute
+  '/parent/documents': typeof ParentDocumentsRoute
+  '/parent/exams': typeof ParentExamsRoute
+  '/parent/fees': typeof ParentFeesRoute
+  '/parent/homework': typeof ParentHomeworkRoute
+  '/parent/hostel': typeof ParentHostelRoute
+  '/parent/messages': typeof ParentMessagesRoute
+  '/parent/notices': typeof ParentNoticesRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/profile': typeof ParentProfileRoute
+  '/parent/settings': typeof ParentSettingsRoute
+  '/parent/timetable': typeof ParentTimetableRoute
+  '/parent/transport': typeof ParentTransportRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
+  '/ptm/availability': typeof PtmAvailabilityRoute
+  '/ptm/reports': typeof PtmReportsRoute
+  '/ptm/settings': typeof PtmSettingsRoute
+  '/ptm/slots': typeof PtmSlotsRoute
+  '/student/documents': typeof StudentDocumentsRoute
+  '/student/hostel': typeof StudentHostelRoute
+  '/student/library': typeof StudentLibraryRoute
+  '/student/messages': typeof StudentMessagesRoute
+  '/student/notices': typeof StudentNoticesRoute
+  '/student/notifications': typeof StudentNotificationsRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/student/settings': typeof StudentSettingsRoute
+  '/student/timetable': typeof StudentTimetableRoute
+  '/student/transport': typeof StudentTransportRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/teacher/attendance': typeof TeacherAttendanceRoute
+  '/teacher/messages': typeof TeacherMessagesRoute
+  '/teacher/notices': typeof TeacherNoticesRoute
+  '/teacher/notifications': typeof TeacherNotificationsRoute
+  '/teacher/profile': typeof TeacherProfileRoute
+  '/teacher/settings': typeof TeacherSettingsRoute
+  '/teacher/timetable': typeof TeacherTimetableRoute
   '/timetable/create': typeof TimetableCreateRoute
   '/timetable/periods': typeof TimetablePeriodsRoute
   '/timetable/settings': typeof TimetableSettingsRoute
   '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/transport/assignments': typeof TransportAssignmentsRoute
+  '/transport/fees': typeof TransportFeesRoute
+  '/transport/maintenance': typeof TransportMaintenanceRoute
+  '/transport/reports': typeof TransportReportsRoute
+  '/transport/settings': typeof TransportSettingsRoute
+  '/transport/stops': typeof TransportStopsRoute
+  '/transport/students': typeof TransportStudentsRoute
+  '/transport/trips': typeof TransportTripsRoute
+  '/verify/$number': typeof VerifyNumberRoute
   '/academic-work': typeof AcademicWorkIndexRoute
   '/academics': typeof AcademicsIndexRoute
   '/admissions': typeof AdmissionsIndexRoute
   '/attendance': typeof AttendanceIndexRoute
   '/communication': typeof CommunicationIndexRoute
+  '/documents': typeof DocumentsIndexRoute
   '/exams': typeof ExamsIndexRoute
   '/fees': typeof FeesIndexRoute
+  '/front-office': typeof FrontOfficeIndexRoute
+  '/hostel': typeof HostelIndexRoute
+  '/hr': typeof HrIndexRoute
+  '/inventory': typeof InventoryIndexRoute
+  '/library': typeof LibraryIndexRoute
+  '/parent': typeof ParentIndexRoute
   '/parents': typeof ParentsIndexRoute
+  '/ptm': typeof PtmIndexRoute
+  '/student': typeof StudentIndexRoute
   '/students': typeof StudentsIndexRoute
+  '/teacher': typeof TeacherIndexRoute
   '/timetable': typeof TimetableIndexRoute
+  '/transport': typeof TransportIndexRoute
   '/academic-work/assignments/new': typeof AcademicWorkAssignmentsNewRoute
   '/academic-work/submissions/$submissionId': typeof AcademicWorkSubmissionsSubmissionIdRoute
   '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
@@ -927,14 +2417,61 @@ export interface FileRoutesByTo {
   '/communication/messages/new': typeof CommunicationMessagesNewRoute
   '/communication/notices/$id': typeof CommunicationNoticesIdRoute
   '/communication/notices/new': typeof CommunicationNoticesNewRoute
+  '/documents/certificates/$id': typeof DocumentsCertificatesIdRoute
+  '/documents/id-cards/new': typeof DocumentsIdCardsNewRoute
+  '/documents/templates/new': typeof DocumentsTemplatesNewRoute
+  '/documents/verification/$number': typeof DocumentsVerificationNumberRoute
   '/exams/marks/$examId': typeof ExamsMarksExamIdRoute
   '/exams/results/$resultId': typeof ExamsResultsResultIdRoute
   '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
   '/fees/structure/new': typeof FeesStructureNewRoute
   '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
+  '/front-office/appointments/new': typeof FrontOfficeAppointmentsNewRoute
+  '/front-office/calls/new': typeof FrontOfficeCallsNewRoute
+  '/front-office/correspondence/new': typeof FrontOfficeCorrespondenceNewRoute
+  '/front-office/gate-pass/$passNumber': typeof FrontOfficeGatePassPassNumberRoute
+  '/front-office/gate-passes/$id': typeof FrontOfficeGatePassesIdRoute
+  '/front-office/visitors/new': typeof FrontOfficeVisitorsNewRoute
+  '/hostel/allocations/new': typeof HostelAllocationsNewRoute
+  '/hostel/hostels/new': typeof HostelHostelsNewRoute
+  '/hr/attendance/take': typeof HrAttendanceTakeRoute
+  '/hr/leave/new': typeof HrLeaveNewRoute
+  '/hr/payroll/$staffId': typeof HrPayrollStaffIdRoute
+  '/hr/staff/new': typeof HrStaffNewRoute
+  '/inventory/assets/$assetId': typeof InventoryAssetsAssetIdRoute
+  '/inventory/assets/new': typeof InventoryAssetsNewRoute
+  '/inventory/items/$itemId': typeof InventoryItemsItemIdRoute
+  '/inventory/items/new': typeof InventoryItemsNewRoute
+  '/inventory/purchase-orders/$orderId': typeof InventoryPurchaseOrdersOrderIdRoute
+  '/inventory/purchase-orders/new': typeof InventoryPurchaseOrdersNewRoute
+  '/inventory/vendors/$vendorId': typeof InventoryVendorsVendorIdRoute
+  '/inventory/vendors/new': typeof InventoryVendorsNewRoute
+  '/library/books/new': typeof LibraryBooksNewRoute
+  '/library/transactions/issue': typeof LibraryTransactionsIssueRoute
+  '/parent/children/$studentId': typeof ParentChildrenStudentIdRoute
+  '/parent/ptm/$eventId': typeof ParentPtmEventIdRoute
+  '/parent/ptm/appointments': typeof ParentPtmAppointmentsRoute
+  '/ptm/appointments/$appointmentId': typeof PtmAppointmentsAppointmentIdRoute
+  '/ptm/events/$eventId': typeof PtmEventsEventIdRoute
+  '/ptm/events/new': typeof PtmEventsNewRoute
+  '/student/attendance/$month': typeof StudentAttendanceMonthRoute
+  '/student/exams/$examId': typeof StudentExamsExamIdRoute
+  '/student/fees/receipts': typeof StudentFeesReceiptsRoute
+  '/student/homework/$assignmentId': typeof StudentHomeworkAssignmentIdRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/teacher/assignments/new': typeof TeacherAssignmentsNewRoute
+  '/teacher/classes/$classId': typeof TeacherClassesClassIdRoute
+  '/teacher/marks/$examId': typeof TeacherMarksExamIdRoute
+  '/teacher/ptm/$eventId': typeof TeacherPtmEventIdRoute
+  '/teacher/ptm/appointments': typeof TeacherPtmAppointmentsRoute
+  '/teacher/ptm/availability': typeof TeacherPtmAvailabilityRoute
+  '/teacher/students/$studentId': typeof TeacherStudentsStudentIdRoute
+  '/teacher/submissions/$assignmentId': typeof TeacherSubmissionsAssignmentIdRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/transport/drivers/new': typeof TransportDriversNewRoute
+  '/transport/routes/new': typeof TransportRoutesNewRoute
+  '/transport/vehicles/new': typeof TransportVehiclesNewRoute
   '/academic-work/assignments': typeof AcademicWorkAssignmentsIndexRoute
   '/academic-work/submissions': typeof AcademicWorkSubmissionsIndexRoute
   '/academics/classes': typeof AcademicsClassesIndexRoute
@@ -950,15 +2487,64 @@ export interface FileRoutesByTo {
   '/communication/announcements': typeof CommunicationAnnouncementsIndexRoute
   '/communication/messages': typeof CommunicationMessagesIndexRoute
   '/communication/notices': typeof CommunicationNoticesIndexRoute
+  '/documents/certificates': typeof DocumentsCertificatesIndexRoute
+  '/documents/id-cards': typeof DocumentsIdCardsIndexRoute
+  '/documents/templates': typeof DocumentsTemplatesIndexRoute
+  '/documents/verification': typeof DocumentsVerificationIndexRoute
   '/exams/marks': typeof ExamsMarksIndexRoute
   '/exams/results': typeof ExamsResultsIndexRoute
   '/fees/structure': typeof FeesStructureIndexRoute
   '/fees/students': typeof FeesStudentsIndexRoute
+  '/front-office/appointments': typeof FrontOfficeAppointmentsIndexRoute
+  '/front-office/calls': typeof FrontOfficeCallsIndexRoute
+  '/front-office/correspondence': typeof FrontOfficeCorrespondenceIndexRoute
+  '/front-office/enquiries': typeof FrontOfficeEnquiriesIndexRoute
+  '/front-office/gate-passes': typeof FrontOfficeGatePassesIndexRoute
+  '/front-office/visitors': typeof FrontOfficeVisitorsIndexRoute
+  '/hostel/allocations': typeof HostelAllocationsIndexRoute
+  '/hostel/hostels': typeof HostelHostelsIndexRoute
+  '/hostel/leave': typeof HostelLeaveIndexRoute
+  '/hr/attendance': typeof HrAttendanceIndexRoute
+  '/hr/leave': typeof HrLeaveIndexRoute
+  '/hr/payroll': typeof HrPayrollIndexRoute
+  '/hr/staff': typeof HrStaffIndexRoute
+  '/inventory/assets': typeof InventoryAssetsIndexRoute
+  '/inventory/items': typeof InventoryItemsIndexRoute
+  '/inventory/purchase-orders': typeof InventoryPurchaseOrdersIndexRoute
+  '/inventory/vendors': typeof InventoryVendorsIndexRoute
+  '/library/books': typeof LibraryBooksIndexRoute
+  '/library/transactions': typeof LibraryTransactionsIndexRoute
+  '/parent/children': typeof ParentChildrenIndexRoute
+  '/parent/ptm': typeof ParentPtmIndexRoute
+  '/ptm/appointments': typeof PtmAppointmentsIndexRoute
+  '/ptm/events': typeof PtmEventsIndexRoute
+  '/student/attendance': typeof StudentAttendanceIndexRoute
+  '/student/exams': typeof StudentExamsIndexRoute
+  '/student/fees': typeof StudentFeesIndexRoute
+  '/student/homework': typeof StudentHomeworkIndexRoute
+  '/teacher/assignments': typeof TeacherAssignmentsIndexRoute
+  '/teacher/classes': typeof TeacherClassesIndexRoute
+  '/teacher/exams': typeof TeacherExamsIndexRoute
+  '/teacher/ptm': typeof TeacherPtmIndexRoute
+  '/teacher/students': typeof TeacherStudentsIndexRoute
+  '/teacher/submissions': typeof TeacherSubmissionsIndexRoute
   '/timetable/classes': typeof TimetableClassesIndexRoute
   '/timetable/rooms': typeof TimetableRoomsIndexRoute
   '/timetable/teachers': typeof TimetableTeachersIndexRoute
+  '/transport/drivers': typeof TransportDriversIndexRoute
+  '/transport/routes': typeof TransportRoutesIndexRoute
+  '/transport/vehicles': typeof TransportVehiclesIndexRoute
   '/academic-work/assignments/$assignmentId/edit': typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
+  '/hr/staff/$staffId/edit': typeof HrStaffStaffIdEditRoute
+  '/library/books/$bookId/edit': typeof LibraryBooksBookIdEditRoute
+  '/transport/vehicles/$vehicleId/edit': typeof TransportVehiclesVehicleIdEditRoute
   '/academic-work/assignments/$assignmentId': typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
+  '/hr/staff/$staffId': typeof HrStaffStaffIdIndexRoute
+  '/library/books/$bookId': typeof LibraryBooksBookIdIndexRoute
+  '/transport/drivers/$driverId': typeof TransportDriversDriverIdIndexRoute
+  '/transport/routes/$routeId': typeof TransportRoutesRouteIdIndexRoute
+  '/transport/vehicles/$vehicleId': typeof TransportVehiclesVehicleIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -977,10 +2563,14 @@ export interface FileRoutesById {
   '/academic-work/settings': typeof AcademicWorkSettingsRoute
   '/academics/assignments': typeof AcademicsAssignmentsRoute
   '/academics/settings': typeof AcademicsSettingsRoute
+  '/admissions/campaigns': typeof AdmissionsCampaignsRoute
   '/admissions/counselling': typeof AdmissionsCounsellingRoute
   '/admissions/documents': typeof AdmissionsDocumentsRoute
   '/admissions/follow-ups': typeof AdmissionsFollowUpsRoute
+  '/admissions/reports': typeof AdmissionsReportsRoute
   '/admissions/settings': typeof AdmissionsSettingsRoute
+  '/admissions/verification': typeof AdmissionsVerificationRoute
+  '/admissions/waitlist': typeof AdmissionsWaitlistRoute
   '/attendance/leave': typeof AttendanceLeaveRoute
   '/attendance/reports': typeof AttendanceReportsRoute
   '/attendance/settings': typeof AttendanceSettingsRoute
@@ -988,6 +2578,11 @@ export interface FileRoutesById {
   '/communication/notifications': typeof CommunicationNotificationsRoute
   '/communication/settings': typeof CommunicationSettingsRoute
   '/communication/templates': typeof CommunicationTemplatesRoute
+  '/documents/bulk': typeof DocumentsBulkRoute
+  '/documents/generate': typeof DocumentsGenerateRoute
+  '/documents/issued': typeof DocumentsIssuedRoute
+  '/documents/reports': typeof DocumentsReportsRoute
+  '/documents/settings': typeof DocumentsSettingsRoute
   '/exams/$examId': typeof ExamsExamIdRoute
   '/exams/list': typeof ExamsListRoute
   '/exams/new': typeof ExamsNewRoute
@@ -1002,24 +2597,114 @@ export interface FileRoutesById {
   '/fees/receipts': typeof FeesReceiptsRoute
   '/fees/reports': typeof FeesReportsRoute
   '/fees/settings': typeof FeesSettingsRoute
+  '/front-office/reports': typeof FrontOfficeReportsRoute
+  '/front-office/settings': typeof FrontOfficeSettingsRoute
+  '/front-office/tasks': typeof FrontOfficeTasksRoute
+  '/hostel/attendance': typeof HostelAttendanceRoute
+  '/hostel/beds': typeof HostelBedsRoute
+  '/hostel/buildings': typeof HostelBuildingsRoute
+  '/hostel/complaints': typeof HostelComplaintsRoute
+  '/hostel/fees': typeof HostelFeesRoute
+  '/hostel/floors': typeof HostelFloorsRoute
+  '/hostel/maintenance': typeof HostelMaintenanceRoute
+  '/hostel/reports': typeof HostelReportsRoute
+  '/hostel/rooms': typeof HostelRoomsRoute
+  '/hostel/settings': typeof HostelSettingsRoute
+  '/hostel/students': typeof HostelStudentsRoute
+  '/hostel/visitors': typeof HostelVisitorsRoute
+  '/hr/departments': typeof HrDepartmentsRoute
+  '/hr/designations': typeof HrDesignationsRoute
+  '/hr/documents': typeof HrDocumentsRoute
+  '/hr/reports': typeof HrReportsRoute
+  '/hr/settings': typeof HrSettingsRoute
+  '/inventory/assignments': typeof InventoryAssignmentsRoute
+  '/inventory/categories': typeof InventoryCategoriesRoute
+  '/inventory/maintenance': typeof InventoryMaintenanceRoute
+  '/inventory/reports': typeof InventoryReportsRoute
+  '/inventory/settings': typeof InventorySettingsRoute
+  '/inventory/stock-in': typeof InventoryStockInRoute
+  '/inventory/stock-out': typeof InventoryStockOutRoute
+  '/inventory/transfers': typeof InventoryTransfersRoute
+  '/library/authors': typeof LibraryAuthorsRoute
+  '/library/categories': typeof LibraryCategoriesRoute
+  '/library/fines': typeof LibraryFinesRoute
+  '/library/members': typeof LibraryMembersRoute
+  '/library/publishers': typeof LibraryPublishersRoute
+  '/library/reports': typeof LibraryReportsRoute
+  '/library/reservations': typeof LibraryReservationsRoute
+  '/library/settings': typeof LibrarySettingsRoute
+  '/parent/attendance': typeof ParentAttendanceRoute
+  '/parent/documents': typeof ParentDocumentsRoute
+  '/parent/exams': typeof ParentExamsRoute
+  '/parent/fees': typeof ParentFeesRoute
+  '/parent/homework': typeof ParentHomeworkRoute
+  '/parent/hostel': typeof ParentHostelRoute
+  '/parent/messages': typeof ParentMessagesRoute
+  '/parent/notices': typeof ParentNoticesRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/profile': typeof ParentProfileRoute
+  '/parent/settings': typeof ParentSettingsRoute
+  '/parent/timetable': typeof ParentTimetableRoute
+  '/parent/transport': typeof ParentTransportRoute
   '/parents/$parentId': typeof ParentsParentIdRoute
+  '/ptm/availability': typeof PtmAvailabilityRoute
+  '/ptm/reports': typeof PtmReportsRoute
+  '/ptm/settings': typeof PtmSettingsRoute
+  '/ptm/slots': typeof PtmSlotsRoute
+  '/student/documents': typeof StudentDocumentsRoute
+  '/student/hostel': typeof StudentHostelRoute
+  '/student/library': typeof StudentLibraryRoute
+  '/student/messages': typeof StudentMessagesRoute
+  '/student/notices': typeof StudentNoticesRoute
+  '/student/notifications': typeof StudentNotificationsRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/student/settings': typeof StudentSettingsRoute
+  '/student/timetable': typeof StudentTimetableRoute
+  '/student/transport': typeof StudentTransportRoute
   '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/new': typeof StudentsNewRoute
   '/students/promotions': typeof StudentsPromotionsRoute
+  '/teacher/attendance': typeof TeacherAttendanceRoute
+  '/teacher/messages': typeof TeacherMessagesRoute
+  '/teacher/notices': typeof TeacherNoticesRoute
+  '/teacher/notifications': typeof TeacherNotificationsRoute
+  '/teacher/profile': typeof TeacherProfileRoute
+  '/teacher/settings': typeof TeacherSettingsRoute
+  '/teacher/timetable': typeof TeacherTimetableRoute
   '/timetable/create': typeof TimetableCreateRoute
   '/timetable/periods': typeof TimetablePeriodsRoute
   '/timetable/settings': typeof TimetableSettingsRoute
   '/timetable/substitutions': typeof TimetableSubstitutionsRoute
+  '/transport/assignments': typeof TransportAssignmentsRoute
+  '/transport/fees': typeof TransportFeesRoute
+  '/transport/maintenance': typeof TransportMaintenanceRoute
+  '/transport/reports': typeof TransportReportsRoute
+  '/transport/settings': typeof TransportSettingsRoute
+  '/transport/stops': typeof TransportStopsRoute
+  '/transport/students': typeof TransportStudentsRoute
+  '/transport/trips': typeof TransportTripsRoute
+  '/verify/$number': typeof VerifyNumberRoute
   '/academic-work/': typeof AcademicWorkIndexRoute
   '/academics/': typeof AcademicsIndexRoute
   '/admissions/': typeof AdmissionsIndexRoute
   '/attendance/': typeof AttendanceIndexRoute
   '/communication/': typeof CommunicationIndexRoute
+  '/documents/': typeof DocumentsIndexRoute
   '/exams/': typeof ExamsIndexRoute
   '/fees/': typeof FeesIndexRoute
+  '/front-office/': typeof FrontOfficeIndexRoute
+  '/hostel/': typeof HostelIndexRoute
+  '/hr/': typeof HrIndexRoute
+  '/inventory/': typeof InventoryIndexRoute
+  '/library/': typeof LibraryIndexRoute
+  '/parent/': typeof ParentIndexRoute
   '/parents/': typeof ParentsIndexRoute
+  '/ptm/': typeof PtmIndexRoute
+  '/student/': typeof StudentIndexRoute
   '/students/': typeof StudentsIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
   '/timetable/': typeof TimetableIndexRoute
+  '/transport/': typeof TransportIndexRoute
   '/academic-work/assignments/new': typeof AcademicWorkAssignmentsNewRoute
   '/academic-work/submissions/$submissionId': typeof AcademicWorkSubmissionsSubmissionIdRoute
   '/academics/classes/$classId': typeof AcademicsClassesClassIdRoute
@@ -1045,14 +2730,61 @@ export interface FileRoutesById {
   '/communication/messages/new': typeof CommunicationMessagesNewRoute
   '/communication/notices/$id': typeof CommunicationNoticesIdRoute
   '/communication/notices/new': typeof CommunicationNoticesNewRoute
+  '/documents/certificates/$id': typeof DocumentsCertificatesIdRoute
+  '/documents/id-cards/new': typeof DocumentsIdCardsNewRoute
+  '/documents/templates/new': typeof DocumentsTemplatesNewRoute
+  '/documents/verification/$number': typeof DocumentsVerificationNumberRoute
   '/exams/marks/$examId': typeof ExamsMarksExamIdRoute
   '/exams/results/$resultId': typeof ExamsResultsResultIdRoute
   '/fees/structure/$structureId': typeof FeesStructureStructureIdRoute
   '/fees/structure/new': typeof FeesStructureNewRoute
   '/fees/students/$studentId': typeof FeesStudentsStudentIdRoute
+  '/front-office/appointments/new': typeof FrontOfficeAppointmentsNewRoute
+  '/front-office/calls/new': typeof FrontOfficeCallsNewRoute
+  '/front-office/correspondence/new': typeof FrontOfficeCorrespondenceNewRoute
+  '/front-office/gate-pass/$passNumber': typeof FrontOfficeGatePassPassNumberRoute
+  '/front-office/gate-passes/$id': typeof FrontOfficeGatePassesIdRoute
+  '/front-office/visitors/new': typeof FrontOfficeVisitorsNewRoute
+  '/hostel/allocations/new': typeof HostelAllocationsNewRoute
+  '/hostel/hostels/new': typeof HostelHostelsNewRoute
+  '/hr/attendance/take': typeof HrAttendanceTakeRoute
+  '/hr/leave/new': typeof HrLeaveNewRoute
+  '/hr/payroll/$staffId': typeof HrPayrollStaffIdRoute
+  '/hr/staff/new': typeof HrStaffNewRoute
+  '/inventory/assets/$assetId': typeof InventoryAssetsAssetIdRoute
+  '/inventory/assets/new': typeof InventoryAssetsNewRoute
+  '/inventory/items/$itemId': typeof InventoryItemsItemIdRoute
+  '/inventory/items/new': typeof InventoryItemsNewRoute
+  '/inventory/purchase-orders/$orderId': typeof InventoryPurchaseOrdersOrderIdRoute
+  '/inventory/purchase-orders/new': typeof InventoryPurchaseOrdersNewRoute
+  '/inventory/vendors/$vendorId': typeof InventoryVendorsVendorIdRoute
+  '/inventory/vendors/new': typeof InventoryVendorsNewRoute
+  '/library/books/new': typeof LibraryBooksNewRoute
+  '/library/transactions/issue': typeof LibraryTransactionsIssueRoute
+  '/parent/children/$studentId': typeof ParentChildrenStudentIdRoute
+  '/parent/ptm/$eventId': typeof ParentPtmEventIdRoute
+  '/parent/ptm/appointments': typeof ParentPtmAppointmentsRoute
+  '/ptm/appointments/$appointmentId': typeof PtmAppointmentsAppointmentIdRoute
+  '/ptm/events/$eventId': typeof PtmEventsEventIdRoute
+  '/ptm/events/new': typeof PtmEventsNewRoute
+  '/student/attendance/$month': typeof StudentAttendanceMonthRoute
+  '/student/exams/$examId': typeof StudentExamsExamIdRoute
+  '/student/fees/receipts': typeof StudentFeesReceiptsRoute
+  '/student/homework/$assignmentId': typeof StudentHomeworkAssignmentIdRoute
   '/students/$studentId/edit': typeof StudentsStudentIdEditRoute
+  '/teacher/assignments/new': typeof TeacherAssignmentsNewRoute
+  '/teacher/classes/$classId': typeof TeacherClassesClassIdRoute
+  '/teacher/marks/$examId': typeof TeacherMarksExamIdRoute
+  '/teacher/ptm/$eventId': typeof TeacherPtmEventIdRoute
+  '/teacher/ptm/appointments': typeof TeacherPtmAppointmentsRoute
+  '/teacher/ptm/availability': typeof TeacherPtmAvailabilityRoute
+  '/teacher/students/$studentId': typeof TeacherStudentsStudentIdRoute
+  '/teacher/submissions/$assignmentId': typeof TeacherSubmissionsAssignmentIdRoute
   '/timetable/classes/$classId': typeof TimetableClassesClassIdRoute
   '/timetable/teachers/$teacherId': typeof TimetableTeachersTeacherIdRoute
+  '/transport/drivers/new': typeof TransportDriversNewRoute
+  '/transport/routes/new': typeof TransportRoutesNewRoute
+  '/transport/vehicles/new': typeof TransportVehiclesNewRoute
   '/academic-work/assignments/': typeof AcademicWorkAssignmentsIndexRoute
   '/academic-work/submissions/': typeof AcademicWorkSubmissionsIndexRoute
   '/academics/classes/': typeof AcademicsClassesIndexRoute
@@ -1068,15 +2800,64 @@ export interface FileRoutesById {
   '/communication/announcements/': typeof CommunicationAnnouncementsIndexRoute
   '/communication/messages/': typeof CommunicationMessagesIndexRoute
   '/communication/notices/': typeof CommunicationNoticesIndexRoute
+  '/documents/certificates/': typeof DocumentsCertificatesIndexRoute
+  '/documents/id-cards/': typeof DocumentsIdCardsIndexRoute
+  '/documents/templates/': typeof DocumentsTemplatesIndexRoute
+  '/documents/verification/': typeof DocumentsVerificationIndexRoute
   '/exams/marks/': typeof ExamsMarksIndexRoute
   '/exams/results/': typeof ExamsResultsIndexRoute
   '/fees/structure/': typeof FeesStructureIndexRoute
   '/fees/students/': typeof FeesStudentsIndexRoute
+  '/front-office/appointments/': typeof FrontOfficeAppointmentsIndexRoute
+  '/front-office/calls/': typeof FrontOfficeCallsIndexRoute
+  '/front-office/correspondence/': typeof FrontOfficeCorrespondenceIndexRoute
+  '/front-office/enquiries/': typeof FrontOfficeEnquiriesIndexRoute
+  '/front-office/gate-passes/': typeof FrontOfficeGatePassesIndexRoute
+  '/front-office/visitors/': typeof FrontOfficeVisitorsIndexRoute
+  '/hostel/allocations/': typeof HostelAllocationsIndexRoute
+  '/hostel/hostels/': typeof HostelHostelsIndexRoute
+  '/hostel/leave/': typeof HostelLeaveIndexRoute
+  '/hr/attendance/': typeof HrAttendanceIndexRoute
+  '/hr/leave/': typeof HrLeaveIndexRoute
+  '/hr/payroll/': typeof HrPayrollIndexRoute
+  '/hr/staff/': typeof HrStaffIndexRoute
+  '/inventory/assets/': typeof InventoryAssetsIndexRoute
+  '/inventory/items/': typeof InventoryItemsIndexRoute
+  '/inventory/purchase-orders/': typeof InventoryPurchaseOrdersIndexRoute
+  '/inventory/vendors/': typeof InventoryVendorsIndexRoute
+  '/library/books/': typeof LibraryBooksIndexRoute
+  '/library/transactions/': typeof LibraryTransactionsIndexRoute
+  '/parent/children/': typeof ParentChildrenIndexRoute
+  '/parent/ptm/': typeof ParentPtmIndexRoute
+  '/ptm/appointments/': typeof PtmAppointmentsIndexRoute
+  '/ptm/events/': typeof PtmEventsIndexRoute
+  '/student/attendance/': typeof StudentAttendanceIndexRoute
+  '/student/exams/': typeof StudentExamsIndexRoute
+  '/student/fees/': typeof StudentFeesIndexRoute
+  '/student/homework/': typeof StudentHomeworkIndexRoute
+  '/teacher/assignments/': typeof TeacherAssignmentsIndexRoute
+  '/teacher/classes/': typeof TeacherClassesIndexRoute
+  '/teacher/exams/': typeof TeacherExamsIndexRoute
+  '/teacher/ptm/': typeof TeacherPtmIndexRoute
+  '/teacher/students/': typeof TeacherStudentsIndexRoute
+  '/teacher/submissions/': typeof TeacherSubmissionsIndexRoute
   '/timetable/classes/': typeof TimetableClassesIndexRoute
   '/timetable/rooms/': typeof TimetableRoomsIndexRoute
   '/timetable/teachers/': typeof TimetableTeachersIndexRoute
+  '/transport/drivers/': typeof TransportDriversIndexRoute
+  '/transport/routes/': typeof TransportRoutesIndexRoute
+  '/transport/vehicles/': typeof TransportVehiclesIndexRoute
   '/academic-work/assignments/$assignmentId/edit': typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
+  '/hr/staff/$staffId/edit': typeof HrStaffStaffIdEditRoute
+  '/library/books/$bookId/edit': typeof LibraryBooksBookIdEditRoute
+  '/transport/vehicles/$vehicleId/edit': typeof TransportVehiclesVehicleIdEditRoute
   '/academic-work/assignments/$assignmentId/': typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
+  '/hr/staff/$staffId/': typeof HrStaffStaffIdIndexRoute
+  '/library/books/$bookId/': typeof LibraryBooksBookIdIndexRoute
+  '/transport/drivers/$driverId/': typeof TransportDriversDriverIdIndexRoute
+  '/transport/routes/$routeId/': typeof TransportRoutesRouteIdIndexRoute
+  '/transport/vehicles/$vehicleId/': typeof TransportVehiclesVehicleIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1096,10 +2877,14 @@ export interface FileRouteTypes {
     | '/academic-work/settings'
     | '/academics/assignments'
     | '/academics/settings'
+    | '/admissions/campaigns'
     | '/admissions/counselling'
     | '/admissions/documents'
     | '/admissions/follow-ups'
+    | '/admissions/reports'
     | '/admissions/settings'
+    | '/admissions/verification'
+    | '/admissions/waitlist'
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
@@ -1107,6 +2892,11 @@ export interface FileRouteTypes {
     | '/communication/notifications'
     | '/communication/settings'
     | '/communication/templates'
+    | '/documents/bulk'
+    | '/documents/generate'
+    | '/documents/issued'
+    | '/documents/reports'
+    | '/documents/settings'
     | '/exams/$examId'
     | '/exams/list'
     | '/exams/new'
@@ -1121,24 +2911,114 @@ export interface FileRouteTypes {
     | '/fees/receipts'
     | '/fees/reports'
     | '/fees/settings'
+    | '/front-office/reports'
+    | '/front-office/settings'
+    | '/front-office/tasks'
+    | '/hostel/attendance'
+    | '/hostel/beds'
+    | '/hostel/buildings'
+    | '/hostel/complaints'
+    | '/hostel/fees'
+    | '/hostel/floors'
+    | '/hostel/maintenance'
+    | '/hostel/reports'
+    | '/hostel/rooms'
+    | '/hostel/settings'
+    | '/hostel/students'
+    | '/hostel/visitors'
+    | '/hr/departments'
+    | '/hr/designations'
+    | '/hr/documents'
+    | '/hr/reports'
+    | '/hr/settings'
+    | '/inventory/assignments'
+    | '/inventory/categories'
+    | '/inventory/maintenance'
+    | '/inventory/reports'
+    | '/inventory/settings'
+    | '/inventory/stock-in'
+    | '/inventory/stock-out'
+    | '/inventory/transfers'
+    | '/library/authors'
+    | '/library/categories'
+    | '/library/fines'
+    | '/library/members'
+    | '/library/publishers'
+    | '/library/reports'
+    | '/library/reservations'
+    | '/library/settings'
+    | '/parent/attendance'
+    | '/parent/documents'
+    | '/parent/exams'
+    | '/parent/fees'
+    | '/parent/homework'
+    | '/parent/hostel'
+    | '/parent/messages'
+    | '/parent/notices'
+    | '/parent/notifications'
+    | '/parent/profile'
+    | '/parent/settings'
+    | '/parent/timetable'
+    | '/parent/transport'
     | '/parents/$parentId'
+    | '/ptm/availability'
+    | '/ptm/reports'
+    | '/ptm/settings'
+    | '/ptm/slots'
+    | '/student/documents'
+    | '/student/hostel'
+    | '/student/library'
+    | '/student/messages'
+    | '/student/notices'
+    | '/student/notifications'
+    | '/student/profile'
+    | '/student/settings'
+    | '/student/timetable'
+    | '/student/transport'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/teacher/attendance'
+    | '/teacher/messages'
+    | '/teacher/notices'
+    | '/teacher/notifications'
+    | '/teacher/profile'
+    | '/teacher/settings'
+    | '/teacher/timetable'
     | '/timetable/create'
     | '/timetable/periods'
     | '/timetable/settings'
     | '/timetable/substitutions'
+    | '/transport/assignments'
+    | '/transport/fees'
+    | '/transport/maintenance'
+    | '/transport/reports'
+    | '/transport/settings'
+    | '/transport/stops'
+    | '/transport/students'
+    | '/transport/trips'
+    | '/verify/$number'
     | '/academic-work/'
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
     | '/communication/'
+    | '/documents/'
     | '/exams/'
     | '/fees/'
+    | '/front-office/'
+    | '/hostel/'
+    | '/hr/'
+    | '/inventory/'
+    | '/library/'
+    | '/parent/'
     | '/parents/'
+    | '/ptm/'
+    | '/student/'
     | '/students/'
+    | '/teacher/'
     | '/timetable/'
+    | '/transport/'
     | '/academic-work/assignments/new'
     | '/academic-work/submissions/$submissionId'
     | '/academics/classes/$classId'
@@ -1164,14 +3044,61 @@ export interface FileRouteTypes {
     | '/communication/messages/new'
     | '/communication/notices/$id'
     | '/communication/notices/new'
+    | '/documents/certificates/$id'
+    | '/documents/id-cards/new'
+    | '/documents/templates/new'
+    | '/documents/verification/$number'
     | '/exams/marks/$examId'
     | '/exams/results/$resultId'
     | '/fees/structure/$structureId'
     | '/fees/structure/new'
     | '/fees/students/$studentId'
+    | '/front-office/appointments/new'
+    | '/front-office/calls/new'
+    | '/front-office/correspondence/new'
+    | '/front-office/gate-pass/$passNumber'
+    | '/front-office/gate-passes/$id'
+    | '/front-office/visitors/new'
+    | '/hostel/allocations/new'
+    | '/hostel/hostels/new'
+    | '/hr/attendance/take'
+    | '/hr/leave/new'
+    | '/hr/payroll/$staffId'
+    | '/hr/staff/new'
+    | '/inventory/assets/$assetId'
+    | '/inventory/assets/new'
+    | '/inventory/items/$itemId'
+    | '/inventory/items/new'
+    | '/inventory/purchase-orders/$orderId'
+    | '/inventory/purchase-orders/new'
+    | '/inventory/vendors/$vendorId'
+    | '/inventory/vendors/new'
+    | '/library/books/new'
+    | '/library/transactions/issue'
+    | '/parent/children/$studentId'
+    | '/parent/ptm/$eventId'
+    | '/parent/ptm/appointments'
+    | '/ptm/appointments/$appointmentId'
+    | '/ptm/events/$eventId'
+    | '/ptm/events/new'
+    | '/student/attendance/$month'
+    | '/student/exams/$examId'
+    | '/student/fees/receipts'
+    | '/student/homework/$assignmentId'
     | '/students/$studentId/edit'
+    | '/teacher/assignments/new'
+    | '/teacher/classes/$classId'
+    | '/teacher/marks/$examId'
+    | '/teacher/ptm/$eventId'
+    | '/teacher/ptm/appointments'
+    | '/teacher/ptm/availability'
+    | '/teacher/students/$studentId'
+    | '/teacher/submissions/$assignmentId'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
+    | '/transport/drivers/new'
+    | '/transport/routes/new'
+    | '/transport/vehicles/new'
     | '/academic-work/assignments/'
     | '/academic-work/submissions/'
     | '/academics/classes/'
@@ -1187,15 +3114,64 @@ export interface FileRouteTypes {
     | '/communication/announcements/'
     | '/communication/messages/'
     | '/communication/notices/'
+    | '/documents/certificates/'
+    | '/documents/id-cards/'
+    | '/documents/templates/'
+    | '/documents/verification/'
     | '/exams/marks/'
     | '/exams/results/'
     | '/fees/structure/'
     | '/fees/students/'
+    | '/front-office/appointments/'
+    | '/front-office/calls/'
+    | '/front-office/correspondence/'
+    | '/front-office/enquiries/'
+    | '/front-office/gate-passes/'
+    | '/front-office/visitors/'
+    | '/hostel/allocations/'
+    | '/hostel/hostels/'
+    | '/hostel/leave/'
+    | '/hr/attendance/'
+    | '/hr/leave/'
+    | '/hr/payroll/'
+    | '/hr/staff/'
+    | '/inventory/assets/'
+    | '/inventory/items/'
+    | '/inventory/purchase-orders/'
+    | '/inventory/vendors/'
+    | '/library/books/'
+    | '/library/transactions/'
+    | '/parent/children/'
+    | '/parent/ptm/'
+    | '/ptm/appointments/'
+    | '/ptm/events/'
+    | '/student/attendance/'
+    | '/student/exams/'
+    | '/student/fees/'
+    | '/student/homework/'
+    | '/teacher/assignments/'
+    | '/teacher/classes/'
+    | '/teacher/exams/'
+    | '/teacher/ptm/'
+    | '/teacher/students/'
+    | '/teacher/submissions/'
     | '/timetable/classes/'
     | '/timetable/rooms/'
     | '/timetable/teachers/'
+    | '/transport/drivers/'
+    | '/transport/routes/'
+    | '/transport/vehicles/'
     | '/academic-work/assignments/$assignmentId/edit'
+    | '/documents/templates/$id/edit'
+    | '/hr/staff/$staffId/edit'
+    | '/library/books/$bookId/edit'
+    | '/transport/vehicles/$vehicleId/edit'
     | '/academic-work/assignments/$assignmentId/'
+    | '/hr/staff/$staffId/'
+    | '/library/books/$bookId/'
+    | '/transport/drivers/$driverId/'
+    | '/transport/routes/$routeId/'
+    | '/transport/vehicles/$vehicleId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1213,10 +3189,14 @@ export interface FileRouteTypes {
     | '/academic-work/settings'
     | '/academics/assignments'
     | '/academics/settings'
+    | '/admissions/campaigns'
     | '/admissions/counselling'
     | '/admissions/documents'
     | '/admissions/follow-ups'
+    | '/admissions/reports'
     | '/admissions/settings'
+    | '/admissions/verification'
+    | '/admissions/waitlist'
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
@@ -1224,6 +3204,11 @@ export interface FileRouteTypes {
     | '/communication/notifications'
     | '/communication/settings'
     | '/communication/templates'
+    | '/documents/bulk'
+    | '/documents/generate'
+    | '/documents/issued'
+    | '/documents/reports'
+    | '/documents/settings'
     | '/exams/$examId'
     | '/exams/list'
     | '/exams/new'
@@ -1238,24 +3223,114 @@ export interface FileRouteTypes {
     | '/fees/receipts'
     | '/fees/reports'
     | '/fees/settings'
+    | '/front-office/reports'
+    | '/front-office/settings'
+    | '/front-office/tasks'
+    | '/hostel/attendance'
+    | '/hostel/beds'
+    | '/hostel/buildings'
+    | '/hostel/complaints'
+    | '/hostel/fees'
+    | '/hostel/floors'
+    | '/hostel/maintenance'
+    | '/hostel/reports'
+    | '/hostel/rooms'
+    | '/hostel/settings'
+    | '/hostel/students'
+    | '/hostel/visitors'
+    | '/hr/departments'
+    | '/hr/designations'
+    | '/hr/documents'
+    | '/hr/reports'
+    | '/hr/settings'
+    | '/inventory/assignments'
+    | '/inventory/categories'
+    | '/inventory/maintenance'
+    | '/inventory/reports'
+    | '/inventory/settings'
+    | '/inventory/stock-in'
+    | '/inventory/stock-out'
+    | '/inventory/transfers'
+    | '/library/authors'
+    | '/library/categories'
+    | '/library/fines'
+    | '/library/members'
+    | '/library/publishers'
+    | '/library/reports'
+    | '/library/reservations'
+    | '/library/settings'
+    | '/parent/attendance'
+    | '/parent/documents'
+    | '/parent/exams'
+    | '/parent/fees'
+    | '/parent/homework'
+    | '/parent/hostel'
+    | '/parent/messages'
+    | '/parent/notices'
+    | '/parent/notifications'
+    | '/parent/profile'
+    | '/parent/settings'
+    | '/parent/timetable'
+    | '/parent/transport'
     | '/parents/$parentId'
+    | '/ptm/availability'
+    | '/ptm/reports'
+    | '/ptm/settings'
+    | '/ptm/slots'
+    | '/student/documents'
+    | '/student/hostel'
+    | '/student/library'
+    | '/student/messages'
+    | '/student/notices'
+    | '/student/notifications'
+    | '/student/profile'
+    | '/student/settings'
+    | '/student/timetable'
+    | '/student/transport'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/teacher/attendance'
+    | '/teacher/messages'
+    | '/teacher/notices'
+    | '/teacher/notifications'
+    | '/teacher/profile'
+    | '/teacher/settings'
+    | '/teacher/timetable'
     | '/timetable/create'
     | '/timetable/periods'
     | '/timetable/settings'
     | '/timetable/substitutions'
+    | '/transport/assignments'
+    | '/transport/fees'
+    | '/transport/maintenance'
+    | '/transport/reports'
+    | '/transport/settings'
+    | '/transport/stops'
+    | '/transport/students'
+    | '/transport/trips'
+    | '/verify/$number'
     | '/academic-work'
     | '/academics'
     | '/admissions'
     | '/attendance'
     | '/communication'
+    | '/documents'
     | '/exams'
     | '/fees'
+    | '/front-office'
+    | '/hostel'
+    | '/hr'
+    | '/inventory'
+    | '/library'
+    | '/parent'
     | '/parents'
+    | '/ptm'
+    | '/student'
     | '/students'
+    | '/teacher'
     | '/timetable'
+    | '/transport'
     | '/academic-work/assignments/new'
     | '/academic-work/submissions/$submissionId'
     | '/academics/classes/$classId'
@@ -1281,14 +3356,61 @@ export interface FileRouteTypes {
     | '/communication/messages/new'
     | '/communication/notices/$id'
     | '/communication/notices/new'
+    | '/documents/certificates/$id'
+    | '/documents/id-cards/new'
+    | '/documents/templates/new'
+    | '/documents/verification/$number'
     | '/exams/marks/$examId'
     | '/exams/results/$resultId'
     | '/fees/structure/$structureId'
     | '/fees/structure/new'
     | '/fees/students/$studentId'
+    | '/front-office/appointments/new'
+    | '/front-office/calls/new'
+    | '/front-office/correspondence/new'
+    | '/front-office/gate-pass/$passNumber'
+    | '/front-office/gate-passes/$id'
+    | '/front-office/visitors/new'
+    | '/hostel/allocations/new'
+    | '/hostel/hostels/new'
+    | '/hr/attendance/take'
+    | '/hr/leave/new'
+    | '/hr/payroll/$staffId'
+    | '/hr/staff/new'
+    | '/inventory/assets/$assetId'
+    | '/inventory/assets/new'
+    | '/inventory/items/$itemId'
+    | '/inventory/items/new'
+    | '/inventory/purchase-orders/$orderId'
+    | '/inventory/purchase-orders/new'
+    | '/inventory/vendors/$vendorId'
+    | '/inventory/vendors/new'
+    | '/library/books/new'
+    | '/library/transactions/issue'
+    | '/parent/children/$studentId'
+    | '/parent/ptm/$eventId'
+    | '/parent/ptm/appointments'
+    | '/ptm/appointments/$appointmentId'
+    | '/ptm/events/$eventId'
+    | '/ptm/events/new'
+    | '/student/attendance/$month'
+    | '/student/exams/$examId'
+    | '/student/fees/receipts'
+    | '/student/homework/$assignmentId'
     | '/students/$studentId/edit'
+    | '/teacher/assignments/new'
+    | '/teacher/classes/$classId'
+    | '/teacher/marks/$examId'
+    | '/teacher/ptm/$eventId'
+    | '/teacher/ptm/appointments'
+    | '/teacher/ptm/availability'
+    | '/teacher/students/$studentId'
+    | '/teacher/submissions/$assignmentId'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
+    | '/transport/drivers/new'
+    | '/transport/routes/new'
+    | '/transport/vehicles/new'
     | '/academic-work/assignments'
     | '/academic-work/submissions'
     | '/academics/classes'
@@ -1304,15 +3426,64 @@ export interface FileRouteTypes {
     | '/communication/announcements'
     | '/communication/messages'
     | '/communication/notices'
+    | '/documents/certificates'
+    | '/documents/id-cards'
+    | '/documents/templates'
+    | '/documents/verification'
     | '/exams/marks'
     | '/exams/results'
     | '/fees/structure'
     | '/fees/students'
+    | '/front-office/appointments'
+    | '/front-office/calls'
+    | '/front-office/correspondence'
+    | '/front-office/enquiries'
+    | '/front-office/gate-passes'
+    | '/front-office/visitors'
+    | '/hostel/allocations'
+    | '/hostel/hostels'
+    | '/hostel/leave'
+    | '/hr/attendance'
+    | '/hr/leave'
+    | '/hr/payroll'
+    | '/hr/staff'
+    | '/inventory/assets'
+    | '/inventory/items'
+    | '/inventory/purchase-orders'
+    | '/inventory/vendors'
+    | '/library/books'
+    | '/library/transactions'
+    | '/parent/children'
+    | '/parent/ptm'
+    | '/ptm/appointments'
+    | '/ptm/events'
+    | '/student/attendance'
+    | '/student/exams'
+    | '/student/fees'
+    | '/student/homework'
+    | '/teacher/assignments'
+    | '/teacher/classes'
+    | '/teacher/exams'
+    | '/teacher/ptm'
+    | '/teacher/students'
+    | '/teacher/submissions'
     | '/timetable/classes'
     | '/timetable/rooms'
     | '/timetable/teachers'
+    | '/transport/drivers'
+    | '/transport/routes'
+    | '/transport/vehicles'
     | '/academic-work/assignments/$assignmentId/edit'
+    | '/documents/templates/$id/edit'
+    | '/hr/staff/$staffId/edit'
+    | '/library/books/$bookId/edit'
+    | '/transport/vehicles/$vehicleId/edit'
     | '/academic-work/assignments/$assignmentId'
+    | '/hr/staff/$staffId'
+    | '/library/books/$bookId'
+    | '/transport/drivers/$driverId'
+    | '/transport/routes/$routeId'
+    | '/transport/vehicles/$vehicleId'
   id:
     | '__root__'
     | '/'
@@ -1330,10 +3501,14 @@ export interface FileRouteTypes {
     | '/academic-work/settings'
     | '/academics/assignments'
     | '/academics/settings'
+    | '/admissions/campaigns'
     | '/admissions/counselling'
     | '/admissions/documents'
     | '/admissions/follow-ups'
+    | '/admissions/reports'
     | '/admissions/settings'
+    | '/admissions/verification'
+    | '/admissions/waitlist'
     | '/attendance/leave'
     | '/attendance/reports'
     | '/attendance/settings'
@@ -1341,6 +3516,11 @@ export interface FileRouteTypes {
     | '/communication/notifications'
     | '/communication/settings'
     | '/communication/templates'
+    | '/documents/bulk'
+    | '/documents/generate'
+    | '/documents/issued'
+    | '/documents/reports'
+    | '/documents/settings'
     | '/exams/$examId'
     | '/exams/list'
     | '/exams/new'
@@ -1355,24 +3535,114 @@ export interface FileRouteTypes {
     | '/fees/receipts'
     | '/fees/reports'
     | '/fees/settings'
+    | '/front-office/reports'
+    | '/front-office/settings'
+    | '/front-office/tasks'
+    | '/hostel/attendance'
+    | '/hostel/beds'
+    | '/hostel/buildings'
+    | '/hostel/complaints'
+    | '/hostel/fees'
+    | '/hostel/floors'
+    | '/hostel/maintenance'
+    | '/hostel/reports'
+    | '/hostel/rooms'
+    | '/hostel/settings'
+    | '/hostel/students'
+    | '/hostel/visitors'
+    | '/hr/departments'
+    | '/hr/designations'
+    | '/hr/documents'
+    | '/hr/reports'
+    | '/hr/settings'
+    | '/inventory/assignments'
+    | '/inventory/categories'
+    | '/inventory/maintenance'
+    | '/inventory/reports'
+    | '/inventory/settings'
+    | '/inventory/stock-in'
+    | '/inventory/stock-out'
+    | '/inventory/transfers'
+    | '/library/authors'
+    | '/library/categories'
+    | '/library/fines'
+    | '/library/members'
+    | '/library/publishers'
+    | '/library/reports'
+    | '/library/reservations'
+    | '/library/settings'
+    | '/parent/attendance'
+    | '/parent/documents'
+    | '/parent/exams'
+    | '/parent/fees'
+    | '/parent/homework'
+    | '/parent/hostel'
+    | '/parent/messages'
+    | '/parent/notices'
+    | '/parent/notifications'
+    | '/parent/profile'
+    | '/parent/settings'
+    | '/parent/timetable'
+    | '/parent/transport'
     | '/parents/$parentId'
+    | '/ptm/availability'
+    | '/ptm/reports'
+    | '/ptm/settings'
+    | '/ptm/slots'
+    | '/student/documents'
+    | '/student/hostel'
+    | '/student/library'
+    | '/student/messages'
+    | '/student/notices'
+    | '/student/notifications'
+    | '/student/profile'
+    | '/student/settings'
+    | '/student/timetable'
+    | '/student/transport'
     | '/students/$studentId'
     | '/students/new'
     | '/students/promotions'
+    | '/teacher/attendance'
+    | '/teacher/messages'
+    | '/teacher/notices'
+    | '/teacher/notifications'
+    | '/teacher/profile'
+    | '/teacher/settings'
+    | '/teacher/timetable'
     | '/timetable/create'
     | '/timetable/periods'
     | '/timetable/settings'
     | '/timetable/substitutions'
+    | '/transport/assignments'
+    | '/transport/fees'
+    | '/transport/maintenance'
+    | '/transport/reports'
+    | '/transport/settings'
+    | '/transport/stops'
+    | '/transport/students'
+    | '/transport/trips'
+    | '/verify/$number'
     | '/academic-work/'
     | '/academics/'
     | '/admissions/'
     | '/attendance/'
     | '/communication/'
+    | '/documents/'
     | '/exams/'
     | '/fees/'
+    | '/front-office/'
+    | '/hostel/'
+    | '/hr/'
+    | '/inventory/'
+    | '/library/'
+    | '/parent/'
     | '/parents/'
+    | '/ptm/'
+    | '/student/'
     | '/students/'
+    | '/teacher/'
     | '/timetable/'
+    | '/transport/'
     | '/academic-work/assignments/new'
     | '/academic-work/submissions/$submissionId'
     | '/academics/classes/$classId'
@@ -1398,14 +3668,61 @@ export interface FileRouteTypes {
     | '/communication/messages/new'
     | '/communication/notices/$id'
     | '/communication/notices/new'
+    | '/documents/certificates/$id'
+    | '/documents/id-cards/new'
+    | '/documents/templates/new'
+    | '/documents/verification/$number'
     | '/exams/marks/$examId'
     | '/exams/results/$resultId'
     | '/fees/structure/$structureId'
     | '/fees/structure/new'
     | '/fees/students/$studentId'
+    | '/front-office/appointments/new'
+    | '/front-office/calls/new'
+    | '/front-office/correspondence/new'
+    | '/front-office/gate-pass/$passNumber'
+    | '/front-office/gate-passes/$id'
+    | '/front-office/visitors/new'
+    | '/hostel/allocations/new'
+    | '/hostel/hostels/new'
+    | '/hr/attendance/take'
+    | '/hr/leave/new'
+    | '/hr/payroll/$staffId'
+    | '/hr/staff/new'
+    | '/inventory/assets/$assetId'
+    | '/inventory/assets/new'
+    | '/inventory/items/$itemId'
+    | '/inventory/items/new'
+    | '/inventory/purchase-orders/$orderId'
+    | '/inventory/purchase-orders/new'
+    | '/inventory/vendors/$vendorId'
+    | '/inventory/vendors/new'
+    | '/library/books/new'
+    | '/library/transactions/issue'
+    | '/parent/children/$studentId'
+    | '/parent/ptm/$eventId'
+    | '/parent/ptm/appointments'
+    | '/ptm/appointments/$appointmentId'
+    | '/ptm/events/$eventId'
+    | '/ptm/events/new'
+    | '/student/attendance/$month'
+    | '/student/exams/$examId'
+    | '/student/fees/receipts'
+    | '/student/homework/$assignmentId'
     | '/students/$studentId/edit'
+    | '/teacher/assignments/new'
+    | '/teacher/classes/$classId'
+    | '/teacher/marks/$examId'
+    | '/teacher/ptm/$eventId'
+    | '/teacher/ptm/appointments'
+    | '/teacher/ptm/availability'
+    | '/teacher/students/$studentId'
+    | '/teacher/submissions/$assignmentId'
     | '/timetable/classes/$classId'
     | '/timetable/teachers/$teacherId'
+    | '/transport/drivers/new'
+    | '/transport/routes/new'
+    | '/transport/vehicles/new'
     | '/academic-work/assignments/'
     | '/academic-work/submissions/'
     | '/academics/classes/'
@@ -1421,15 +3738,64 @@ export interface FileRouteTypes {
     | '/communication/announcements/'
     | '/communication/messages/'
     | '/communication/notices/'
+    | '/documents/certificates/'
+    | '/documents/id-cards/'
+    | '/documents/templates/'
+    | '/documents/verification/'
     | '/exams/marks/'
     | '/exams/results/'
     | '/fees/structure/'
     | '/fees/students/'
+    | '/front-office/appointments/'
+    | '/front-office/calls/'
+    | '/front-office/correspondence/'
+    | '/front-office/enquiries/'
+    | '/front-office/gate-passes/'
+    | '/front-office/visitors/'
+    | '/hostel/allocations/'
+    | '/hostel/hostels/'
+    | '/hostel/leave/'
+    | '/hr/attendance/'
+    | '/hr/leave/'
+    | '/hr/payroll/'
+    | '/hr/staff/'
+    | '/inventory/assets/'
+    | '/inventory/items/'
+    | '/inventory/purchase-orders/'
+    | '/inventory/vendors/'
+    | '/library/books/'
+    | '/library/transactions/'
+    | '/parent/children/'
+    | '/parent/ptm/'
+    | '/ptm/appointments/'
+    | '/ptm/events/'
+    | '/student/attendance/'
+    | '/student/exams/'
+    | '/student/fees/'
+    | '/student/homework/'
+    | '/teacher/assignments/'
+    | '/teacher/classes/'
+    | '/teacher/exams/'
+    | '/teacher/ptm/'
+    | '/teacher/students/'
+    | '/teacher/submissions/'
     | '/timetable/classes/'
     | '/timetable/rooms/'
     | '/timetable/teachers/'
+    | '/transport/drivers/'
+    | '/transport/routes/'
+    | '/transport/vehicles/'
     | '/academic-work/assignments/$assignmentId/edit'
+    | '/documents/templates/$id/edit'
+    | '/hr/staff/$staffId/edit'
+    | '/library/books/$bookId/edit'
+    | '/transport/vehicles/$vehicleId/edit'
     | '/academic-work/assignments/$assignmentId/'
+    | '/hr/staff/$staffId/'
+    | '/library/books/$bookId/'
+    | '/transport/drivers/$driverId/'
+    | '/transport/routes/$routeId/'
+    | '/transport/vehicles/$vehicleId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1448,10 +3814,14 @@ export interface RootRouteChildren {
   AcademicWorkSettingsRoute: typeof AcademicWorkSettingsRoute
   AcademicsAssignmentsRoute: typeof AcademicsAssignmentsRoute
   AcademicsSettingsRoute: typeof AcademicsSettingsRoute
+  AdmissionsCampaignsRoute: typeof AdmissionsCampaignsRoute
   AdmissionsCounsellingRoute: typeof AdmissionsCounsellingRoute
   AdmissionsDocumentsRoute: typeof AdmissionsDocumentsRoute
   AdmissionsFollowUpsRoute: typeof AdmissionsFollowUpsRoute
+  AdmissionsReportsRoute: typeof AdmissionsReportsRoute
   AdmissionsSettingsRoute: typeof AdmissionsSettingsRoute
+  AdmissionsVerificationRoute: typeof AdmissionsVerificationRoute
+  AdmissionsWaitlistRoute: typeof AdmissionsWaitlistRoute
   AttendanceLeaveRoute: typeof AttendanceLeaveRoute
   AttendanceReportsRoute: typeof AttendanceReportsRoute
   AttendanceSettingsRoute: typeof AttendanceSettingsRoute
@@ -1459,6 +3829,11 @@ export interface RootRouteChildren {
   CommunicationNotificationsRoute: typeof CommunicationNotificationsRoute
   CommunicationSettingsRoute: typeof CommunicationSettingsRoute
   CommunicationTemplatesRoute: typeof CommunicationTemplatesRoute
+  DocumentsBulkRoute: typeof DocumentsBulkRoute
+  DocumentsGenerateRoute: typeof DocumentsGenerateRoute
+  DocumentsIssuedRoute: typeof DocumentsIssuedRoute
+  DocumentsReportsRoute: typeof DocumentsReportsRoute
+  DocumentsSettingsRoute: typeof DocumentsSettingsRoute
   ExamsExamIdRoute: typeof ExamsExamIdRoute
   ExamsListRoute: typeof ExamsListRoute
   ExamsNewRoute: typeof ExamsNewRoute
@@ -1473,24 +3848,114 @@ export interface RootRouteChildren {
   FeesReceiptsRoute: typeof FeesReceiptsRoute
   FeesReportsRoute: typeof FeesReportsRoute
   FeesSettingsRoute: typeof FeesSettingsRoute
+  FrontOfficeReportsRoute: typeof FrontOfficeReportsRoute
+  FrontOfficeSettingsRoute: typeof FrontOfficeSettingsRoute
+  FrontOfficeTasksRoute: typeof FrontOfficeTasksRoute
+  HostelAttendanceRoute: typeof HostelAttendanceRoute
+  HostelBedsRoute: typeof HostelBedsRoute
+  HostelBuildingsRoute: typeof HostelBuildingsRoute
+  HostelComplaintsRoute: typeof HostelComplaintsRoute
+  HostelFeesRoute: typeof HostelFeesRoute
+  HostelFloorsRoute: typeof HostelFloorsRoute
+  HostelMaintenanceRoute: typeof HostelMaintenanceRoute
+  HostelReportsRoute: typeof HostelReportsRoute
+  HostelRoomsRoute: typeof HostelRoomsRoute
+  HostelSettingsRoute: typeof HostelSettingsRoute
+  HostelStudentsRoute: typeof HostelStudentsRoute
+  HostelVisitorsRoute: typeof HostelVisitorsRoute
+  HrDepartmentsRoute: typeof HrDepartmentsRoute
+  HrDesignationsRoute: typeof HrDesignationsRoute
+  HrDocumentsRoute: typeof HrDocumentsRoute
+  HrReportsRoute: typeof HrReportsRoute
+  HrSettingsRoute: typeof HrSettingsRoute
+  InventoryAssignmentsRoute: typeof InventoryAssignmentsRoute
+  InventoryCategoriesRoute: typeof InventoryCategoriesRoute
+  InventoryMaintenanceRoute: typeof InventoryMaintenanceRoute
+  InventoryReportsRoute: typeof InventoryReportsRoute
+  InventorySettingsRoute: typeof InventorySettingsRoute
+  InventoryStockInRoute: typeof InventoryStockInRoute
+  InventoryStockOutRoute: typeof InventoryStockOutRoute
+  InventoryTransfersRoute: typeof InventoryTransfersRoute
+  LibraryAuthorsRoute: typeof LibraryAuthorsRoute
+  LibraryCategoriesRoute: typeof LibraryCategoriesRoute
+  LibraryFinesRoute: typeof LibraryFinesRoute
+  LibraryMembersRoute: typeof LibraryMembersRoute
+  LibraryPublishersRoute: typeof LibraryPublishersRoute
+  LibraryReportsRoute: typeof LibraryReportsRoute
+  LibraryReservationsRoute: typeof LibraryReservationsRoute
+  LibrarySettingsRoute: typeof LibrarySettingsRoute
+  ParentAttendanceRoute: typeof ParentAttendanceRoute
+  ParentDocumentsRoute: typeof ParentDocumentsRoute
+  ParentExamsRoute: typeof ParentExamsRoute
+  ParentFeesRoute: typeof ParentFeesRoute
+  ParentHomeworkRoute: typeof ParentHomeworkRoute
+  ParentHostelRoute: typeof ParentHostelRoute
+  ParentMessagesRoute: typeof ParentMessagesRoute
+  ParentNoticesRoute: typeof ParentNoticesRoute
+  ParentNotificationsRoute: typeof ParentNotificationsRoute
+  ParentProfileRoute: typeof ParentProfileRoute
+  ParentSettingsRoute: typeof ParentSettingsRoute
+  ParentTimetableRoute: typeof ParentTimetableRoute
+  ParentTransportRoute: typeof ParentTransportRoute
   ParentsParentIdRoute: typeof ParentsParentIdRoute
+  PtmAvailabilityRoute: typeof PtmAvailabilityRoute
+  PtmReportsRoute: typeof PtmReportsRoute
+  PtmSettingsRoute: typeof PtmSettingsRoute
+  PtmSlotsRoute: typeof PtmSlotsRoute
+  StudentDocumentsRoute: typeof StudentDocumentsRoute
+  StudentHostelRoute: typeof StudentHostelRoute
+  StudentLibraryRoute: typeof StudentLibraryRoute
+  StudentMessagesRoute: typeof StudentMessagesRoute
+  StudentNoticesRoute: typeof StudentNoticesRoute
+  StudentNotificationsRoute: typeof StudentNotificationsRoute
+  StudentProfileRoute: typeof StudentProfileRoute
+  StudentSettingsRoute: typeof StudentSettingsRoute
+  StudentTimetableRoute: typeof StudentTimetableRoute
+  StudentTransportRoute: typeof StudentTransportRoute
   StudentsStudentIdRoute: typeof StudentsStudentIdRouteWithChildren
   StudentsNewRoute: typeof StudentsNewRoute
   StudentsPromotionsRoute: typeof StudentsPromotionsRoute
+  TeacherAttendanceRoute: typeof TeacherAttendanceRoute
+  TeacherMessagesRoute: typeof TeacherMessagesRoute
+  TeacherNoticesRoute: typeof TeacherNoticesRoute
+  TeacherNotificationsRoute: typeof TeacherNotificationsRoute
+  TeacherProfileRoute: typeof TeacherProfileRoute
+  TeacherSettingsRoute: typeof TeacherSettingsRoute
+  TeacherTimetableRoute: typeof TeacherTimetableRoute
   TimetableCreateRoute: typeof TimetableCreateRoute
   TimetablePeriodsRoute: typeof TimetablePeriodsRoute
   TimetableSettingsRoute: typeof TimetableSettingsRoute
   TimetableSubstitutionsRoute: typeof TimetableSubstitutionsRoute
+  TransportAssignmentsRoute: typeof TransportAssignmentsRoute
+  TransportFeesRoute: typeof TransportFeesRoute
+  TransportMaintenanceRoute: typeof TransportMaintenanceRoute
+  TransportReportsRoute: typeof TransportReportsRoute
+  TransportSettingsRoute: typeof TransportSettingsRoute
+  TransportStopsRoute: typeof TransportStopsRoute
+  TransportStudentsRoute: typeof TransportStudentsRoute
+  TransportTripsRoute: typeof TransportTripsRoute
+  VerifyNumberRoute: typeof VerifyNumberRoute
   AcademicWorkIndexRoute: typeof AcademicWorkIndexRoute
   AcademicsIndexRoute: typeof AcademicsIndexRoute
   AdmissionsIndexRoute: typeof AdmissionsIndexRoute
   AttendanceIndexRoute: typeof AttendanceIndexRoute
   CommunicationIndexRoute: typeof CommunicationIndexRoute
+  DocumentsIndexRoute: typeof DocumentsIndexRoute
   ExamsIndexRoute: typeof ExamsIndexRoute
   FeesIndexRoute: typeof FeesIndexRoute
+  FrontOfficeIndexRoute: typeof FrontOfficeIndexRoute
+  HostelIndexRoute: typeof HostelIndexRoute
+  HrIndexRoute: typeof HrIndexRoute
+  InventoryIndexRoute: typeof InventoryIndexRoute
+  LibraryIndexRoute: typeof LibraryIndexRoute
+  ParentIndexRoute: typeof ParentIndexRoute
   ParentsIndexRoute: typeof ParentsIndexRoute
+  PtmIndexRoute: typeof PtmIndexRoute
+  StudentIndexRoute: typeof StudentIndexRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
+  TeacherIndexRoute: typeof TeacherIndexRoute
   TimetableIndexRoute: typeof TimetableIndexRoute
+  TransportIndexRoute: typeof TransportIndexRoute
   AcademicWorkAssignmentsNewRoute: typeof AcademicWorkAssignmentsNewRoute
   AcademicWorkSubmissionsSubmissionIdRoute: typeof AcademicWorkSubmissionsSubmissionIdRoute
   AcademicsClassesClassIdRoute: typeof AcademicsClassesClassIdRoute
@@ -1516,13 +3981,60 @@ export interface RootRouteChildren {
   CommunicationMessagesNewRoute: typeof CommunicationMessagesNewRoute
   CommunicationNoticesIdRoute: typeof CommunicationNoticesIdRoute
   CommunicationNoticesNewRoute: typeof CommunicationNoticesNewRoute
+  DocumentsCertificatesIdRoute: typeof DocumentsCertificatesIdRoute
+  DocumentsIdCardsNewRoute: typeof DocumentsIdCardsNewRoute
+  DocumentsTemplatesNewRoute: typeof DocumentsTemplatesNewRoute
+  DocumentsVerificationNumberRoute: typeof DocumentsVerificationNumberRoute
   ExamsMarksExamIdRoute: typeof ExamsMarksExamIdRoute
   ExamsResultsResultIdRoute: typeof ExamsResultsResultIdRoute
   FeesStructureStructureIdRoute: typeof FeesStructureStructureIdRoute
   FeesStructureNewRoute: typeof FeesStructureNewRoute
   FeesStudentsStudentIdRoute: typeof FeesStudentsStudentIdRoute
+  FrontOfficeAppointmentsNewRoute: typeof FrontOfficeAppointmentsNewRoute
+  FrontOfficeCallsNewRoute: typeof FrontOfficeCallsNewRoute
+  FrontOfficeCorrespondenceNewRoute: typeof FrontOfficeCorrespondenceNewRoute
+  FrontOfficeGatePassPassNumberRoute: typeof FrontOfficeGatePassPassNumberRoute
+  FrontOfficeGatePassesIdRoute: typeof FrontOfficeGatePassesIdRoute
+  FrontOfficeVisitorsNewRoute: typeof FrontOfficeVisitorsNewRoute
+  HostelAllocationsNewRoute: typeof HostelAllocationsNewRoute
+  HostelHostelsNewRoute: typeof HostelHostelsNewRoute
+  HrAttendanceTakeRoute: typeof HrAttendanceTakeRoute
+  HrLeaveNewRoute: typeof HrLeaveNewRoute
+  HrPayrollStaffIdRoute: typeof HrPayrollStaffIdRoute
+  HrStaffNewRoute: typeof HrStaffNewRoute
+  InventoryAssetsAssetIdRoute: typeof InventoryAssetsAssetIdRoute
+  InventoryAssetsNewRoute: typeof InventoryAssetsNewRoute
+  InventoryItemsItemIdRoute: typeof InventoryItemsItemIdRoute
+  InventoryItemsNewRoute: typeof InventoryItemsNewRoute
+  InventoryPurchaseOrdersOrderIdRoute: typeof InventoryPurchaseOrdersOrderIdRoute
+  InventoryPurchaseOrdersNewRoute: typeof InventoryPurchaseOrdersNewRoute
+  InventoryVendorsVendorIdRoute: typeof InventoryVendorsVendorIdRoute
+  InventoryVendorsNewRoute: typeof InventoryVendorsNewRoute
+  LibraryBooksNewRoute: typeof LibraryBooksNewRoute
+  LibraryTransactionsIssueRoute: typeof LibraryTransactionsIssueRoute
+  ParentChildrenStudentIdRoute: typeof ParentChildrenStudentIdRoute
+  ParentPtmEventIdRoute: typeof ParentPtmEventIdRoute
+  ParentPtmAppointmentsRoute: typeof ParentPtmAppointmentsRoute
+  PtmAppointmentsAppointmentIdRoute: typeof PtmAppointmentsAppointmentIdRoute
+  PtmEventsEventIdRoute: typeof PtmEventsEventIdRoute
+  PtmEventsNewRoute: typeof PtmEventsNewRoute
+  StudentAttendanceMonthRoute: typeof StudentAttendanceMonthRoute
+  StudentExamsExamIdRoute: typeof StudentExamsExamIdRoute
+  StudentFeesReceiptsRoute: typeof StudentFeesReceiptsRoute
+  StudentHomeworkAssignmentIdRoute: typeof StudentHomeworkAssignmentIdRoute
+  TeacherAssignmentsNewRoute: typeof TeacherAssignmentsNewRoute
+  TeacherClassesClassIdRoute: typeof TeacherClassesClassIdRoute
+  TeacherMarksExamIdRoute: typeof TeacherMarksExamIdRoute
+  TeacherPtmEventIdRoute: typeof TeacherPtmEventIdRoute
+  TeacherPtmAppointmentsRoute: typeof TeacherPtmAppointmentsRoute
+  TeacherPtmAvailabilityRoute: typeof TeacherPtmAvailabilityRoute
+  TeacherStudentsStudentIdRoute: typeof TeacherStudentsStudentIdRoute
+  TeacherSubmissionsAssignmentIdRoute: typeof TeacherSubmissionsAssignmentIdRoute
   TimetableClassesClassIdRoute: typeof TimetableClassesClassIdRoute
   TimetableTeachersTeacherIdRoute: typeof TimetableTeachersTeacherIdRoute
+  TransportDriversNewRoute: typeof TransportDriversNewRoute
+  TransportRoutesNewRoute: typeof TransportRoutesNewRoute
+  TransportVehiclesNewRoute: typeof TransportVehiclesNewRoute
   AcademicWorkAssignmentsIndexRoute: typeof AcademicWorkAssignmentsIndexRoute
   AcademicWorkSubmissionsIndexRoute: typeof AcademicWorkSubmissionsIndexRoute
   AcademicsClassesIndexRoute: typeof AcademicsClassesIndexRoute
@@ -1538,15 +4050,64 @@ export interface RootRouteChildren {
   CommunicationAnnouncementsIndexRoute: typeof CommunicationAnnouncementsIndexRoute
   CommunicationMessagesIndexRoute: typeof CommunicationMessagesIndexRoute
   CommunicationNoticesIndexRoute: typeof CommunicationNoticesIndexRoute
+  DocumentsCertificatesIndexRoute: typeof DocumentsCertificatesIndexRoute
+  DocumentsIdCardsIndexRoute: typeof DocumentsIdCardsIndexRoute
+  DocumentsTemplatesIndexRoute: typeof DocumentsTemplatesIndexRoute
+  DocumentsVerificationIndexRoute: typeof DocumentsVerificationIndexRoute
   ExamsMarksIndexRoute: typeof ExamsMarksIndexRoute
   ExamsResultsIndexRoute: typeof ExamsResultsIndexRoute
   FeesStructureIndexRoute: typeof FeesStructureIndexRoute
   FeesStudentsIndexRoute: typeof FeesStudentsIndexRoute
+  FrontOfficeAppointmentsIndexRoute: typeof FrontOfficeAppointmentsIndexRoute
+  FrontOfficeCallsIndexRoute: typeof FrontOfficeCallsIndexRoute
+  FrontOfficeCorrespondenceIndexRoute: typeof FrontOfficeCorrespondenceIndexRoute
+  FrontOfficeEnquiriesIndexRoute: typeof FrontOfficeEnquiriesIndexRoute
+  FrontOfficeGatePassesIndexRoute: typeof FrontOfficeGatePassesIndexRoute
+  FrontOfficeVisitorsIndexRoute: typeof FrontOfficeVisitorsIndexRoute
+  HostelAllocationsIndexRoute: typeof HostelAllocationsIndexRoute
+  HostelHostelsIndexRoute: typeof HostelHostelsIndexRoute
+  HostelLeaveIndexRoute: typeof HostelLeaveIndexRoute
+  HrAttendanceIndexRoute: typeof HrAttendanceIndexRoute
+  HrLeaveIndexRoute: typeof HrLeaveIndexRoute
+  HrPayrollIndexRoute: typeof HrPayrollIndexRoute
+  HrStaffIndexRoute: typeof HrStaffIndexRoute
+  InventoryAssetsIndexRoute: typeof InventoryAssetsIndexRoute
+  InventoryItemsIndexRoute: typeof InventoryItemsIndexRoute
+  InventoryPurchaseOrdersIndexRoute: typeof InventoryPurchaseOrdersIndexRoute
+  InventoryVendorsIndexRoute: typeof InventoryVendorsIndexRoute
+  LibraryBooksIndexRoute: typeof LibraryBooksIndexRoute
+  LibraryTransactionsIndexRoute: typeof LibraryTransactionsIndexRoute
+  ParentChildrenIndexRoute: typeof ParentChildrenIndexRoute
+  ParentPtmIndexRoute: typeof ParentPtmIndexRoute
+  PtmAppointmentsIndexRoute: typeof PtmAppointmentsIndexRoute
+  PtmEventsIndexRoute: typeof PtmEventsIndexRoute
+  StudentAttendanceIndexRoute: typeof StudentAttendanceIndexRoute
+  StudentExamsIndexRoute: typeof StudentExamsIndexRoute
+  StudentFeesIndexRoute: typeof StudentFeesIndexRoute
+  StudentHomeworkIndexRoute: typeof StudentHomeworkIndexRoute
+  TeacherAssignmentsIndexRoute: typeof TeacherAssignmentsIndexRoute
+  TeacherClassesIndexRoute: typeof TeacherClassesIndexRoute
+  TeacherExamsIndexRoute: typeof TeacherExamsIndexRoute
+  TeacherPtmIndexRoute: typeof TeacherPtmIndexRoute
+  TeacherStudentsIndexRoute: typeof TeacherStudentsIndexRoute
+  TeacherSubmissionsIndexRoute: typeof TeacherSubmissionsIndexRoute
   TimetableClassesIndexRoute: typeof TimetableClassesIndexRoute
   TimetableRoomsIndexRoute: typeof TimetableRoomsIndexRoute
   TimetableTeachersIndexRoute: typeof TimetableTeachersIndexRoute
+  TransportDriversIndexRoute: typeof TransportDriversIndexRoute
+  TransportRoutesIndexRoute: typeof TransportRoutesIndexRoute
+  TransportVehiclesIndexRoute: typeof TransportVehiclesIndexRoute
   AcademicWorkAssignmentsAssignmentIdEditRoute: typeof AcademicWorkAssignmentsAssignmentIdEditRoute
+  DocumentsTemplatesIdEditRoute: typeof DocumentsTemplatesIdEditRoute
+  HrStaffStaffIdEditRoute: typeof HrStaffStaffIdEditRoute
+  LibraryBooksBookIdEditRoute: typeof LibraryBooksBookIdEditRoute
+  TransportVehiclesVehicleIdEditRoute: typeof TransportVehiclesVehicleIdEditRoute
   AcademicWorkAssignmentsAssignmentIdIndexRoute: typeof AcademicWorkAssignmentsAssignmentIdIndexRoute
+  HrStaffStaffIdIndexRoute: typeof HrStaffStaffIdIndexRoute
+  LibraryBooksBookIdIndexRoute: typeof LibraryBooksBookIdIndexRoute
+  TransportDriversDriverIdIndexRoute: typeof TransportDriversDriverIdIndexRoute
+  TransportRoutesRouteIdIndexRoute: typeof TransportRoutesRouteIdIndexRoute
+  TransportVehiclesVehicleIdIndexRoute: typeof TransportVehiclesVehicleIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1677,6 +4238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdmissionsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admissions/campaigns': {
+      id: '/admissions/campaigns'
+      path: '/admissions/campaigns'
+      fullPath: '/admissions/campaigns'
+      preLoaderRoute: typeof AdmissionsCampaignsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admissions/counselling': {
       id: '/admissions/counselling'
       path: '/admissions/counselling'
@@ -1698,11 +4266,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdmissionsFollowUpsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admissions/reports': {
+      id: '/admissions/reports'
+      path: '/admissions/reports'
+      fullPath: '/admissions/reports'
+      preLoaderRoute: typeof AdmissionsReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admissions/settings': {
       id: '/admissions/settings'
       path: '/admissions/settings'
       fullPath: '/admissions/settings'
       preLoaderRoute: typeof AdmissionsSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/verification': {
+      id: '/admissions/verification'
+      path: '/admissions/verification'
+      fullPath: '/admissions/verification'
+      preLoaderRoute: typeof AdmissionsVerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions/waitlist': {
+      id: '/admissions/waitlist'
+      path: '/admissions/waitlist'
+      fullPath: '/admissions/waitlist'
+      preLoaderRoute: typeof AdmissionsWaitlistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/attendance/': {
@@ -1766,6 +4355,48 @@ declare module '@tanstack/react-router' {
       path: '/communication/templates'
       fullPath: '/communication/templates'
       preLoaderRoute: typeof CommunicationTemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/': {
+      id: '/documents/'
+      path: '/documents'
+      fullPath: '/documents/'
+      preLoaderRoute: typeof DocumentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/bulk': {
+      id: '/documents/bulk'
+      path: '/documents/bulk'
+      fullPath: '/documents/bulk'
+      preLoaderRoute: typeof DocumentsBulkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/generate': {
+      id: '/documents/generate'
+      path: '/documents/generate'
+      fullPath: '/documents/generate'
+      preLoaderRoute: typeof DocumentsGenerateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/issued': {
+      id: '/documents/issued'
+      path: '/documents/issued'
+      fullPath: '/documents/issued'
+      preLoaderRoute: typeof DocumentsIssuedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/reports': {
+      id: '/documents/reports'
+      path: '/documents/reports'
+      fullPath: '/documents/reports'
+      preLoaderRoute: typeof DocumentsReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/settings': {
+      id: '/documents/settings'
+      path: '/documents/settings'
+      fullPath: '/documents/settings'
+      preLoaderRoute: typeof DocumentsSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/exams/': {
@@ -1880,6 +4511,391 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeesSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/front-office/': {
+      id: '/front-office/'
+      path: '/front-office'
+      fullPath: '/front-office/'
+      preLoaderRoute: typeof FrontOfficeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/reports': {
+      id: '/front-office/reports'
+      path: '/front-office/reports'
+      fullPath: '/front-office/reports'
+      preLoaderRoute: typeof FrontOfficeReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/settings': {
+      id: '/front-office/settings'
+      path: '/front-office/settings'
+      fullPath: '/front-office/settings'
+      preLoaderRoute: typeof FrontOfficeSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/tasks': {
+      id: '/front-office/tasks'
+      path: '/front-office/tasks'
+      fullPath: '/front-office/tasks'
+      preLoaderRoute: typeof FrontOfficeTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/': {
+      id: '/hostel/'
+      path: '/hostel'
+      fullPath: '/hostel/'
+      preLoaderRoute: typeof HostelIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/attendance': {
+      id: '/hostel/attendance'
+      path: '/hostel/attendance'
+      fullPath: '/hostel/attendance'
+      preLoaderRoute: typeof HostelAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/beds': {
+      id: '/hostel/beds'
+      path: '/hostel/beds'
+      fullPath: '/hostel/beds'
+      preLoaderRoute: typeof HostelBedsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/buildings': {
+      id: '/hostel/buildings'
+      path: '/hostel/buildings'
+      fullPath: '/hostel/buildings'
+      preLoaderRoute: typeof HostelBuildingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/complaints': {
+      id: '/hostel/complaints'
+      path: '/hostel/complaints'
+      fullPath: '/hostel/complaints'
+      preLoaderRoute: typeof HostelComplaintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/fees': {
+      id: '/hostel/fees'
+      path: '/hostel/fees'
+      fullPath: '/hostel/fees'
+      preLoaderRoute: typeof HostelFeesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/floors': {
+      id: '/hostel/floors'
+      path: '/hostel/floors'
+      fullPath: '/hostel/floors'
+      preLoaderRoute: typeof HostelFloorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/maintenance': {
+      id: '/hostel/maintenance'
+      path: '/hostel/maintenance'
+      fullPath: '/hostel/maintenance'
+      preLoaderRoute: typeof HostelMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/reports': {
+      id: '/hostel/reports'
+      path: '/hostel/reports'
+      fullPath: '/hostel/reports'
+      preLoaderRoute: typeof HostelReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/rooms': {
+      id: '/hostel/rooms'
+      path: '/hostel/rooms'
+      fullPath: '/hostel/rooms'
+      preLoaderRoute: typeof HostelRoomsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/settings': {
+      id: '/hostel/settings'
+      path: '/hostel/settings'
+      fullPath: '/hostel/settings'
+      preLoaderRoute: typeof HostelSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/students': {
+      id: '/hostel/students'
+      path: '/hostel/students'
+      fullPath: '/hostel/students'
+      preLoaderRoute: typeof HostelStudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/visitors': {
+      id: '/hostel/visitors'
+      path: '/hostel/visitors'
+      fullPath: '/hostel/visitors'
+      preLoaderRoute: typeof HostelVisitorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/': {
+      id: '/hr/'
+      path: '/hr'
+      fullPath: '/hr/'
+      preLoaderRoute: typeof HrIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/departments': {
+      id: '/hr/departments'
+      path: '/hr/departments'
+      fullPath: '/hr/departments'
+      preLoaderRoute: typeof HrDepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/designations': {
+      id: '/hr/designations'
+      path: '/hr/designations'
+      fullPath: '/hr/designations'
+      preLoaderRoute: typeof HrDesignationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/documents': {
+      id: '/hr/documents'
+      path: '/hr/documents'
+      fullPath: '/hr/documents'
+      preLoaderRoute: typeof HrDocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/reports': {
+      id: '/hr/reports'
+      path: '/hr/reports'
+      fullPath: '/hr/reports'
+      preLoaderRoute: typeof HrReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/settings': {
+      id: '/hr/settings'
+      path: '/hr/settings'
+      fullPath: '/hr/settings'
+      preLoaderRoute: typeof HrSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/': {
+      id: '/inventory/'
+      path: '/inventory'
+      fullPath: '/inventory/'
+      preLoaderRoute: typeof InventoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/assignments': {
+      id: '/inventory/assignments'
+      path: '/inventory/assignments'
+      fullPath: '/inventory/assignments'
+      preLoaderRoute: typeof InventoryAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/categories': {
+      id: '/inventory/categories'
+      path: '/inventory/categories'
+      fullPath: '/inventory/categories'
+      preLoaderRoute: typeof InventoryCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/maintenance': {
+      id: '/inventory/maintenance'
+      path: '/inventory/maintenance'
+      fullPath: '/inventory/maintenance'
+      preLoaderRoute: typeof InventoryMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/reports': {
+      id: '/inventory/reports'
+      path: '/inventory/reports'
+      fullPath: '/inventory/reports'
+      preLoaderRoute: typeof InventoryReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/settings': {
+      id: '/inventory/settings'
+      path: '/inventory/settings'
+      fullPath: '/inventory/settings'
+      preLoaderRoute: typeof InventorySettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/stock-in': {
+      id: '/inventory/stock-in'
+      path: '/inventory/stock-in'
+      fullPath: '/inventory/stock-in'
+      preLoaderRoute: typeof InventoryStockInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/stock-out': {
+      id: '/inventory/stock-out'
+      path: '/inventory/stock-out'
+      fullPath: '/inventory/stock-out'
+      preLoaderRoute: typeof InventoryStockOutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/transfers': {
+      id: '/inventory/transfers'
+      path: '/inventory/transfers'
+      fullPath: '/inventory/transfers'
+      preLoaderRoute: typeof InventoryTransfersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/': {
+      id: '/library/'
+      path: '/library'
+      fullPath: '/library/'
+      preLoaderRoute: typeof LibraryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/authors': {
+      id: '/library/authors'
+      path: '/library/authors'
+      fullPath: '/library/authors'
+      preLoaderRoute: typeof LibraryAuthorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/categories': {
+      id: '/library/categories'
+      path: '/library/categories'
+      fullPath: '/library/categories'
+      preLoaderRoute: typeof LibraryCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/fines': {
+      id: '/library/fines'
+      path: '/library/fines'
+      fullPath: '/library/fines'
+      preLoaderRoute: typeof LibraryFinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/members': {
+      id: '/library/members'
+      path: '/library/members'
+      fullPath: '/library/members'
+      preLoaderRoute: typeof LibraryMembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/publishers': {
+      id: '/library/publishers'
+      path: '/library/publishers'
+      fullPath: '/library/publishers'
+      preLoaderRoute: typeof LibraryPublishersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/reports': {
+      id: '/library/reports'
+      path: '/library/reports'
+      fullPath: '/library/reports'
+      preLoaderRoute: typeof LibraryReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/reservations': {
+      id: '/library/reservations'
+      path: '/library/reservations'
+      fullPath: '/library/reservations'
+      preLoaderRoute: typeof LibraryReservationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/settings': {
+      id: '/library/settings'
+      path: '/library/settings'
+      fullPath: '/library/settings'
+      preLoaderRoute: typeof LibrarySettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/': {
+      id: '/parent/'
+      path: '/parent'
+      fullPath: '/parent/'
+      preLoaderRoute: typeof ParentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/attendance': {
+      id: '/parent/attendance'
+      path: '/parent/attendance'
+      fullPath: '/parent/attendance'
+      preLoaderRoute: typeof ParentAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/documents': {
+      id: '/parent/documents'
+      path: '/parent/documents'
+      fullPath: '/parent/documents'
+      preLoaderRoute: typeof ParentDocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/exams': {
+      id: '/parent/exams'
+      path: '/parent/exams'
+      fullPath: '/parent/exams'
+      preLoaderRoute: typeof ParentExamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/fees': {
+      id: '/parent/fees'
+      path: '/parent/fees'
+      fullPath: '/parent/fees'
+      preLoaderRoute: typeof ParentFeesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/homework': {
+      id: '/parent/homework'
+      path: '/parent/homework'
+      fullPath: '/parent/homework'
+      preLoaderRoute: typeof ParentHomeworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/hostel': {
+      id: '/parent/hostel'
+      path: '/parent/hostel'
+      fullPath: '/parent/hostel'
+      preLoaderRoute: typeof ParentHostelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/messages': {
+      id: '/parent/messages'
+      path: '/parent/messages'
+      fullPath: '/parent/messages'
+      preLoaderRoute: typeof ParentMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/notices': {
+      id: '/parent/notices'
+      path: '/parent/notices'
+      fullPath: '/parent/notices'
+      preLoaderRoute: typeof ParentNoticesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/notifications': {
+      id: '/parent/notifications'
+      path: '/parent/notifications'
+      fullPath: '/parent/notifications'
+      preLoaderRoute: typeof ParentNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/profile': {
+      id: '/parent/profile'
+      path: '/parent/profile'
+      fullPath: '/parent/profile'
+      preLoaderRoute: typeof ParentProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/settings': {
+      id: '/parent/settings'
+      path: '/parent/settings'
+      fullPath: '/parent/settings'
+      preLoaderRoute: typeof ParentSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/timetable': {
+      id: '/parent/timetable'
+      path: '/parent/timetable'
+      fullPath: '/parent/timetable'
+      preLoaderRoute: typeof ParentTimetableRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/transport': {
+      id: '/parent/transport'
+      path: '/parent/transport'
+      fullPath: '/parent/transport'
+      preLoaderRoute: typeof ParentTransportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/parents/': {
       id: '/parents/'
       path: '/parents'
@@ -1892,6 +4908,118 @@ declare module '@tanstack/react-router' {
       path: '/parents/$parentId'
       fullPath: '/parents/$parentId'
       preLoaderRoute: typeof ParentsParentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/': {
+      id: '/ptm/'
+      path: '/ptm'
+      fullPath: '/ptm/'
+      preLoaderRoute: typeof PtmIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/availability': {
+      id: '/ptm/availability'
+      path: '/ptm/availability'
+      fullPath: '/ptm/availability'
+      preLoaderRoute: typeof PtmAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/reports': {
+      id: '/ptm/reports'
+      path: '/ptm/reports'
+      fullPath: '/ptm/reports'
+      preLoaderRoute: typeof PtmReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/settings': {
+      id: '/ptm/settings'
+      path: '/ptm/settings'
+      fullPath: '/ptm/settings'
+      preLoaderRoute: typeof PtmSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/slots': {
+      id: '/ptm/slots'
+      path: '/ptm/slots'
+      fullPath: '/ptm/slots'
+      preLoaderRoute: typeof PtmSlotsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/': {
+      id: '/student/'
+      path: '/student'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/documents': {
+      id: '/student/documents'
+      path: '/student/documents'
+      fullPath: '/student/documents'
+      preLoaderRoute: typeof StudentDocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/hostel': {
+      id: '/student/hostel'
+      path: '/student/hostel'
+      fullPath: '/student/hostel'
+      preLoaderRoute: typeof StudentHostelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/library': {
+      id: '/student/library'
+      path: '/student/library'
+      fullPath: '/student/library'
+      preLoaderRoute: typeof StudentLibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/messages': {
+      id: '/student/messages'
+      path: '/student/messages'
+      fullPath: '/student/messages'
+      preLoaderRoute: typeof StudentMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/notices': {
+      id: '/student/notices'
+      path: '/student/notices'
+      fullPath: '/student/notices'
+      preLoaderRoute: typeof StudentNoticesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/notifications': {
+      id: '/student/notifications'
+      path: '/student/notifications'
+      fullPath: '/student/notifications'
+      preLoaderRoute: typeof StudentNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/profile': {
+      id: '/student/profile'
+      path: '/student/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/settings': {
+      id: '/student/settings'
+      path: '/student/settings'
+      fullPath: '/student/settings'
+      preLoaderRoute: typeof StudentSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/timetable': {
+      id: '/student/timetable'
+      path: '/student/timetable'
+      fullPath: '/student/timetable'
+      preLoaderRoute: typeof StudentTimetableRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/transport': {
+      id: '/student/transport'
+      path: '/student/transport'
+      fullPath: '/student/transport'
+      preLoaderRoute: typeof StudentTransportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/students/': {
@@ -1920,6 +5048,62 @@ declare module '@tanstack/react-router' {
       path: '/students/promotions'
       fullPath: '/students/promotions'
       preLoaderRoute: typeof StudentsPromotionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/': {
+      id: '/teacher/'
+      path: '/teacher'
+      fullPath: '/teacher/'
+      preLoaderRoute: typeof TeacherIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/attendance': {
+      id: '/teacher/attendance'
+      path: '/teacher/attendance'
+      fullPath: '/teacher/attendance'
+      preLoaderRoute: typeof TeacherAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/messages': {
+      id: '/teacher/messages'
+      path: '/teacher/messages'
+      fullPath: '/teacher/messages'
+      preLoaderRoute: typeof TeacherMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/notices': {
+      id: '/teacher/notices'
+      path: '/teacher/notices'
+      fullPath: '/teacher/notices'
+      preLoaderRoute: typeof TeacherNoticesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/notifications': {
+      id: '/teacher/notifications'
+      path: '/teacher/notifications'
+      fullPath: '/teacher/notifications'
+      preLoaderRoute: typeof TeacherNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/profile': {
+      id: '/teacher/profile'
+      path: '/teacher/profile'
+      fullPath: '/teacher/profile'
+      preLoaderRoute: typeof TeacherProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/settings': {
+      id: '/teacher/settings'
+      path: '/teacher/settings'
+      fullPath: '/teacher/settings'
+      preLoaderRoute: typeof TeacherSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/timetable': {
+      id: '/teacher/timetable'
+      path: '/teacher/timetable'
+      fullPath: '/teacher/timetable'
+      preLoaderRoute: typeof TeacherTimetableRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/timetable/': {
@@ -1955,6 +5139,76 @@ declare module '@tanstack/react-router' {
       path: '/timetable/substitutions'
       fullPath: '/timetable/substitutions'
       preLoaderRoute: typeof TimetableSubstitutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/': {
+      id: '/transport/'
+      path: '/transport'
+      fullPath: '/transport/'
+      preLoaderRoute: typeof TransportIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/assignments': {
+      id: '/transport/assignments'
+      path: '/transport/assignments'
+      fullPath: '/transport/assignments'
+      preLoaderRoute: typeof TransportAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/fees': {
+      id: '/transport/fees'
+      path: '/transport/fees'
+      fullPath: '/transport/fees'
+      preLoaderRoute: typeof TransportFeesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/maintenance': {
+      id: '/transport/maintenance'
+      path: '/transport/maintenance'
+      fullPath: '/transport/maintenance'
+      preLoaderRoute: typeof TransportMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/reports': {
+      id: '/transport/reports'
+      path: '/transport/reports'
+      fullPath: '/transport/reports'
+      preLoaderRoute: typeof TransportReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/settings': {
+      id: '/transport/settings'
+      path: '/transport/settings'
+      fullPath: '/transport/settings'
+      preLoaderRoute: typeof TransportSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/stops': {
+      id: '/transport/stops'
+      path: '/transport/stops'
+      fullPath: '/transport/stops'
+      preLoaderRoute: typeof TransportStopsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/students': {
+      id: '/transport/students'
+      path: '/transport/students'
+      fullPath: '/transport/students'
+      preLoaderRoute: typeof TransportStudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/trips': {
+      id: '/transport/trips'
+      path: '/transport/trips'
+      fullPath: '/transport/trips'
+      preLoaderRoute: typeof TransportTripsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify/$number': {
+      id: '/verify/$number'
+      path: '/verify/$number'
+      fullPath: '/verify/$number'
+      preLoaderRoute: typeof VerifyNumberRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/academic-work/assignments/': {
@@ -2237,6 +5491,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommunicationNoticesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/documents/certificates/': {
+      id: '/documents/certificates/'
+      path: '/documents/certificates'
+      fullPath: '/documents/certificates/'
+      preLoaderRoute: typeof DocumentsCertificatesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/certificates/$id': {
+      id: '/documents/certificates/$id'
+      path: '/documents/certificates/$id'
+      fullPath: '/documents/certificates/$id'
+      preLoaderRoute: typeof DocumentsCertificatesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/id-cards/': {
+      id: '/documents/id-cards/'
+      path: '/documents/id-cards'
+      fullPath: '/documents/id-cards/'
+      preLoaderRoute: typeof DocumentsIdCardsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/id-cards/new': {
+      id: '/documents/id-cards/new'
+      path: '/documents/id-cards/new'
+      fullPath: '/documents/id-cards/new'
+      preLoaderRoute: typeof DocumentsIdCardsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/templates/': {
+      id: '/documents/templates/'
+      path: '/documents/templates'
+      fullPath: '/documents/templates/'
+      preLoaderRoute: typeof DocumentsTemplatesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/templates/new': {
+      id: '/documents/templates/new'
+      path: '/documents/templates/new'
+      fullPath: '/documents/templates/new'
+      preLoaderRoute: typeof DocumentsTemplatesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/verification/': {
+      id: '/documents/verification/'
+      path: '/documents/verification'
+      fullPath: '/documents/verification/'
+      preLoaderRoute: typeof DocumentsVerificationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/verification/$number': {
+      id: '/documents/verification/$number'
+      path: '/documents/verification/$number'
+      fullPath: '/documents/verification/$number'
+      preLoaderRoute: typeof DocumentsVerificationNumberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/exams/marks/': {
       id: '/exams/marks/'
       path: '/exams/marks'
@@ -2300,12 +5610,523 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeesStudentsStudentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/front-office/appointments/': {
+      id: '/front-office/appointments/'
+      path: '/front-office/appointments'
+      fullPath: '/front-office/appointments/'
+      preLoaderRoute: typeof FrontOfficeAppointmentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/appointments/new': {
+      id: '/front-office/appointments/new'
+      path: '/front-office/appointments/new'
+      fullPath: '/front-office/appointments/new'
+      preLoaderRoute: typeof FrontOfficeAppointmentsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/calls/': {
+      id: '/front-office/calls/'
+      path: '/front-office/calls'
+      fullPath: '/front-office/calls/'
+      preLoaderRoute: typeof FrontOfficeCallsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/calls/new': {
+      id: '/front-office/calls/new'
+      path: '/front-office/calls/new'
+      fullPath: '/front-office/calls/new'
+      preLoaderRoute: typeof FrontOfficeCallsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/correspondence/': {
+      id: '/front-office/correspondence/'
+      path: '/front-office/correspondence'
+      fullPath: '/front-office/correspondence/'
+      preLoaderRoute: typeof FrontOfficeCorrespondenceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/correspondence/new': {
+      id: '/front-office/correspondence/new'
+      path: '/front-office/correspondence/new'
+      fullPath: '/front-office/correspondence/new'
+      preLoaderRoute: typeof FrontOfficeCorrespondenceNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/enquiries/': {
+      id: '/front-office/enquiries/'
+      path: '/front-office/enquiries'
+      fullPath: '/front-office/enquiries/'
+      preLoaderRoute: typeof FrontOfficeEnquiriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/gate-pass/$passNumber': {
+      id: '/front-office/gate-pass/$passNumber'
+      path: '/front-office/gate-pass/$passNumber'
+      fullPath: '/front-office/gate-pass/$passNumber'
+      preLoaderRoute: typeof FrontOfficeGatePassPassNumberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/gate-passes/': {
+      id: '/front-office/gate-passes/'
+      path: '/front-office/gate-passes'
+      fullPath: '/front-office/gate-passes/'
+      preLoaderRoute: typeof FrontOfficeGatePassesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/gate-passes/$id': {
+      id: '/front-office/gate-passes/$id'
+      path: '/front-office/gate-passes/$id'
+      fullPath: '/front-office/gate-passes/$id'
+      preLoaderRoute: typeof FrontOfficeGatePassesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/visitors/': {
+      id: '/front-office/visitors/'
+      path: '/front-office/visitors'
+      fullPath: '/front-office/visitors/'
+      preLoaderRoute: typeof FrontOfficeVisitorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/front-office/visitors/new': {
+      id: '/front-office/visitors/new'
+      path: '/front-office/visitors/new'
+      fullPath: '/front-office/visitors/new'
+      preLoaderRoute: typeof FrontOfficeVisitorsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/allocations/': {
+      id: '/hostel/allocations/'
+      path: '/hostel/allocations'
+      fullPath: '/hostel/allocations/'
+      preLoaderRoute: typeof HostelAllocationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/allocations/new': {
+      id: '/hostel/allocations/new'
+      path: '/hostel/allocations/new'
+      fullPath: '/hostel/allocations/new'
+      preLoaderRoute: typeof HostelAllocationsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/hostels/': {
+      id: '/hostel/hostels/'
+      path: '/hostel/hostels'
+      fullPath: '/hostel/hostels/'
+      preLoaderRoute: typeof HostelHostelsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/hostels/new': {
+      id: '/hostel/hostels/new'
+      path: '/hostel/hostels/new'
+      fullPath: '/hostel/hostels/new'
+      preLoaderRoute: typeof HostelHostelsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hostel/leave/': {
+      id: '/hostel/leave/'
+      path: '/hostel/leave'
+      fullPath: '/hostel/leave/'
+      preLoaderRoute: typeof HostelLeaveIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/attendance/': {
+      id: '/hr/attendance/'
+      path: '/hr/attendance'
+      fullPath: '/hr/attendance/'
+      preLoaderRoute: typeof HrAttendanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/attendance/take': {
+      id: '/hr/attendance/take'
+      path: '/hr/attendance/take'
+      fullPath: '/hr/attendance/take'
+      preLoaderRoute: typeof HrAttendanceTakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/leave/': {
+      id: '/hr/leave/'
+      path: '/hr/leave'
+      fullPath: '/hr/leave/'
+      preLoaderRoute: typeof HrLeaveIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/leave/new': {
+      id: '/hr/leave/new'
+      path: '/hr/leave/new'
+      fullPath: '/hr/leave/new'
+      preLoaderRoute: typeof HrLeaveNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/payroll/': {
+      id: '/hr/payroll/'
+      path: '/hr/payroll'
+      fullPath: '/hr/payroll/'
+      preLoaderRoute: typeof HrPayrollIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/payroll/$staffId': {
+      id: '/hr/payroll/$staffId'
+      path: '/hr/payroll/$staffId'
+      fullPath: '/hr/payroll/$staffId'
+      preLoaderRoute: typeof HrPayrollStaffIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/staff/': {
+      id: '/hr/staff/'
+      path: '/hr/staff'
+      fullPath: '/hr/staff/'
+      preLoaderRoute: typeof HrStaffIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/staff/new': {
+      id: '/hr/staff/new'
+      path: '/hr/staff/new'
+      fullPath: '/hr/staff/new'
+      preLoaderRoute: typeof HrStaffNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/assets/': {
+      id: '/inventory/assets/'
+      path: '/inventory/assets'
+      fullPath: '/inventory/assets/'
+      preLoaderRoute: typeof InventoryAssetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/assets/$assetId': {
+      id: '/inventory/assets/$assetId'
+      path: '/inventory/assets/$assetId'
+      fullPath: '/inventory/assets/$assetId'
+      preLoaderRoute: typeof InventoryAssetsAssetIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/assets/new': {
+      id: '/inventory/assets/new'
+      path: '/inventory/assets/new'
+      fullPath: '/inventory/assets/new'
+      preLoaderRoute: typeof InventoryAssetsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/items/': {
+      id: '/inventory/items/'
+      path: '/inventory/items'
+      fullPath: '/inventory/items/'
+      preLoaderRoute: typeof InventoryItemsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/items/$itemId': {
+      id: '/inventory/items/$itemId'
+      path: '/inventory/items/$itemId'
+      fullPath: '/inventory/items/$itemId'
+      preLoaderRoute: typeof InventoryItemsItemIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/items/new': {
+      id: '/inventory/items/new'
+      path: '/inventory/items/new'
+      fullPath: '/inventory/items/new'
+      preLoaderRoute: typeof InventoryItemsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/purchase-orders/': {
+      id: '/inventory/purchase-orders/'
+      path: '/inventory/purchase-orders'
+      fullPath: '/inventory/purchase-orders/'
+      preLoaderRoute: typeof InventoryPurchaseOrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/purchase-orders/$orderId': {
+      id: '/inventory/purchase-orders/$orderId'
+      path: '/inventory/purchase-orders/$orderId'
+      fullPath: '/inventory/purchase-orders/$orderId'
+      preLoaderRoute: typeof InventoryPurchaseOrdersOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/purchase-orders/new': {
+      id: '/inventory/purchase-orders/new'
+      path: '/inventory/purchase-orders/new'
+      fullPath: '/inventory/purchase-orders/new'
+      preLoaderRoute: typeof InventoryPurchaseOrdersNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/vendors/': {
+      id: '/inventory/vendors/'
+      path: '/inventory/vendors'
+      fullPath: '/inventory/vendors/'
+      preLoaderRoute: typeof InventoryVendorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/vendors/$vendorId': {
+      id: '/inventory/vendors/$vendorId'
+      path: '/inventory/vendors/$vendorId'
+      fullPath: '/inventory/vendors/$vendorId'
+      preLoaderRoute: typeof InventoryVendorsVendorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/vendors/new': {
+      id: '/inventory/vendors/new'
+      path: '/inventory/vendors/new'
+      fullPath: '/inventory/vendors/new'
+      preLoaderRoute: typeof InventoryVendorsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/books/': {
+      id: '/library/books/'
+      path: '/library/books'
+      fullPath: '/library/books/'
+      preLoaderRoute: typeof LibraryBooksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/books/new': {
+      id: '/library/books/new'
+      path: '/library/books/new'
+      fullPath: '/library/books/new'
+      preLoaderRoute: typeof LibraryBooksNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/transactions/': {
+      id: '/library/transactions/'
+      path: '/library/transactions'
+      fullPath: '/library/transactions/'
+      preLoaderRoute: typeof LibraryTransactionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/transactions/issue': {
+      id: '/library/transactions/issue'
+      path: '/library/transactions/issue'
+      fullPath: '/library/transactions/issue'
+      preLoaderRoute: typeof LibraryTransactionsIssueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/children/': {
+      id: '/parent/children/'
+      path: '/parent/children'
+      fullPath: '/parent/children/'
+      preLoaderRoute: typeof ParentChildrenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/children/$studentId': {
+      id: '/parent/children/$studentId'
+      path: '/parent/children/$studentId'
+      fullPath: '/parent/children/$studentId'
+      preLoaderRoute: typeof ParentChildrenStudentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/ptm/': {
+      id: '/parent/ptm/'
+      path: '/parent/ptm'
+      fullPath: '/parent/ptm/'
+      preLoaderRoute: typeof ParentPtmIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/ptm/$eventId': {
+      id: '/parent/ptm/$eventId'
+      path: '/parent/ptm/$eventId'
+      fullPath: '/parent/ptm/$eventId'
+      preLoaderRoute: typeof ParentPtmEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/ptm/appointments': {
+      id: '/parent/ptm/appointments'
+      path: '/parent/ptm/appointments'
+      fullPath: '/parent/ptm/appointments'
+      preLoaderRoute: typeof ParentPtmAppointmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/appointments/': {
+      id: '/ptm/appointments/'
+      path: '/ptm/appointments'
+      fullPath: '/ptm/appointments/'
+      preLoaderRoute: typeof PtmAppointmentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/appointments/$appointmentId': {
+      id: '/ptm/appointments/$appointmentId'
+      path: '/ptm/appointments/$appointmentId'
+      fullPath: '/ptm/appointments/$appointmentId'
+      preLoaderRoute: typeof PtmAppointmentsAppointmentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/events/': {
+      id: '/ptm/events/'
+      path: '/ptm/events'
+      fullPath: '/ptm/events/'
+      preLoaderRoute: typeof PtmEventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/events/$eventId': {
+      id: '/ptm/events/$eventId'
+      path: '/ptm/events/$eventId'
+      fullPath: '/ptm/events/$eventId'
+      preLoaderRoute: typeof PtmEventsEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ptm/events/new': {
+      id: '/ptm/events/new'
+      path: '/ptm/events/new'
+      fullPath: '/ptm/events/new'
+      preLoaderRoute: typeof PtmEventsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/attendance/': {
+      id: '/student/attendance/'
+      path: '/student/attendance'
+      fullPath: '/student/attendance/'
+      preLoaderRoute: typeof StudentAttendanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/attendance/$month': {
+      id: '/student/attendance/$month'
+      path: '/student/attendance/$month'
+      fullPath: '/student/attendance/$month'
+      preLoaderRoute: typeof StudentAttendanceMonthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/exams/': {
+      id: '/student/exams/'
+      path: '/student/exams'
+      fullPath: '/student/exams/'
+      preLoaderRoute: typeof StudentExamsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/exams/$examId': {
+      id: '/student/exams/$examId'
+      path: '/student/exams/$examId'
+      fullPath: '/student/exams/$examId'
+      preLoaderRoute: typeof StudentExamsExamIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/fees/': {
+      id: '/student/fees/'
+      path: '/student/fees'
+      fullPath: '/student/fees/'
+      preLoaderRoute: typeof StudentFeesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/fees/receipts': {
+      id: '/student/fees/receipts'
+      path: '/student/fees/receipts'
+      fullPath: '/student/fees/receipts'
+      preLoaderRoute: typeof StudentFeesReceiptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/homework/': {
+      id: '/student/homework/'
+      path: '/student/homework'
+      fullPath: '/student/homework/'
+      preLoaderRoute: typeof StudentHomeworkIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/homework/$assignmentId': {
+      id: '/student/homework/$assignmentId'
+      path: '/student/homework/$assignmentId'
+      fullPath: '/student/homework/$assignmentId'
+      preLoaderRoute: typeof StudentHomeworkAssignmentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students/$studentId/edit': {
       id: '/students/$studentId/edit'
       path: '/edit'
       fullPath: '/students/$studentId/edit'
       preLoaderRoute: typeof StudentsStudentIdEditRouteImport
       parentRoute: typeof StudentsStudentIdRoute
+    }
+    '/teacher/assignments/': {
+      id: '/teacher/assignments/'
+      path: '/teacher/assignments'
+      fullPath: '/teacher/assignments/'
+      preLoaderRoute: typeof TeacherAssignmentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/assignments/new': {
+      id: '/teacher/assignments/new'
+      path: '/teacher/assignments/new'
+      fullPath: '/teacher/assignments/new'
+      preLoaderRoute: typeof TeacherAssignmentsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/classes/': {
+      id: '/teacher/classes/'
+      path: '/teacher/classes'
+      fullPath: '/teacher/classes/'
+      preLoaderRoute: typeof TeacherClassesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/classes/$classId': {
+      id: '/teacher/classes/$classId'
+      path: '/teacher/classes/$classId'
+      fullPath: '/teacher/classes/$classId'
+      preLoaderRoute: typeof TeacherClassesClassIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/exams/': {
+      id: '/teacher/exams/'
+      path: '/teacher/exams'
+      fullPath: '/teacher/exams/'
+      preLoaderRoute: typeof TeacherExamsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/marks/$examId': {
+      id: '/teacher/marks/$examId'
+      path: '/teacher/marks/$examId'
+      fullPath: '/teacher/marks/$examId'
+      preLoaderRoute: typeof TeacherMarksExamIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/ptm/': {
+      id: '/teacher/ptm/'
+      path: '/teacher/ptm'
+      fullPath: '/teacher/ptm/'
+      preLoaderRoute: typeof TeacherPtmIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/ptm/$eventId': {
+      id: '/teacher/ptm/$eventId'
+      path: '/teacher/ptm/$eventId'
+      fullPath: '/teacher/ptm/$eventId'
+      preLoaderRoute: typeof TeacherPtmEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/ptm/appointments': {
+      id: '/teacher/ptm/appointments'
+      path: '/teacher/ptm/appointments'
+      fullPath: '/teacher/ptm/appointments'
+      preLoaderRoute: typeof TeacherPtmAppointmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/ptm/availability': {
+      id: '/teacher/ptm/availability'
+      path: '/teacher/ptm/availability'
+      fullPath: '/teacher/ptm/availability'
+      preLoaderRoute: typeof TeacherPtmAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/students/': {
+      id: '/teacher/students/'
+      path: '/teacher/students'
+      fullPath: '/teacher/students/'
+      preLoaderRoute: typeof TeacherStudentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/students/$studentId': {
+      id: '/teacher/students/$studentId'
+      path: '/teacher/students/$studentId'
+      fullPath: '/teacher/students/$studentId'
+      preLoaderRoute: typeof TeacherStudentsStudentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/submissions/': {
+      id: '/teacher/submissions/'
+      path: '/teacher/submissions'
+      fullPath: '/teacher/submissions/'
+      preLoaderRoute: typeof TeacherSubmissionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/submissions/$assignmentId': {
+      id: '/teacher/submissions/$assignmentId'
+      path: '/teacher/submissions/$assignmentId'
+      fullPath: '/teacher/submissions/$assignmentId'
+      preLoaderRoute: typeof TeacherSubmissionsAssignmentIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/timetable/classes/': {
       id: '/timetable/classes/'
@@ -2342,6 +6163,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TimetableTeachersTeacherIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/transport/drivers/': {
+      id: '/transport/drivers/'
+      path: '/transport/drivers'
+      fullPath: '/transport/drivers/'
+      preLoaderRoute: typeof TransportDriversIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/drivers/new': {
+      id: '/transport/drivers/new'
+      path: '/transport/drivers/new'
+      fullPath: '/transport/drivers/new'
+      preLoaderRoute: typeof TransportDriversNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/routes/': {
+      id: '/transport/routes/'
+      path: '/transport/routes'
+      fullPath: '/transport/routes/'
+      preLoaderRoute: typeof TransportRoutesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/routes/new': {
+      id: '/transport/routes/new'
+      path: '/transport/routes/new'
+      fullPath: '/transport/routes/new'
+      preLoaderRoute: typeof TransportRoutesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/vehicles/': {
+      id: '/transport/vehicles/'
+      path: '/transport/vehicles'
+      fullPath: '/transport/vehicles/'
+      preLoaderRoute: typeof TransportVehiclesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/vehicles/new': {
+      id: '/transport/vehicles/new'
+      path: '/transport/vehicles/new'
+      fullPath: '/transport/vehicles/new'
+      preLoaderRoute: typeof TransportVehiclesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/academic-work/assignments/$assignmentId/': {
       id: '/academic-work/assignments/$assignmentId/'
       path: '/academic-work/assignments/$assignmentId'
@@ -2354,6 +6217,69 @@ declare module '@tanstack/react-router' {
       path: '/academic-work/assignments/$assignmentId/edit'
       fullPath: '/academic-work/assignments/$assignmentId/edit'
       preLoaderRoute: typeof AcademicWorkAssignmentsAssignmentIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents/templates/$id/edit': {
+      id: '/documents/templates/$id/edit'
+      path: '/documents/templates/$id/edit'
+      fullPath: '/documents/templates/$id/edit'
+      preLoaderRoute: typeof DocumentsTemplatesIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/staff/$staffId/': {
+      id: '/hr/staff/$staffId/'
+      path: '/hr/staff/$staffId'
+      fullPath: '/hr/staff/$staffId/'
+      preLoaderRoute: typeof HrStaffStaffIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr/staff/$staffId/edit': {
+      id: '/hr/staff/$staffId/edit'
+      path: '/hr/staff/$staffId/edit'
+      fullPath: '/hr/staff/$staffId/edit'
+      preLoaderRoute: typeof HrStaffStaffIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/books/$bookId/': {
+      id: '/library/books/$bookId/'
+      path: '/library/books/$bookId'
+      fullPath: '/library/books/$bookId/'
+      preLoaderRoute: typeof LibraryBooksBookIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/books/$bookId/edit': {
+      id: '/library/books/$bookId/edit'
+      path: '/library/books/$bookId/edit'
+      fullPath: '/library/books/$bookId/edit'
+      preLoaderRoute: typeof LibraryBooksBookIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/drivers/$driverId/': {
+      id: '/transport/drivers/$driverId/'
+      path: '/transport/drivers/$driverId'
+      fullPath: '/transport/drivers/$driverId/'
+      preLoaderRoute: typeof TransportDriversDriverIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/routes/$routeId/': {
+      id: '/transport/routes/$routeId/'
+      path: '/transport/routes/$routeId'
+      fullPath: '/transport/routes/$routeId/'
+      preLoaderRoute: typeof TransportRoutesRouteIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/vehicles/$vehicleId/': {
+      id: '/transport/vehicles/$vehicleId/'
+      path: '/transport/vehicles/$vehicleId'
+      fullPath: '/transport/vehicles/$vehicleId/'
+      preLoaderRoute: typeof TransportVehiclesVehicleIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport/vehicles/$vehicleId/edit': {
+      id: '/transport/vehicles/$vehicleId/edit'
+      path: '/transport/vehicles/$vehicleId/edit'
+      fullPath: '/transport/vehicles/$vehicleId/edit'
+      preLoaderRoute: typeof TransportVehiclesVehicleIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -2386,10 +6312,14 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicWorkSettingsRoute: AcademicWorkSettingsRoute,
   AcademicsAssignmentsRoute: AcademicsAssignmentsRoute,
   AcademicsSettingsRoute: AcademicsSettingsRoute,
+  AdmissionsCampaignsRoute: AdmissionsCampaignsRoute,
   AdmissionsCounsellingRoute: AdmissionsCounsellingRoute,
   AdmissionsDocumentsRoute: AdmissionsDocumentsRoute,
   AdmissionsFollowUpsRoute: AdmissionsFollowUpsRoute,
+  AdmissionsReportsRoute: AdmissionsReportsRoute,
   AdmissionsSettingsRoute: AdmissionsSettingsRoute,
+  AdmissionsVerificationRoute: AdmissionsVerificationRoute,
+  AdmissionsWaitlistRoute: AdmissionsWaitlistRoute,
   AttendanceLeaveRoute: AttendanceLeaveRoute,
   AttendanceReportsRoute: AttendanceReportsRoute,
   AttendanceSettingsRoute: AttendanceSettingsRoute,
@@ -2397,6 +6327,11 @@ const rootRouteChildren: RootRouteChildren = {
   CommunicationNotificationsRoute: CommunicationNotificationsRoute,
   CommunicationSettingsRoute: CommunicationSettingsRoute,
   CommunicationTemplatesRoute: CommunicationTemplatesRoute,
+  DocumentsBulkRoute: DocumentsBulkRoute,
+  DocumentsGenerateRoute: DocumentsGenerateRoute,
+  DocumentsIssuedRoute: DocumentsIssuedRoute,
+  DocumentsReportsRoute: DocumentsReportsRoute,
+  DocumentsSettingsRoute: DocumentsSettingsRoute,
   ExamsExamIdRoute: ExamsExamIdRoute,
   ExamsListRoute: ExamsListRoute,
   ExamsNewRoute: ExamsNewRoute,
@@ -2411,24 +6346,114 @@ const rootRouteChildren: RootRouteChildren = {
   FeesReceiptsRoute: FeesReceiptsRoute,
   FeesReportsRoute: FeesReportsRoute,
   FeesSettingsRoute: FeesSettingsRoute,
+  FrontOfficeReportsRoute: FrontOfficeReportsRoute,
+  FrontOfficeSettingsRoute: FrontOfficeSettingsRoute,
+  FrontOfficeTasksRoute: FrontOfficeTasksRoute,
+  HostelAttendanceRoute: HostelAttendanceRoute,
+  HostelBedsRoute: HostelBedsRoute,
+  HostelBuildingsRoute: HostelBuildingsRoute,
+  HostelComplaintsRoute: HostelComplaintsRoute,
+  HostelFeesRoute: HostelFeesRoute,
+  HostelFloorsRoute: HostelFloorsRoute,
+  HostelMaintenanceRoute: HostelMaintenanceRoute,
+  HostelReportsRoute: HostelReportsRoute,
+  HostelRoomsRoute: HostelRoomsRoute,
+  HostelSettingsRoute: HostelSettingsRoute,
+  HostelStudentsRoute: HostelStudentsRoute,
+  HostelVisitorsRoute: HostelVisitorsRoute,
+  HrDepartmentsRoute: HrDepartmentsRoute,
+  HrDesignationsRoute: HrDesignationsRoute,
+  HrDocumentsRoute: HrDocumentsRoute,
+  HrReportsRoute: HrReportsRoute,
+  HrSettingsRoute: HrSettingsRoute,
+  InventoryAssignmentsRoute: InventoryAssignmentsRoute,
+  InventoryCategoriesRoute: InventoryCategoriesRoute,
+  InventoryMaintenanceRoute: InventoryMaintenanceRoute,
+  InventoryReportsRoute: InventoryReportsRoute,
+  InventorySettingsRoute: InventorySettingsRoute,
+  InventoryStockInRoute: InventoryStockInRoute,
+  InventoryStockOutRoute: InventoryStockOutRoute,
+  InventoryTransfersRoute: InventoryTransfersRoute,
+  LibraryAuthorsRoute: LibraryAuthorsRoute,
+  LibraryCategoriesRoute: LibraryCategoriesRoute,
+  LibraryFinesRoute: LibraryFinesRoute,
+  LibraryMembersRoute: LibraryMembersRoute,
+  LibraryPublishersRoute: LibraryPublishersRoute,
+  LibraryReportsRoute: LibraryReportsRoute,
+  LibraryReservationsRoute: LibraryReservationsRoute,
+  LibrarySettingsRoute: LibrarySettingsRoute,
+  ParentAttendanceRoute: ParentAttendanceRoute,
+  ParentDocumentsRoute: ParentDocumentsRoute,
+  ParentExamsRoute: ParentExamsRoute,
+  ParentFeesRoute: ParentFeesRoute,
+  ParentHomeworkRoute: ParentHomeworkRoute,
+  ParentHostelRoute: ParentHostelRoute,
+  ParentMessagesRoute: ParentMessagesRoute,
+  ParentNoticesRoute: ParentNoticesRoute,
+  ParentNotificationsRoute: ParentNotificationsRoute,
+  ParentProfileRoute: ParentProfileRoute,
+  ParentSettingsRoute: ParentSettingsRoute,
+  ParentTimetableRoute: ParentTimetableRoute,
+  ParentTransportRoute: ParentTransportRoute,
   ParentsParentIdRoute: ParentsParentIdRoute,
+  PtmAvailabilityRoute: PtmAvailabilityRoute,
+  PtmReportsRoute: PtmReportsRoute,
+  PtmSettingsRoute: PtmSettingsRoute,
+  PtmSlotsRoute: PtmSlotsRoute,
+  StudentDocumentsRoute: StudentDocumentsRoute,
+  StudentHostelRoute: StudentHostelRoute,
+  StudentLibraryRoute: StudentLibraryRoute,
+  StudentMessagesRoute: StudentMessagesRoute,
+  StudentNoticesRoute: StudentNoticesRoute,
+  StudentNotificationsRoute: StudentNotificationsRoute,
+  StudentProfileRoute: StudentProfileRoute,
+  StudentSettingsRoute: StudentSettingsRoute,
+  StudentTimetableRoute: StudentTimetableRoute,
+  StudentTransportRoute: StudentTransportRoute,
   StudentsStudentIdRoute: StudentsStudentIdRouteWithChildren,
   StudentsNewRoute: StudentsNewRoute,
   StudentsPromotionsRoute: StudentsPromotionsRoute,
+  TeacherAttendanceRoute: TeacherAttendanceRoute,
+  TeacherMessagesRoute: TeacherMessagesRoute,
+  TeacherNoticesRoute: TeacherNoticesRoute,
+  TeacherNotificationsRoute: TeacherNotificationsRoute,
+  TeacherProfileRoute: TeacherProfileRoute,
+  TeacherSettingsRoute: TeacherSettingsRoute,
+  TeacherTimetableRoute: TeacherTimetableRoute,
   TimetableCreateRoute: TimetableCreateRoute,
   TimetablePeriodsRoute: TimetablePeriodsRoute,
   TimetableSettingsRoute: TimetableSettingsRoute,
   TimetableSubstitutionsRoute: TimetableSubstitutionsRoute,
+  TransportAssignmentsRoute: TransportAssignmentsRoute,
+  TransportFeesRoute: TransportFeesRoute,
+  TransportMaintenanceRoute: TransportMaintenanceRoute,
+  TransportReportsRoute: TransportReportsRoute,
+  TransportSettingsRoute: TransportSettingsRoute,
+  TransportStopsRoute: TransportStopsRoute,
+  TransportStudentsRoute: TransportStudentsRoute,
+  TransportTripsRoute: TransportTripsRoute,
+  VerifyNumberRoute: VerifyNumberRoute,
   AcademicWorkIndexRoute: AcademicWorkIndexRoute,
   AcademicsIndexRoute: AcademicsIndexRoute,
   AdmissionsIndexRoute: AdmissionsIndexRoute,
   AttendanceIndexRoute: AttendanceIndexRoute,
   CommunicationIndexRoute: CommunicationIndexRoute,
+  DocumentsIndexRoute: DocumentsIndexRoute,
   ExamsIndexRoute: ExamsIndexRoute,
   FeesIndexRoute: FeesIndexRoute,
+  FrontOfficeIndexRoute: FrontOfficeIndexRoute,
+  HostelIndexRoute: HostelIndexRoute,
+  HrIndexRoute: HrIndexRoute,
+  InventoryIndexRoute: InventoryIndexRoute,
+  LibraryIndexRoute: LibraryIndexRoute,
+  ParentIndexRoute: ParentIndexRoute,
   ParentsIndexRoute: ParentsIndexRoute,
+  PtmIndexRoute: PtmIndexRoute,
+  StudentIndexRoute: StudentIndexRoute,
   StudentsIndexRoute: StudentsIndexRoute,
+  TeacherIndexRoute: TeacherIndexRoute,
   TimetableIndexRoute: TimetableIndexRoute,
+  TransportIndexRoute: TransportIndexRoute,
   AcademicWorkAssignmentsNewRoute: AcademicWorkAssignmentsNewRoute,
   AcademicWorkSubmissionsSubmissionIdRoute:
     AcademicWorkSubmissionsSubmissionIdRoute,
@@ -2456,13 +6481,60 @@ const rootRouteChildren: RootRouteChildren = {
   CommunicationMessagesNewRoute: CommunicationMessagesNewRoute,
   CommunicationNoticesIdRoute: CommunicationNoticesIdRoute,
   CommunicationNoticesNewRoute: CommunicationNoticesNewRoute,
+  DocumentsCertificatesIdRoute: DocumentsCertificatesIdRoute,
+  DocumentsIdCardsNewRoute: DocumentsIdCardsNewRoute,
+  DocumentsTemplatesNewRoute: DocumentsTemplatesNewRoute,
+  DocumentsVerificationNumberRoute: DocumentsVerificationNumberRoute,
   ExamsMarksExamIdRoute: ExamsMarksExamIdRoute,
   ExamsResultsResultIdRoute: ExamsResultsResultIdRoute,
   FeesStructureStructureIdRoute: FeesStructureStructureIdRoute,
   FeesStructureNewRoute: FeesStructureNewRoute,
   FeesStudentsStudentIdRoute: FeesStudentsStudentIdRoute,
+  FrontOfficeAppointmentsNewRoute: FrontOfficeAppointmentsNewRoute,
+  FrontOfficeCallsNewRoute: FrontOfficeCallsNewRoute,
+  FrontOfficeCorrespondenceNewRoute: FrontOfficeCorrespondenceNewRoute,
+  FrontOfficeGatePassPassNumberRoute: FrontOfficeGatePassPassNumberRoute,
+  FrontOfficeGatePassesIdRoute: FrontOfficeGatePassesIdRoute,
+  FrontOfficeVisitorsNewRoute: FrontOfficeVisitorsNewRoute,
+  HostelAllocationsNewRoute: HostelAllocationsNewRoute,
+  HostelHostelsNewRoute: HostelHostelsNewRoute,
+  HrAttendanceTakeRoute: HrAttendanceTakeRoute,
+  HrLeaveNewRoute: HrLeaveNewRoute,
+  HrPayrollStaffIdRoute: HrPayrollStaffIdRoute,
+  HrStaffNewRoute: HrStaffNewRoute,
+  InventoryAssetsAssetIdRoute: InventoryAssetsAssetIdRoute,
+  InventoryAssetsNewRoute: InventoryAssetsNewRoute,
+  InventoryItemsItemIdRoute: InventoryItemsItemIdRoute,
+  InventoryItemsNewRoute: InventoryItemsNewRoute,
+  InventoryPurchaseOrdersOrderIdRoute: InventoryPurchaseOrdersOrderIdRoute,
+  InventoryPurchaseOrdersNewRoute: InventoryPurchaseOrdersNewRoute,
+  InventoryVendorsVendorIdRoute: InventoryVendorsVendorIdRoute,
+  InventoryVendorsNewRoute: InventoryVendorsNewRoute,
+  LibraryBooksNewRoute: LibraryBooksNewRoute,
+  LibraryTransactionsIssueRoute: LibraryTransactionsIssueRoute,
+  ParentChildrenStudentIdRoute: ParentChildrenStudentIdRoute,
+  ParentPtmEventIdRoute: ParentPtmEventIdRoute,
+  ParentPtmAppointmentsRoute: ParentPtmAppointmentsRoute,
+  PtmAppointmentsAppointmentIdRoute: PtmAppointmentsAppointmentIdRoute,
+  PtmEventsEventIdRoute: PtmEventsEventIdRoute,
+  PtmEventsNewRoute: PtmEventsNewRoute,
+  StudentAttendanceMonthRoute: StudentAttendanceMonthRoute,
+  StudentExamsExamIdRoute: StudentExamsExamIdRoute,
+  StudentFeesReceiptsRoute: StudentFeesReceiptsRoute,
+  StudentHomeworkAssignmentIdRoute: StudentHomeworkAssignmentIdRoute,
+  TeacherAssignmentsNewRoute: TeacherAssignmentsNewRoute,
+  TeacherClassesClassIdRoute: TeacherClassesClassIdRoute,
+  TeacherMarksExamIdRoute: TeacherMarksExamIdRoute,
+  TeacherPtmEventIdRoute: TeacherPtmEventIdRoute,
+  TeacherPtmAppointmentsRoute: TeacherPtmAppointmentsRoute,
+  TeacherPtmAvailabilityRoute: TeacherPtmAvailabilityRoute,
+  TeacherStudentsStudentIdRoute: TeacherStudentsStudentIdRoute,
+  TeacherSubmissionsAssignmentIdRoute: TeacherSubmissionsAssignmentIdRoute,
   TimetableClassesClassIdRoute: TimetableClassesClassIdRoute,
   TimetableTeachersTeacherIdRoute: TimetableTeachersTeacherIdRoute,
+  TransportDriversNewRoute: TransportDriversNewRoute,
+  TransportRoutesNewRoute: TransportRoutesNewRoute,
+  TransportVehiclesNewRoute: TransportVehiclesNewRoute,
   AcademicWorkAssignmentsIndexRoute: AcademicWorkAssignmentsIndexRoute,
   AcademicWorkSubmissionsIndexRoute: AcademicWorkSubmissionsIndexRoute,
   AcademicsClassesIndexRoute: AcademicsClassesIndexRoute,
@@ -2478,17 +6550,66 @@ const rootRouteChildren: RootRouteChildren = {
   CommunicationAnnouncementsIndexRoute: CommunicationAnnouncementsIndexRoute,
   CommunicationMessagesIndexRoute: CommunicationMessagesIndexRoute,
   CommunicationNoticesIndexRoute: CommunicationNoticesIndexRoute,
+  DocumentsCertificatesIndexRoute: DocumentsCertificatesIndexRoute,
+  DocumentsIdCardsIndexRoute: DocumentsIdCardsIndexRoute,
+  DocumentsTemplatesIndexRoute: DocumentsTemplatesIndexRoute,
+  DocumentsVerificationIndexRoute: DocumentsVerificationIndexRoute,
   ExamsMarksIndexRoute: ExamsMarksIndexRoute,
   ExamsResultsIndexRoute: ExamsResultsIndexRoute,
   FeesStructureIndexRoute: FeesStructureIndexRoute,
   FeesStudentsIndexRoute: FeesStudentsIndexRoute,
+  FrontOfficeAppointmentsIndexRoute: FrontOfficeAppointmentsIndexRoute,
+  FrontOfficeCallsIndexRoute: FrontOfficeCallsIndexRoute,
+  FrontOfficeCorrespondenceIndexRoute: FrontOfficeCorrespondenceIndexRoute,
+  FrontOfficeEnquiriesIndexRoute: FrontOfficeEnquiriesIndexRoute,
+  FrontOfficeGatePassesIndexRoute: FrontOfficeGatePassesIndexRoute,
+  FrontOfficeVisitorsIndexRoute: FrontOfficeVisitorsIndexRoute,
+  HostelAllocationsIndexRoute: HostelAllocationsIndexRoute,
+  HostelHostelsIndexRoute: HostelHostelsIndexRoute,
+  HostelLeaveIndexRoute: HostelLeaveIndexRoute,
+  HrAttendanceIndexRoute: HrAttendanceIndexRoute,
+  HrLeaveIndexRoute: HrLeaveIndexRoute,
+  HrPayrollIndexRoute: HrPayrollIndexRoute,
+  HrStaffIndexRoute: HrStaffIndexRoute,
+  InventoryAssetsIndexRoute: InventoryAssetsIndexRoute,
+  InventoryItemsIndexRoute: InventoryItemsIndexRoute,
+  InventoryPurchaseOrdersIndexRoute: InventoryPurchaseOrdersIndexRoute,
+  InventoryVendorsIndexRoute: InventoryVendorsIndexRoute,
+  LibraryBooksIndexRoute: LibraryBooksIndexRoute,
+  LibraryTransactionsIndexRoute: LibraryTransactionsIndexRoute,
+  ParentChildrenIndexRoute: ParentChildrenIndexRoute,
+  ParentPtmIndexRoute: ParentPtmIndexRoute,
+  PtmAppointmentsIndexRoute: PtmAppointmentsIndexRoute,
+  PtmEventsIndexRoute: PtmEventsIndexRoute,
+  StudentAttendanceIndexRoute: StudentAttendanceIndexRoute,
+  StudentExamsIndexRoute: StudentExamsIndexRoute,
+  StudentFeesIndexRoute: StudentFeesIndexRoute,
+  StudentHomeworkIndexRoute: StudentHomeworkIndexRoute,
+  TeacherAssignmentsIndexRoute: TeacherAssignmentsIndexRoute,
+  TeacherClassesIndexRoute: TeacherClassesIndexRoute,
+  TeacherExamsIndexRoute: TeacherExamsIndexRoute,
+  TeacherPtmIndexRoute: TeacherPtmIndexRoute,
+  TeacherStudentsIndexRoute: TeacherStudentsIndexRoute,
+  TeacherSubmissionsIndexRoute: TeacherSubmissionsIndexRoute,
   TimetableClassesIndexRoute: TimetableClassesIndexRoute,
   TimetableRoomsIndexRoute: TimetableRoomsIndexRoute,
   TimetableTeachersIndexRoute: TimetableTeachersIndexRoute,
+  TransportDriversIndexRoute: TransportDriversIndexRoute,
+  TransportRoutesIndexRoute: TransportRoutesIndexRoute,
+  TransportVehiclesIndexRoute: TransportVehiclesIndexRoute,
   AcademicWorkAssignmentsAssignmentIdEditRoute:
     AcademicWorkAssignmentsAssignmentIdEditRoute,
+  DocumentsTemplatesIdEditRoute: DocumentsTemplatesIdEditRoute,
+  HrStaffStaffIdEditRoute: HrStaffStaffIdEditRoute,
+  LibraryBooksBookIdEditRoute: LibraryBooksBookIdEditRoute,
+  TransportVehiclesVehicleIdEditRoute: TransportVehiclesVehicleIdEditRoute,
   AcademicWorkAssignmentsAssignmentIdIndexRoute:
     AcademicWorkAssignmentsAssignmentIdIndexRoute,
+  HrStaffStaffIdIndexRoute: HrStaffStaffIdIndexRoute,
+  LibraryBooksBookIdIndexRoute: LibraryBooksBookIdIndexRoute,
+  TransportDriversDriverIdIndexRoute: TransportDriversDriverIdIndexRoute,
+  TransportRoutesRouteIdIndexRoute: TransportRoutesRouteIdIndexRoute,
+  TransportVehiclesVehicleIdIndexRoute: TransportVehiclesVehicleIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

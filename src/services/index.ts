@@ -16,3 +16,7 @@ export * from "./resultCalculationService";
 export * from "./examService";
 export * from "./communicationProvider";
 export * from "./communicationService";
+export * from "./hrService";
+export * from "./libraryService";
+export * from "./transportService";
+export * from "./inventoryService";

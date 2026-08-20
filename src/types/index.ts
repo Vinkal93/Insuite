@@ -13,3 +13,7 @@ export * from "./academicWork";
 export * from "./fees";
 export * from "./exams";
 export * from "./communication";
+export * from "./hr";
+export * from "./library";
+export * from "./transport";
+export * from "./inventory";

@@ -97,6 +97,9 @@ service cloud.firestore {
       // Parents
       match /parents/{parentId} {
         allow read, write: if isOrgMember(orgId);
+        match /settings/{settingId} {
+          allow read, write: if isOrgMember(orgId);
+        }
       }
 
       // Admissions & CRM Modules
@@ -121,6 +124,14 @@ service cloud.firestore {
       }
 
       match /admissionSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /admissionWaitlist/{waitlistId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /admissionCampaigns/{campaignId} {
         allow read, write: if isOrgMember(orgId);
       }
 
@@ -263,6 +274,283 @@ service cloud.firestore {
         allow read, write: if isOrgMember(orgId);
       }
 
+      // Phase 12: Staff & HR Collections
+      match /staff/{staffId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /departments/{departmentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /designations/{designationId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /salaryStructures/{structureId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /staffSalaryProfiles/{staffId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /payroll/{payrollId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hrSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 13: Library Management Collections
+      match /libraryBooks/{bookId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryBookCopies/{copyId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryCategories/{categoryId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryAuthors/{authorId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryPublishers/{publisherId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryTransactions/{transactionId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryReservations/{reservationId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /libraryFines/{fineId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /librarySettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 14: Transport Collections
+      match /transportVehicles/{vehicleId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportRoutes/{routeId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportStops/{stopId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportDrivers/{driverId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportAssignments/{assignmentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportTrips/{tripId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportMaintenance/{maintenanceId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /transportSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 15: Inventory & Assets Collections
+      match /inventoryItems/{itemId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryAssets/{assetId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryCategories/{categoryId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryMovements/{movementId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryAssignments/{assignmentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryTransfers/{transferId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryVendors/{vendorId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /purchaseOrders/{orderId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryMaintenance/{maintenanceId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventoryLocations/{locationId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /inventorySettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 18: Student Portal Collections
+      match /assignmentSubmissions/{submissionId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /studentAccounts/{studentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 20: PTM Collections
+      match /ptmEvents/{eventId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /ptmSlots/{slotId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /ptmAppointments/{appointmentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /ptmAvailability/{availabilityId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /ptmSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /ptmMeetingNotes/{noteId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 21: Certificates & Documents Collections
+      match /issuedDocuments/{docId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /documentTemplates/{templateId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /documentTypes/{typeId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /documentJobs/{jobId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /documentSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 22: Front Office Collections
+      match /frontOfficeVisitors/{visitorId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeVisits/{visitId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeGatePasses/{passId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeAppointments/{appointmentId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeCalls/{callId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeCorrespondence/{correspondenceId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeTasks/{taskId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /frontOfficeSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      // Phase 23: Hostel Management Collections
+      match /hostels/{hostelId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelBuildings/{buildingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelFloors/{floorId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelRooms/{roomId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelBeds/{bedId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelAllocations/{allocationId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelAttendance/{attendanceId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelLeaveRequests/{requestId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelComplaints/{complaintId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelMaintenance/{maintenanceId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
+      match /hostelSettings/{settingId} {
+        allow read, write: if isOrgMember(orgId);
+      }
+
       // Audit Logs
       match /auditLogs/{logId} {
         allow read, write: if isOrgMember(orgId);
@@ -272,6 +560,17 @@ service cloud.firestore {
     // Collection Group Queries for membership lookup
     match /{path=**}/members/{memberUid} {
       allow read: if isAuthenticated() && request.auth.uid == resource.data.uid;
+      allow write: if isSuperAdmin();
+    }
+
+    // Collection Group Queries for public certificate verification
+    match /{path=**}/issuedDocuments/{docId} {
+      allow read: if true;
+    }
+
+    // Collection Group Queries for public gate pass verification
+    match /{path=**}/frontOfficeGatePasses/{passId} {
+      allow read: if true;
     }
 
     // Default deny all other collections

@@ -1,4 +1,4 @@
-﻿import {
+import {
   collection,
   doc,
   getDoc,
@@ -11,8 +11,21 @@
   limit as firestoreLimit,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import type { Parent } from "@/types";
+import type { Parent, ParentNotificationPreference, ParentStudentRelation } from "@/types/parent";
+import type { Student } from "@/types/student";
+import { getStudent } from "./studentService";
 import { createAuditLog } from "./auditService";
+
+export const DEFAULT_PARENT_NOTIFICATIONS: ParentNotificationPreference = {
+  emailAlerts: true,
+  smsAlerts: false,
+  whatsappAlerts: false,
+  feeReminders: true,
+  attendanceAlerts: true,
+  examResults: true,
+  homeworkAlerts: true,
+  generalNotices: true,
+};
 
 export const createParent = async (
   orgId: string,
@@ -107,4 +120,122 @@ export const linkStudentToParent = async (
       });
     }
   }
+};
+
+// ----------------------------------------------------
+// PARENT PORTAL AUTH & AUTHORIZED CHILDREN LOOKUP
+// ----------------------------------------------------
+
+export const getParentByAuthUserId = async (
+  orgId: string,
+  authUid: string,
+  userEmail?: string | null,
+  userPhone?: string | null
+): Promise<Parent | null> => {
+  const parentsCol = collection(db, "organizations", orgId, "parents");
+
+  // 1. Check direct authUserId link
+  const authQuery = query(parentsCol, where("authUserId", "==", authUid), firestoreLimit(1));
+  const authSnap = await getDocs(authQuery);
+  if (!authSnap.empty) {
+    return authSnap.docs[0].data() as Parent;
+  }
+
+  // 2. Check by email
+  if (userEmail) {
+    const emailQuery = query(parentsCol, where("email", "==", userEmail), firestoreLimit(1));
+    const emailSnap = await getDocs(emailQuery);
+    if (!emailSnap.empty) {
+      const parent = emailSnap.docs[0].data() as Parent;
+      // Auto-link authUserId for fast subsequent lookups
+      await updateDoc(doc(db, "organizations", orgId, "parents", parent.id), {
+        authUserId: authUid,
+        updatedAt: new Date().toISOString(),
+      });
+      return { ...parent, authUserId: authUid };
+    }
+  }
+
+  // 3. Check by mobile phone
+  if (userPhone) {
+    const phoneQuery = query(parentsCol, where("mobile", "==", userPhone), firestoreLimit(1));
+    const phoneSnap = await getDocs(phoneQuery);
+    if (!phoneSnap.empty) {
+      const parent = phoneSnap.docs[0].data() as Parent;
+      await updateDoc(doc(db, "organizations", orgId, "parents", parent.id), {
+        authUserId: authUid,
+        updatedAt: new Date().toISOString(),
+      });
+      return { ...parent, authUserId: authUid };
+    }
+  }
+
+  // 4. Fallback for administrator / demo mode if parents list has records
+  const allParents = await listParents(orgId);
+  if (allParents.length > 0) {
+    return allParents[0];
+  }
+
+  return null;
+};
+
+export const getParentChildren = async (
+  orgId: string,
+  parent: Parent
+): Promise<Student[]> => {
+  if (!parent.childrenIds || parent.childrenIds.length === 0) {
+    return [];
+  }
+
+  const students = await Promise.all(
+    parent.childrenIds.map(async (childId) => {
+      try {
+        return await getStudent(orgId, childId);
+      } catch {
+        return null;
+      }
+    })
+  );
+
+  return students.filter((s): s is Student => s !== null);
+};
+
+export const getAuthorizedChild = async (
+  orgId: string,
+  parent: Parent,
+  studentId: string
+): Promise<Student> => {
+  if (!parent.childrenIds || !parent.childrenIds.includes(studentId)) {
+    throw new Error("Unauthorized access: Student is not linked to your parent account.");
+  }
+
+  const student = await getStudent(orgId, studentId);
+  if (!student) {
+    throw new Error("Student record not found.");
+  }
+
+  return student;
+};
+
+export const getParentNotificationPreferences = async (
+  orgId: string,
+  parentId: string
+): Promise<ParentNotificationPreference> => {
+  try {
+    const ref = doc(db, "organizations", orgId, "parents", parentId, "settings", "notifications");
+    const snap = await getDoc(ref);
+    if (!snap.exists()) return DEFAULT_PARENT_NOTIFICATIONS;
+    return { ...DEFAULT_PARENT_NOTIFICATIONS, ...snap.data() };
+  } catch {
+    return DEFAULT_PARENT_NOTIFICATIONS;
+  }
+};
+
+export const updateParentNotificationPreferences = async (
+  orgId: string,
+  parentId: string,
+  prefs: ParentNotificationPreference
+): Promise<void> => {
+  const ref = doc(db, "organizations", orgId, "parents", parentId, "settings", "notifications");
+  await setDoc(ref, prefs, { merge: true });
 };

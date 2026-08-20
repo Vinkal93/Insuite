@@ -573,3 +573,48 @@ export async function approveOrRejectLeaveRequest(
     }
   }
 }
+
+// ----------------------------------------------------
+// PHASE 12 ALIASES & HELPERS
+// ----------------------------------------------------
+
+export const getStaffAttendanceRecords = getStaffAttendanceForDate;
+export const saveStaffAttendanceRecords = saveBulkStaffAttendance;
+export const applyLeaveRequest = createLeaveRequest;
+
+export async function getPendingLeaveRequests(organizationId: string): Promise<LeaveRequest[]> {
+  return getLeaveRequests(organizationId, "pending");
+}
+
+export async function approveLeaveRequest(
+  organizationId: string,
+  leaveRequestId: string,
+  approvedBy: string,
+  approvedByName?: string
+): Promise<void> {
+  return approveOrRejectLeaveRequest(
+    organizationId,
+    leaveRequestId,
+    "approved",
+    approvedBy,
+    approvedByName
+  );
+}
+
+export async function rejectLeaveRequest(
+  organizationId: string,
+  leaveRequestId: string,
+  rejectedBy: string,
+  rejectedByName?: string,
+  rejectionReason?: string
+): Promise<void> {
+  return approveOrRejectLeaveRequest(
+    organizationId,
+    leaveRequestId,
+    "rejected",
+    rejectedBy,
+    rejectedByName,
+    rejectionReason
+  );
+}
+

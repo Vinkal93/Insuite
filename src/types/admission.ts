@@ -1,4 +1,4 @@
-﻿export type EnquirySource =
+export type EnquirySource =
   | "Website"
   | "Walk-in"
   | "Phone"
@@ -254,4 +254,48 @@ export interface AdmissionSettings {
   requiredDocuments: string[];
   enquirySources: string[];
   updatedAt: string;
+}
+
+export interface AdmissionCampaign {
+  id: string;
+  organizationId: string;
+  name: string;
+  source: EnquirySource;
+  startDate: string;
+  endDate?: string | null;
+  budget?: number | null;
+  status: "Active" | "Completed" | "Paused";
+  createdAt: string;
+  createdBy: string;
+  updatedAt: string;
+}
+
+export interface AdmissionWaitlistRecord {
+  id: string;
+  organizationId: string;
+  applicationId: string;
+  applicationNumber: string;
+  studentName: string;
+  guardianName: string;
+  mobile: string;
+  applyingClass: string;
+  academicSessionId: string;
+  waitlistPosition: number;
+  priority: "Low" | "Normal" | "High" | "Urgent";
+  status: "Waiting" | "Offered" | "Accepted" | "Declined" | "Expired" | "Removed";
+  notes?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdmissionDashboardStats {
+  totalEnquiries: number;
+  newEnquiries: number;
+  followUpsDue: number;
+  totalApplications: number;
+  underVerification: number;
+  approvedApplications: number;
+  admittedStudents: number;
+  rejectedApplications: number;
+  waitlistedStudents: number;
 }

@@ -1,4 +1,4 @@
-﻿import { z } from "zod";
+import { z } from "zod";
 
 export const enquirySchema = z.object({
   // Student
@@ -120,3 +120,32 @@ export const admissionSettingsSchema = z.object({
 });
 
 export type AdmissionSettingsFormInput = z.infer<typeof admissionSettingsSchema>;
+
+export const campaignSchema = z.object({
+  name: z.string().min(2, "Campaign name is required"),
+  source: z.enum([
+    "Website",
+    "Walk-in",
+    "Phone",
+    "WhatsApp",
+    "Referral",
+    "Advertisement",
+    "Social Media",
+    "School Event",
+    "Other",
+  ]).default("Advertisement"),
+  startDate: z.string().min(1, "Start date is required"),
+  endDate: z.string().optional().nullable(),
+  budget: z.number().min(0).optional().nullable(),
+  status: z.enum(["Active", "Completed", "Paused"]).default("Active"),
+});
+
+export type CampaignFormInput = z.infer<typeof campaignSchema>;
+
+export const waitlistSchema = z.object({
+  applicationId: z.string().min(1, "Application is required"),
+  priority: z.enum(["Low", "Normal", "High", "Urgent"]).default("Normal"),
+  notes: z.string().optional().nullable(),
+});
+
+export type WaitlistFormInput = z.infer<typeof waitlistSchema>;
